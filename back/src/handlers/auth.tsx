@@ -2,6 +2,7 @@ import { clientId, errorMap, successMap} from "../server"
 import {Buffer} from 'buffer'
 
 import {Request, Response} from 'express'
+const frontEndBaseURL = 'http://localhost:8000/'
 
 // checkout https://developer.spotify.com/documentation/web-api/tutorials/code-flow 
 // for workflow 
@@ -31,12 +32,12 @@ export async function fetchToken(req : Request, res : Response, token : any) {
     console.log('next step auth')
     // error response map
     if (state === undefined) {
-        let response : errorMap = {
-            status: "error",
-            error_type: "authentication_failed",
-            error_message: "You did not approve Spotify authentication.",
-        }
-        res.send(response);
+        // let response : errorMap = {
+        //     status: "error",
+        //     error_type: "authentication_failed",
+        //     error_message: "You did not approve Spotify authentication.",
+        // }
+        res.redirect(403,  frontEndBaseURL)
         console.log("temptooken null")
     } else {
 
@@ -64,21 +65,22 @@ export async function fetchToken(req : Request, res : Response, token : any) {
         if ('access_token' in response) {
             token = response.access_token
 
-            let serverResponse : successMap = {
-                status: "success",
-                data:"User successfully authenticated."
+            // let serverResponse : successMap = {
+            //     status: "success",
+            //     data:"User successfully authenticated."
 
-            }
-            res.send(serverResponse)
+            // }
+            res.redirect(302,  frontEndBaseURL)
         } else {
-            let serverResponse : errorMap = {
-                status: "error",
-                error_type: "authentication_failed",
-                error_message: "user did not approve Spotify authentication.",
-            }
+            // let serverResponse : errorMap = {
+            //     status: "error",
+            //     error_type: "authentication_failed",
+            //     error_message: "user did not approve Spotify authentication.",
+            // }
 
             // terminate server response
-            res.send(serverResponse)
+            // res.send(serverResponse)
+            res.redirect(403 , frontEndBaseURL)
         }
         
     }
