@@ -2,10 +2,10 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 
-import {
-	CSSTransition,
-	TransitionGroup
-} from 'react-transition-group';
+// import {
+// 	CSSTransition,
+// 	TransitionGroup
+// } from 'react-transition-group';
 
 
 function App() {
