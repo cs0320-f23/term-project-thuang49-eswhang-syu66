@@ -4,8 +4,9 @@
 Amplify allows users to randomly generate Spotify playlists based on a set of specifications like danceability, valence, etc. 
 
 ### Setup:
-```npm install -g ts-node```
-```npm install @types/node @types/express --save-dev```
+* Inside the ```backend``` directory: 
+    * ```npm install -g ts-node```
+    * ```npm install @types/node @types/express --save-dev```
 
 ### Form: 
 * All responses from the backend will be served as type ```Response``` that is either
