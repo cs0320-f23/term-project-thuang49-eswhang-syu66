@@ -1,6 +1,8 @@
 import express, {Request, Response} from 'express'
 import { authHandle, fetchToken } from './handlers/auth';
 import cors from 'cors';
+import { test } from './handlers/test';
+import {AuthKey} from './handlerUtilities/authObj'
 
 
 
@@ -22,9 +24,8 @@ export type ResponseMap = successMap | errorMap;
 export const app = express();
 
 export const port = process.env.PORT || 3000;
-export const clientId : string = "611754e9a5f14adfabdde1d55224815e";
 
-export let userAuthToken : string;
+const userAuthToken = new AuthKey()
 
 app.options('*', cors())
 
@@ -37,6 +38,9 @@ app.get('/auth', cors(), (req: Request, res: Response) => authHandle(req, res))
 
 // fetches user authorization token.
 app.get('/fetch_auth', (req: Request, res: Response) => fetchToken(req, res, userAuthToken))
+
+// for test purposes.
+app.get('/test', (req: Request, res: Response) => test(req, res, userAuthToken))
 
 app.listen(port, () => {
     console.log('Server running on http://localhost:' + port)
