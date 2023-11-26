@@ -1,10 +1,10 @@
-import { clientId, errorMap, port, app, successMap} from "../server"
+import { clientId, errorMap, successMap} from "../server"
 import {Buffer} from 'buffer'
-// import {ParsedQs} from'express'
 
 import {Request, Response} from 'express'
 
-
+// checkout https://developer.spotify.com/documentation/web-api/tutorials/code-flow 
+// for workflow 
 
 export function authHandle(req: Request, res: Response) {
     const responseType = 'code'
