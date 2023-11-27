@@ -1,20 +1,17 @@
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-
-// import {
-// 	CSSTransition,
-// 	TransitionGroup
-// } from 'react-transition-group';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {HomePage} from './pages/HomePage';
+import {ParamsPage} from './pages/ParamsPage';
 
 
 function App() {
 	return (
-            <Router basename="/app">
-              <Routes>
-                <Route path="/"> <HomePage/> </Route> {/* 👈 Renders at /app/ */}
-              </Routes>
-            </Router>
+    <Router basename="">
+      <Routes>
+        <Route path="/params" element = {<ParamsPage></ParamsPage>}/> 
+        <Route path="/" element = {<HomePage></HomePage>}/> 
+      </Routes>
+    </Router>
           );
 }
 

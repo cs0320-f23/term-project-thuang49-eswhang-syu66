@@ -1,23 +1,16 @@
 import { useState } from 'react'
-import reactLogo from '../assets/react.svg'
-import viteLogo from '../../public/vite.svg'
 import '../css/App.css'
 import { InitiateAuth } from '../endpoints/InitialAuth'
 
 
-export function  HomePage() {
+export function ParamsPage() {
   const [count, setCount] = useState(0)
+
   return (
     <>
 
       <div>
-        asdfasdfasdf
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        SELECT PARAMS
       </div>
       <h1>Vite + React</h1>
       <div className="card">
@@ -34,9 +27,7 @@ export function  HomePage() {
 
 
       <InitiateAuth/>
-
     </>
   )
 }
-
 
