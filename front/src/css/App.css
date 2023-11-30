@@ -1,8 +1,8 @@
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  text-align: center; */
 }
 
 .logo {
@@ -39,4 +39,33 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.brand {
+  font-size: xx-large;
+  font-weight: 650;
+}
+
+.nav-bar{
+  display: flex;
+  flex-direction: horizontal;
+  justify-content: space-between;
+}
+.bar {
+  width: 0.7rem;
+  background-color: #FFFFFF;
+  opacity: 50;
+  margin: 2px;
+  border-radius: 2rem;
+  transition: height 0.65s ease-in-out
+}
+
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }
