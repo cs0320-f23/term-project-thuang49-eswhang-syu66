@@ -1,42 +1,116 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+* {
+  position: relative;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html {
+  height: -webkit-fill-available;
+  overflow: hidden;
+}
+
+body {
+  max-height: 100dvh;
+  max-height: -webkit-fill-available;
+  height: 100vh;
+  width: 100vw;
+  transform: translateX(0);
+  color: white;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+}
+
+main {
+  margin: 1em;
+  width: calc(100vw - 2em);
+  height: calc(100vh - 2em);
+}
+
+nav {
+  height: 2em;
+  margin-bottom: 1em;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: calc(100vh - 5em);
+  width: 100%;
+}
+
+.content h1 {
+  font-size: 5em;
+  margin-bottom: 0.1em;
   text-align: center;
+  transition-duration: 1s;
+  transition-timing-function: ease;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.title h1:nth-child(2) {
+  width: 4.125em;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.title.studying h1:nth-child(2) {
+  width: 4.5em;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.title.running h1:nth-child(2) {
+  width: 4em;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
 }
 
-.card {
-  padding: 2em;
+.title.everything h1:nth-child(2) {
+  width: 5.5em;
+  transition-duration: 1s;
+  transition-timing-function: ease;
 }
 
-.read-the-docs {
-  color: #888;
+h3 {
+  font-size: 1.15em;
+  text-align: center;
+  width: 25vw;
+  font-weight: normal;
+  line-height: 125%;
+}
+
+.bar-container {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-bottom: 3em;
+  height: 10em;
+}
+
+.bar {
+  background-color: white;
+  opacity: 0.5;
+  width: 0.65em;
+  height: 1em;
+  margin-left: 0.3em;
+  margin-right: 0.3em;
+  border-radius: 0.5em;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+}
+
+.bar.final {
+  transition-duration: 1s;
+}
+
+.title {
+  display: flex;
+}
+
+InitialAuth {
+  background-color: orange;
 }

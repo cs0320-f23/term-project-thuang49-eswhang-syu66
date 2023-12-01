@@ -1,42 +1,104 @@
-import { useState } from 'react'
-import reactLogo from '../assets/react.svg'
-import viteLogo from '../../public/vite.svg'
-import '../css/App.css'
-import { InitiateAuth } from '../endpoints/InitialAuth'
+import "../css/App.css";
+import { useState, useEffect } from "react";
+import MusicGraph from "../components/MusicGraph";
+//import { InitiateAuth } from "../endpoints/InitialAuth";
 
+export function HomePage() {
+  const [word, setWord] = useState<string>("dancing");
+  const [barHeights, setBarHeights] = useState<string[]>([
+    "2em",
+    "5em",
+    "4em",
+    "10em",
+    "7.5em",
+    "9em",
+    "7.25em",
+    "4em",
+    "3em",
+  ]);
 
-export function  HomePage() {
-  const [count, setCount] = useState(0)
+  useEffect(() => {
+    const title = document.getElementsByClassName("title");
+    document.body.style.backgroundColor = "#b32cd5";
+    setTimeout(() => {
+      setBarHeights([
+        "3em",
+        "4.5em",
+        "2em",
+        "3.5em",
+        "3.75em",
+        "7em",
+        "8em",
+        "5em",
+        "5.5em",
+      ]);
+      setWord("studying");
+      document.body.style.backgroundColor = "#FF8F9C";
+      title[0].classList.add("studying");
+    }, 450); // 450ms delay
+    setTimeout(() => {
+      setBarHeights([
+        "8em",
+        "3em",
+        "1.5em",
+        "5em",
+        "4em",
+        "3em",
+        "6em",
+        "5.5em",
+        "8em",
+      ]);
+      setWord("running");
+      document.body.style.backgroundColor = "#6C1E13";
+      title[0].classList.remove("studying");
+      title[0].classList.add("running");
+    }, 1100); // 450ms + 500ms + 150ms delay
+    setTimeout(() => {
+      setBarHeights([
+        "6.5em",
+        "4em",
+        "4.5em",
+        "8em",
+        "7em",
+        "10em",
+        "6.5em",
+        "1.5em",
+        "3em",
+      ]);
+      setWord("everything");
+      document.body.style.backgroundColor = "#353998";
+      document.body.style.transitionDuration = "1s";
+      title[0].classList.remove("running");
+      title[0].classList.add("everything");
+      const bars = document.getElementsByClassName("bar");
+      for (let i = 0; i < bars.length; i++) {
+        bars[i].classList.add("final");
+      }
+    }, 1900); // 450ms + 500ms + 150ms + 500ms + 300ms delay
+  }, []);
+
   return (
     <>
-
-      <div>
-        asdfasdfasdf
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-
-
-      <InitiateAuth/>
-
+      <body>
+        <main className="container-fluid">
+          <nav className="row flex-nowrap">
+            <h2>Amplify</h2>
+          </nav>
+          <div className="content">
+            <MusicGraph barHeights={barHeights} />
+            <div className="title">
+              <h1>A playlist for</h1>
+              <h1>&nbsp;{word}</h1>
+              <h1>.</h1>
+            </div>
+            <h3>
+              A Spotify playlist generator that delivers the perfect music, for
+              all parts of life.
+            </h3>
+          </div>
+        </main>
+      </body>
+      {/* <InitiateAuth /> */}
     </>
-  )
+  );
 }
-
-
