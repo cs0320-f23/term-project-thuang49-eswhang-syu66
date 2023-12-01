@@ -111,6 +111,77 @@ h3 {
   display: flex;
 }
 
+nav button {
+  background-color: #e3fd7f;
+  border-radius: 24px;
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  animation-name: navButton;
+  animation-duration: 2s;
+  animation-timing-function: ease;
+  animation-delay: 2s;
+  animation-fill-mode: backwards;
+}
+
+@keyframes navButton {
+  from {
+    top: -5em;
+  }
+  to {
+    top: 1em;
+  }
+}
+
+.steps {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  width: 100vw;
+  border-top: solid white 0.5px;
+  opacity: 1;
+  animation-name: steps;
+  animation-timing-function: ease;
+  animation-delay: 2s;
+  animation-duration: 2s;
+  animation-fill-mode: backwards;
+}
+
+@keyframes steps {
+  from {
+    bottom: -5em;
+  }
+  to {
+    bottom: 0;
+  }
+}
+
+.step {
+  width: 20vw;
+  padding: 1em;
+
+  opacity: 0.5;
+}
+
+.step.highlight {
+  opacity: 1;
+}
+
+.step.highlight hr {
+  width: 100%;
+  transition-duration: 3s;
+  transition-timing-function: linear;
+  transition-property: width;
+}
+
+.step hr {
+  width: 0;
+  position: absolute;
+  left: 0em;
+  top: 0em;
+}
+
 InitialAuth {
   background-color: orange;
 }

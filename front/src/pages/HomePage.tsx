@@ -16,6 +16,7 @@ export function HomePage() {
     "4em",
     "3em",
   ]);
+  const [step, setStep] = useState<number>(0);
 
   useEffect(() => {
     const title = document.getElementsByClassName("title");
@@ -77,12 +78,31 @@ export function HomePage() {
     }, 1900); // 450ms + 500ms + 150ms + 500ms + 300ms delay
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      const steps = document.getElementsByClassName("step");
+      steps[step].classList.add("highlight");
+      if (step > 0) {
+        steps[step - 1].classList.remove("highlight");
+      } else {
+        steps[steps.length - 1].classList.remove("highlight");
+      }
+
+      if (step === steps.length - 1) {
+        setStep(0);
+      } else {
+        setStep(step + 1);
+      }
+    }, 3000);
+  }, [step]);
+
   return (
     <>
       <body>
         <main className="container-fluid">
           <nav className="row flex-nowrap">
             <h2>Amplify</h2>
+            <button>Get Started</button>
           </nav>
           <div className="content">
             <MusicGraph barHeights={barHeights} />
@@ -95,6 +115,28 @@ export function HomePage() {
               A Spotify playlist generator that delivers the perfect music, for
               all parts of life.
             </h3>
+          </div>
+          <div className="steps container-fluid">
+            <div className="step">
+              <hr />
+              Select your parameters
+            </div>
+            <div className="step">
+              <hr />
+              Specify music features
+            </div>
+            <div className="step">
+              <hr />
+              Generate your playlist
+            </div>
+            <div className="step">
+              <hr />
+              Save to your library
+            </div>
+            <div className="step">
+              <hr />
+              Listen and enjoy
+            </div>
           </div>
         </main>
       </body>
