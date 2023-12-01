@@ -1,32 +1,29 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 // import { sharedProps } from '../App';
 
+export function InitialAuth() {
+  const nav = useNavigate();
+  let error: string = "";
 
-export function InitiateAuth() {
-    const nav = useNavigate()
-    let error: string = ""
-    
-    async function  auth() {
-        const authEndpoint : string = 'http://localhost:3000/client_auth'
+  async function auth() {
+    const authEndpoint: string = "http://localhost:3000/client_auth";
 
-        let response = await fetch(authEndpoint)
-        .then(res => res.json())
+    const response = await fetch(authEndpoint).then((res) => res.json());
 
-        console.log(response)
+    console.log(response);
 
-        if (response.status === 'success') {
-            nav('/params')
-        } else {
-            error = "Could not proceed with user flow; please refresh or contact admin."
-        }
+    if (response.status === "success") {
+      nav("/params");
+    } else {
+      error =
+        "Could not proceed with user flow; please refresh or contact admin.";
     }
+  }
 
-    return (
-        <div>
-            <button onClick={auth}>
-                Get Started
-            </button>
-            <p>{error}</p>
-        </div>
-    )
+  return (
+    <div>
+      <button onClick={auth}>Get Started</button>
+      <p>{error}</p>
+    </div>
+  );
 }

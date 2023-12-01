@@ -1,7 +1,7 @@
 import "../css/App.css";
 import { useState, useEffect } from "react";
 import MusicGraph from "../components/MusicGraph";
-//import { InitiateAuth } from "../endpoints/InitialAuth";
+import { InitialAuth } from "../endpoints/InitialAuth";
 
 export function HomePage() {
   const [word, setWord] = useState<string>("dancing");
@@ -17,6 +17,13 @@ export function HomePage() {
     "3em",
   ]);
   const [step, setStep] = useState<number>(0);
+  const steps = [
+    "Select your parameters",
+    "Specify music features",
+    "Generate your playlist",
+    "Save to your library",
+    "Listen and enjoy",
+  ];
 
   useEffect(() => {
     const title = document.getElementsByClassName("title");
@@ -102,7 +109,7 @@ export function HomePage() {
         <main className="container-fluid">
           <nav className="row flex-nowrap">
             <h2>Amplify</h2>
-            <button>Get Started</button>
+            <InitialAuth />
           </nav>
           <div className="content">
             <MusicGraph barHeights={barHeights} />
@@ -117,30 +124,18 @@ export function HomePage() {
             </h3>
           </div>
           <div className="steps container-fluid">
-            <div className="step">
-              <hr />
-              Select your parameters
-            </div>
-            <div className="step">
-              <hr />
-              Specify music features
-            </div>
-            <div className="step">
-              <hr />
-              Generate your playlist
-            </div>
-            <div className="step">
-              <hr />
-              Save to your library
-            </div>
-            <div className="step">
-              <hr />
-              Listen and enjoy
-            </div>
+            {steps.map((step: string) => {
+              return (
+                <div className="step">
+                  <hr />
+                  <div className="step-number">{steps.indexOf(step) + 1}</div>
+                  {step}
+                </div>
+              );
+            })}
           </div>
         </main>
       </body>
-      {/* <InitiateAuth /> */}
     </>
   );
 }
