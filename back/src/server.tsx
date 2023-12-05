@@ -6,6 +6,7 @@ import {AuthKey} from './handlerUtilities/authObj'
 import { initialAuth } from './handlers/initialAuth';
 import { searchArtistHandle } from './handlers/searchArtist';
 import { getRecommendationsHandle } from './handlers/getRecommendations';
+import { generatePlaylistHandle } from './handlers/generatePlaylist';
 
 
 
@@ -56,6 +57,8 @@ app.get('/search_artist', (req: Request, res: Response) => searchArtistHandle(re
 
 // to search for a set of recommendations
 app.get('/get_recommendations', (req: Request, res: Response) => getRecommendationsHandle(req, res, clientAuthToken) )
+
+app.get('/generate_playlist', (req: Request, res: Response) => generatePlaylistHandle(req, res, clientAuthToken))
 
 
 app.listen(port, () => {
