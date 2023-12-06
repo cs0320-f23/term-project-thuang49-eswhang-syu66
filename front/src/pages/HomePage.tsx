@@ -5,16 +5,17 @@ import { InitialAuth } from "../endpoints/InitialAuth";
 
 export function HomePage() {
   const [word, setWord] = useState<string>("dancing");
-  const [barHeights, setBarHeights] = useState<string[]>([
-    "2em",
-    "5em",
-    "4em",
-    "10em",
-    "7.5em",
-    "9em",
-    "7.25em",
-    "4em",
-    "3em",
+  const [barData, setBarData] = useState<string[][]>([
+    ["2em", "", ""],
+    ["5em", "", ""],
+    ["4em", "", ""],
+    ["10em", "", ""],
+    ["7.5em", "", ""],
+    ["9em", "", ""],
+    ["7.25em", "", ""],
+    ["4em", "", ""],
+    ["3em", "", ""],
+    ["8em", "", ""],
   ]);
   const [step, setStep] = useState<number>(0);
   const steps = [
@@ -29,32 +30,34 @@ export function HomePage() {
     const title = document.getElementsByClassName("title");
     document.body.style.backgroundColor = "#b32cd5";
     setTimeout(() => {
-      setBarHeights([
-        "3em",
-        "4.5em",
-        "2em",
-        "3.5em",
-        "3.75em",
-        "7em",
-        "8em",
-        "5em",
-        "5.5em",
+      setBarData([
+        ["3em", "", ""],
+        ["4.5em", "", ""],
+        ["2em", "", ""],
+        ["3.5em", "", ""],
+        ["3.75em", "", ""],
+        ["7em", "", ""],
+        ["8em", "", ""],
+        ["5em", "", ""],
+        ["5.5em", "", ""],
+        ["6.5em", "", ""],
       ]);
       setWord("studying");
       document.body.style.backgroundColor = "#FF8F9C";
       title[0].classList.add("studying");
     }, 450); // 450ms delay
     setTimeout(() => {
-      setBarHeights([
-        "8em",
-        "3em",
-        "1.5em",
-        "5em",
-        "4em",
-        "3em",
-        "6em",
-        "5.5em",
-        "8em",
+      setBarData([
+        ["8em", "", ""],
+        ["3em", "", ""],
+        ["1.5em", "", ""],
+        ["5em", "", ""],
+        ["4em", "", ""],
+        ["3em", "", ""],
+        ["6em", "", ""],
+        ["5.5em", "", ""],
+        ["8em", "", ""],
+        ["4em", "", ""],
       ]);
       setWord("running");
       document.body.style.backgroundColor = "#6C1E13";
@@ -62,16 +65,17 @@ export function HomePage() {
       title[0].classList.add("running");
     }, 1100); // 450ms + 500ms + 150ms delay
     setTimeout(() => {
-      setBarHeights([
-        "6.5em",
-        "4em",
-        "4.5em",
-        "8em",
-        "7em",
-        "10em",
-        "6.5em",
-        "1.5em",
-        "3em",
+      setBarData([
+        ["6.5em", "", ""],
+        ["4em", "", ""],
+        ["4.5em", "", ""],
+        ["8em", "", ""],
+        ["7em", "", ""],
+        ["10em", "", ""],
+        ["6.5em", "", ""],
+        ["1.5em", "", ""],
+        ["3em", "", ""],
+        ["5.5em", "", ""],
       ]);
       setWord("everything");
       document.body.style.backgroundColor = "#353998";
@@ -83,6 +87,25 @@ export function HomePage() {
         bars[i].classList.add("final");
       }
     }, 1900); // 450ms + 500ms + 150ms + 500ms + 300ms delay
+    setTimeout(() => {
+      const bars = document.getElementsByClassName("bar");
+      for (let i = 0; i < bars.length; i++) {
+        bars[i].classList.remove("final");
+        bars[i].classList.add("static");
+      }
+      setBarData([
+        ["6.5em", "65%", "Popularity"],
+        ["4em", "40%", "Danceability"],
+        ["4.5em", "45%", "Energy"],
+        ["8em", "80%", "Valence"],
+        ["7em", "70 BPM", "Tempo"],
+        ["10em", "100%", "Instrumentalness"],
+        ["6.5em", "65%", "Acousticness"],
+        ["1.5em", "NewJeans", "Artist"],
+        ["3em", "Jazz", "Genre"],
+        ["5.5em", "Clair de Lune", "Track"],
+      ]);
+    }, 3000);
   }, []);
 
   useEffect(() => {
@@ -112,7 +135,7 @@ export function HomePage() {
             <InitialAuth />
           </nav>
           <div className="content">
-            <MusicGraph barHeights={barHeights} />
+            <MusicGraph barData={barData} />
             <div className="title">
               <h1>A playlist for</h1>
               <h1>&nbsp;{word}</h1>

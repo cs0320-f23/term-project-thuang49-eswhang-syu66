@@ -87,7 +87,7 @@ h3 {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  margin-bottom: 3em;
+  margin-bottom: 5em;
   height: 10em;
 }
 
@@ -105,6 +105,43 @@ h3 {
 
 .bar.final {
   transition-duration: 1s;
+}
+
+.bar.static:hover {
+  opacity: 1;
+  transition-duration: 0.25s;
+}
+
+.bar.static p:first-child {
+  margin-top: -2.5em;
+}
+
+.bar.static p:last-child {
+  margin-bottom: -2.5em;
+}
+
+.bar.static p {
+  width: fit-content;
+  text-wrap: nowrap;
+}
+
+.bar.static {
+  transition-duration: 0.25s;
+}
+
+.bar.static:hover > div {
+  visibility: visible;
+}
+
+.bar.static div {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  visibility: hidden;
+  z-index: 1;
 }
 
 .title {

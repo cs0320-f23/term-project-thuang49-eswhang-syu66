@@ -1,14 +1,21 @@
 export interface MusicGraphProps {
-  barHeights: string[];
+  barData: string[][];
 }
 
 export default function MusicGraph(props: MusicGraphProps) {
-  const { barHeights } = props;
+  const { barData } = props;
 
   return (
     <div className="bar-container">
-      {barHeights.map((height: string) => {
-        return <div className="bar" style={{ height: `${height}` }}></div>;
+      {barData.map((barData: string[]) => {
+        return (
+          <div className="bar" style={{ height: `${barData[0]}` }}>
+            <div>
+              <p className="number">{barData[1]}</p>
+              <p className="category">{barData[2]}</p>
+            </div>
+          </div>
+        );
       })}
     </div>
   );
