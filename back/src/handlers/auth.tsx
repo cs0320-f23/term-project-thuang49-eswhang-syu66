@@ -3,43 +3,37 @@ import {clientId, client_secret} from "../../private/keys";
 import {Buffer} from 'buffer'
 
 import {Request, Response} from 'express'
-import { AuthKey } from "../handlerUtilities/authObj";
-const frontEndBaseURL = 'http://localhost:8000/'
+const frontEndBaseURL = 'http://localhost:8000/results'
 
 // checkout https://developer.spotify.com/documentation/web-api/tutorials/code-flow 
 // for workflow 
-
 export function authHandle(req: Request, res: Response) {
-    const responseType = 'code'
-    const scope : string = "playlist-modify-private"
-    const state = Math.random()
-
-    const redirect : string = 'https://accounts.spotify.com/authorize?' +
-    `response_type=${responseType}&` + 
-    `client_id=${clientId}&`+
-    `scope=${scope}&` + 
-    `redirect_uri=http://localhost:3000/fetch_auth&` +
-    `state=${state}`
+        const responseType = 'code'
+        const scope : string = "playlist-modify-private"
+        const state = Math.random()
     
-    res.redirect(redirect)
+        const redirect : string = 'https://accounts.spotify.com/authorize?' +
+        `response_type=${responseType}&` + 
+        `client_id=${clientId}&`+
+        `scope=${scope}&` + 
+        `redirect_uri=http://localhost:3000/fetch_auth&` +
+        `state=${state}`
+        
+        res.redirect(redirect)
 }
 
-// we use any here cuz i can't figure out how to get the QueryP as a recognized type.
-export async function fetchToken(req : Request, res : Response, token : AuthKey) {
+export async function fetchToken(req : Request, res : Response) {
+
     let userToken = req.query.code as string;
     let state = req.query.state as string || null;
 
-
-    console.log('next step auth')
     // error response map
     if (state === undefined) {
-        // let response : errorMap = {
-        //     status: "error",
-        //     error_type: "authentication_failed",
-        //     error_message: "You did not approve Spotify authentication.",
-        // }
-        res.redirect(403,  frontEndBaseURL)
+
+        let redirect_uri : string = frontEndBaseURL + `?error=authentication_failed`
+        res.redirect(403,  redirect_uri)
         console.log("temptooken null")
+
     } else {
 
         // constructing a post request
@@ -50,6 +44,7 @@ export async function fetchToken(req : Request, res : Response, token : AuthKey)
             redirect_uri: `http://localhost:3000/fetch_auth`,
             grant_type: `authorization_code`    
         });
+
         const headers = {
             'content-type': 'application/x-www-form-urlencoded',
             'Authorization': 'Basic ' + Buffer.from(clientId + ':' + client_secret).toString('base64')
@@ -64,26 +59,15 @@ export async function fetchToken(req : Request, res : Response, token : AuthKey)
 
         // retrieving access token from response.
         if ('access_token' in response) {
-            token.setAuthToken(response.access_token)
-
-            // let serverResponse : successMap = {
-            //     status: "success",
-            //     data:"User successfully authenticated."
-
-            // }
-            res.redirect(302,  frontEndBaseURL)
+            
+            let redirect_uri : string = frontEndBaseURL + `?success=${response.access_token}`
+            res.redirect(302, redirect_uri)
+            
         } else {
-            // let serverResponse : errorMap = {
-            //     status: "error",
-            //     error_type: "authentication_failed",
-            //     error_message: "user did not approve Spotify authentication.",
-            // }
-
             // terminate server response
-            // res.send(serverResponse)
-            res.redirect(403 , frontEndBaseURL)
+            let redirect_uri : string = frontEndBaseURL + `?error=authentication_failed`
+            res.redirect(403 , redirect_uri)
         }
         
     }
-    console.log(token)
 }

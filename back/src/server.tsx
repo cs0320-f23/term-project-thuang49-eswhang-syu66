@@ -47,10 +47,10 @@ app.get('/client_auth', cors(), (req: Request, res: Response) => initialAuth(req
 app.get('/auth', cors(), (req: Request, res: Response) => authHandle(req, res))
 
 // fetches user authorization token.
-app.get('/fetch_auth', (req: Request, res: Response) => fetchToken(req, res, userAuthToken))
+app.get('/fetch_auth', (req: Request, res: Response) => fetchToken(req, res))
 
 // for test purposes.
-app.get('/test', (req: Request, res: Response) => test(req, res, userAuthToken))
+// app.get('/test', (req: Request, res: Response) => test(req, res, userAuthToken))
 
 // to search an artist and get their uri -- needs the client Auth Token
 app.get('/search_artist', (req: Request, res: Response) => searchArtistHandle(req, res, clientAuthToken) )
@@ -58,6 +58,7 @@ app.get('/search_artist', (req: Request, res: Response) => searchArtistHandle(re
 // to search for a set of recommendations
 app.get('/get_recommendations', (req: Request, res: Response) => getRecommendationsHandle(req, res, clientAuthToken) )
 
+// generates a new playlist for the user.
 app.get('/generate_playlist', (req: Request, res: Response) => generatePlaylistHandle(req, res, clientAuthToken))
 
 

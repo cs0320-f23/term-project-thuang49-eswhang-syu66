@@ -1,7 +1,11 @@
 import "../css/App.css";
 import { InitialAuth } from "../endpoints/InitialAuth";
 
-export function ParamsPage() {
+interface sharedProps {
+  seedNames: string[], 
+  setSeedNames: React.Dispatch<React.SetStateAction<never[]>>,
+}
+export function SeedsPage(props: sharedProps) {
   return (
     <>
       <body>

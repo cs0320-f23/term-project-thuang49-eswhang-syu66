@@ -6,7 +6,6 @@ import { errorMap, successMap } from "../server"
 
 
 export async function getRecommendationsHandle(req: Request, res: Response, token: AuthKey) {
-    console.log(req.query.artist)
 
 
     if (req.query.seed_genres == undefined && req.query.seed_tracks == undefined && req.query.seed_artists == undefined) {
