@@ -20,7 +20,9 @@ export function ResultsPage() {
         <body>
           <main className="container-fluid">
             <nav className="row flex-nowrap">
-              <h2>Amplify</h2>
+              <a href = "/">
+                <h2>Amplify</h2>
+              </a>
               <UserAuth></UserAuth>
             </nav>
           </main>

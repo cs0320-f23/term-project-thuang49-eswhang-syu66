@@ -32,9 +32,11 @@ export function Slider(props: prop) {
                 <label>{Math.min(min, max)}</label>
                 <div className = "double-slider">
                     <input type="range" min="0" max="100" value={min} onChange={handleMinChange}
-                    style = {{background: `linear-gradient(to right, transparent ${Math.min(min, max)}%, #C5C5C5 ${Math.min(min, max)}% ${Math.max(min, max)}%, transparent ${Math.max(min, max)}%)`}}></input>
+                    style = {{background: `linear-gradient(to right, transparent ${Math.min(min, max)}%, #fafafa ${Math.min(min, max)}% ${Math.max(min, max)}%, transparent ${Math.max(min, max)}%)`, 
+                            transition: `transition: background ease 1s;`}}></input>
                     <input type="range" min="0" max="100" value={max} onChange={handleMaxChange}
-                    style = {{background: `linear-gradient(to right, transparent ${Math.min(min, max)}%, #C5C5C5 ${Math.min(min, max)}% ${Math.max(min, max)}%, transparent ${Math.max(min, max)}%)`}}></input>
+                    style = {{background: `linear-gradient(to right, transparent ${Math.min(min, max)}%, #fafafa ${Math.min(min, max)}% ${Math.max(min, max)}%, transparent ${Math.max(min, max)}%)`,
+                            transition: `transition: background ease 1s;`}}></input>
                 </div>
                 <label>{Math.max(min,max)}</label>
             </div>

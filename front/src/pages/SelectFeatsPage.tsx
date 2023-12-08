@@ -16,7 +16,9 @@ export function SelectFeatsPage(props :sharedProps) {
           <body>
             <main className="container-fluid">
               <nav className="row flex-nowrap">
+              <a href = "/">
                 <h2>Amplify</h2>
+              </a>
                 <button onClick={() => nav("/select-seeds")}> → </button>
               </nav>
               <div style = {{justifySelf:"center"}}>

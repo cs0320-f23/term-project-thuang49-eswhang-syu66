@@ -270,14 +270,14 @@ nav button {
   -webkit-appearance: none;
   appearance: none;
 
-  border: 0.5px rgb(197, 197, 197, 0.5) solid ;
+  border: 0.5px rgb(255, 255, 255) solid ;
   border-radius: 5rem;
 
   position: absolute;
   pointer-events: none;
 
   width: 45vw;
-  height: 2rem
+  height: 2rem;
   
 
 }
@@ -337,4 +337,126 @@ nav button {
   outline: none;
   border: none;
   border-bottom: 1px white solid;
+}
+
+/* artist search results */
+
+.artist-result-card {
+  display:flex;
+  justify-content: space-between;
+  border-radius: 1rem;
+  border: white 1px solid;
+  padding:1rem;
+  background-color:   rgb(197, 197, 197, 0.25);
+  align-content: center;
+  align-items:center;
+  width: 25rem;
+
+  cursor:grab;
+
+  position: relative;
+  transition: left ease 0.25s;
+  margin-bottom: 0.05rem;
+
+}
+
+.artist-result-card:hover {
+  left: 10px;
+}
+
+.artist-result-card-added {
+  
+  display:flex;
+  justify-content: space-between;
+  border-radius: 1rem;
+
+  padding:1rem;
+  align-content: center;
+  align-items:center;
+  width: 25rem;
+
+  cursor:grab;
+  border: 1px #e3fd7f solid;
+  background-color: #e4fd7f54;
+
+  margin-bottom: 0.05rem;
+
+
+}
+ .artist-result-card-added:hover{
+  left: 10px;
+}
+
+/* track search results*/ 
+.track-result-card {
+  display:flex;
+  justify-content: space-between;
+  border-radius: 1rem;
+  border: white 1px solid;
+  padding:1rem;
+  background-color:   rgb(197, 197, 197, 0.25);
+  align-content: center;
+  align-items:center;
+  width: 30rem;
+
+  cursor:grab;
+
+  position: relative;
+  transition: left ease 0.25s;
+  margin-bottom: 0.05rem;
+
+}
+.track-result-card:hover{
+  left: 10px;
+}
+
+.track-result-card-added {
+  display:flex;
+  justify-content: space-between;
+  border-radius: 1rem;
+  border: white 1px solid;
+  padding:1rem;
+  background-color:   rgb(197, 197, 197, 0.25);
+  align-content: center;
+  align-items:center;
+  width: 30rem;
+
+  cursor:grab;
+
+  position: relative;
+  transition: left ease 0.25s;
+
+  border: 1px #e3fd7f solid;
+  background-color: #e4fd7f54;
+  margin-bottom: 0.05rem;
+
+
+}
+.track-result-card-added:hover{
+  left: 10px;
+
+}
+
+.artist-names {
+  font-size: 12px;
+}
+
+
+/* search result container*/
+.search-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 85vw;
+  justify-self:center;
+}
+
+/* modifying the acutal search bar*/
+.search-bar {
+  width: 30rem;
+  color: #fafafa;
+  height: 2rem;
+  font-size: 2rem;
+  font-weight: 200;
 }

@@ -17,7 +17,9 @@ export function SeedsPage(props: sharedProps) {
       <body>
         <main className="container-fluid">
           <nav className="row flex-nowrap">
-            <h2>Amplify</h2>
+            <a href = "/">
+              <h2>Amplify</h2>
+            </a>
             <button onClick={() => nav("/select-feats")}> → </button>
           </nav>
           {seedNames.map(seed => <SelectButton list = {props.seedNames} listSetter={props.setSeedNames} toAdd={seed}></SelectButton>)}

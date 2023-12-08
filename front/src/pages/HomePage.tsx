@@ -131,7 +131,9 @@ export function HomePage() {
       <body>
         <main className="container-fluid">
           <nav className="row flex-nowrap">
-            <h2>Amplify</h2>
+            <a href = "/">
+              <h2>Amplify</h2>
+            </a>
             <InitialAuth />
           </nav>
           <div className="content">

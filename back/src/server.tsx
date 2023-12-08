@@ -53,7 +53,7 @@ app.get('/fetch_auth', (req: Request, res: Response) => fetchToken(req, res))
 // app.get('/test', (req: Request, res: Response) => test(req, res, userAuthToken))
 
 // to search an artist and get their uri -- needs the client Auth Token
-app.get('/search_artist',cors(), (req: Request, res: Response) => searchArtistHandle(req, res, clientAuthToken) )
+app.get('/search',cors(), (req: Request, res: Response) => searchArtistHandle(req, res, clientAuthToken) )
 
 // to search for a set of recommendations
 app.get('/get_recommendations', (req: Request, res: Response) => getRecommendationsHandle(req, res, clientAuthToken) )

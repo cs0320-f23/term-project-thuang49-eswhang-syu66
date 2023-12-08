@@ -29,7 +29,9 @@ const nav = useNavigate();
       <body>
         <main className="container-fluid">
           <nav className="row flex-nowrap">
-            <h2>Amplify</h2>
+            <a href = "/">
+              <h2>Amplify</h2>
+            </a>
             <button onClick={() => nav("/seeds")}> → </button>
           </nav>
           <h1>Parameters</h1>
