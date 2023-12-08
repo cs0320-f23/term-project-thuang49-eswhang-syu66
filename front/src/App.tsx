@@ -6,7 +6,7 @@ import { ResultsPage } from './pages/ResultsPage';
 import { useState } from 'react';
 import { SeedsPage } from './pages/SeedsPage';
 import { SelectFeatsPage } from './pages/SelectFeatsPage';
-import { SelectSeedsPage } from './pages/SeledSeedsPage';
+import { SelectSeedsPage } from './pages/SelectSeedsPage';
 
 
 // export interface sharedProps {
@@ -19,8 +19,8 @@ import { SelectSeedsPage } from './pages/SeledSeedsPage';
 
 function App() {
 
-  const [featNames, setFeatNames] = useState([])
-  const [seedNames, setSeedNames] = useState([])
+  const [featNames, setFeatNames] = useState<string[]>([])
+  const [seedNames, setSeedNames] = useState<string[]>([])
 
   // a map from featMax or featMin to number
   const [featsMap] = useState<Map<String, Number>>(new Map<String, Number>())
@@ -34,7 +34,7 @@ function App() {
 
         {/* make a duration page, pass in the feats map*/}
 
-        
+
         <Route path="/select-seeds" element = 
           {<SelectSeedsPage seedNames = {seedNames} setSeedNames= {setSeedNames} 
                       seedsMap = {seedsMap}></SelectSeedsPage>}

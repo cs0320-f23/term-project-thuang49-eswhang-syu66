@@ -13,7 +13,7 @@ export function InitialAuth() {
     console.log(response);
 
     if (response.status === "success") {
-      nav("/params");
+      nav("/feats");
     } else {
       error =
         "Could not proceed with user flow; please refresh or contact admin.";
