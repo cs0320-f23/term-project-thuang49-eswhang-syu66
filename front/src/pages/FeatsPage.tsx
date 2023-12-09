@@ -13,7 +13,6 @@ export function FeatsPage(props: sharedProps) {
   const paramNames : string[] = [
     "accousticness",
     "danceability",
-    "duration",
     "energy",
     "instrumentalness",
     "key",
@@ -35,7 +34,9 @@ const nav = useNavigate();
             <button onClick={() => nav("/seeds")}> → </button>
           </nav>
           <h1>Parameters</h1>
-          {paramNames.map(p => <SelectButton toAdd={p} list={props.featNames} listSetter={props.setFeatNames }></SelectButton>)}
+          <div style = {{display: "flex", flexWrap:"wrap", justifyContent:"space-around"}}>
+            {paramNames.map(p => <SelectButton toAdd={p} list={props.featNames} listSetter={props.setFeatNames }></SelectButton>)}
+          </div>
         </main>
       </body>
     </>

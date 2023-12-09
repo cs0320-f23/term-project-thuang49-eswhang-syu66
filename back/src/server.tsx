@@ -7,6 +7,7 @@ import { initialAuth } from './handlers/initialAuth';
 import { searchArtistHandle } from './handlers/searchArtist';
 import { getRecommendationsHandle } from './handlers/getRecommendations';
 import { generatePlaylistHandle } from './handlers/generatePlaylist';
+import { search_uid } from './handlers/UIDSearch';
 
 
 
@@ -61,6 +62,8 @@ app.get('/get_recommendations', (req: Request, res: Response) => getRecommendati
 // generates a new playlist for the user.
 app.get('/generate_playlist', cors(), (req: Request, res: Response) => generatePlaylistHandle(req, res, clientAuthToken))
 
+// searches for an artist or track based on the id
+app.get('/search_id', cors(), (req: Request, res: Response) => search_uid(req, res, clientAuthToken))
 
 app.listen(port, () => {
     console.log('Server running on http://localhost:' + port)

@@ -6,8 +6,8 @@ interface prop {
     seedType : string, // either artist or track
     seedMap: Map<String, String[]>
 
-    selectedSeeds: string[], 
-    setSelectedSeeds: React.Dispatch<React.SetStateAction<string[]>>
+    selectedSeeds: string[][], 
+    setSelectedSeeds: React.Dispatch<React.SetStateAction<string[][]>>
     
 }
 
