@@ -15,9 +15,9 @@ export function FeatsPage(props: sharedProps) {
     "danceability",
     "energy",
     "instrumentalness",
-    "key",
     "liveness",
     "loudness",
+    "popularity",
     "tempo",
     "valence"
 ]

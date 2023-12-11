@@ -24,7 +24,7 @@ function App() {
 
   // a map from featMax or featMin to number
   const [featsMap] = useState<Map<String, Number>>(new Map<String, Number>())
-  const [seedsMap] = useState<Map<String, String>>(new Map<String, String>())
+  const [seedsMap] = useState<Map<String, String[]>>(new Map<String, String[]>())
 
 	return (
     <Router basename="">
@@ -34,6 +34,10 @@ function App() {
 
         {/* make a duration page, pass in the feats map*/}
 
+        <Route path="/duration" element = 
+          {<SelectSeedsPage seedNames = {seedNames} setSeedNames= {setSeedNames} 
+                      seedsMap = {seedsMap}></SelectSeedsPage>}
+        /> 
 
         <Route path="/select-seeds" element = 
           {<SelectSeedsPage seedNames = {seedNames} setSeedNames= {setSeedNames} 
