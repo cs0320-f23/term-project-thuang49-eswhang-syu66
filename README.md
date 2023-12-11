@@ -12,7 +12,10 @@ Amplify allows users to randomly generate Spotify playlists based on a set of sp
     * ```npm install vite```
     * ```npm i --save-dev @types/react-transition-group```
     * ```npm install react-router-dom```
-    * ```npm install @mui/base```
+    * ```npm install react-icons```
+    * ```npm install playwright```
+    * ```npx playwright install```
+    * ```npm install @playwright/test``` important!
 
 ### Form: 
 * All responses from the backend will be served as type ```Response``` that is either

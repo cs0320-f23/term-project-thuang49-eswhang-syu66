@@ -11,6 +11,12 @@ interface prop {
   setSelectedSeeds: React.Dispatch<React.SetStateAction<string[][]>>;
 }
 
+/**
+ * The component responsible for creading search boxes and dropdown 
+ * search options
+ * @param props the interface as defined above
+ * @returns html component.
+ */
 export function SearchBox(props: prop) {
   const [search, setSearch] = useState<string>("");
 
@@ -18,12 +24,12 @@ export function SearchBox(props: prop) {
     artistResponse[] | trackResponse[]
   >([]);
 
-  // edit this to allow for songs as well.
+  /**
+   * Responsible for fetching song or track data
+   */
   async function fetchData() {
     try {
-      const url = `http://localhost:3000/search?${
-        props.seedType
-      }=${encodeURIComponent(search)}`;
+      const url = `http://localhost:3000/search?${props.seedType}=${encodeURIComponent(search)}`;
       console.log(url);
       const response = await fetch(url);
 
@@ -43,6 +49,9 @@ export function SearchBox(props: prop) {
     }
   }
 
+  /**
+   * re-searches everytime the textbox is udpated.
+   */
   useEffect(() => {
     console.log(search);
     if (search != "") {
@@ -53,6 +62,7 @@ export function SearchBox(props: prop) {
     console.log(searchResults);
   }, [search]);
 
+  // updater function
     function handleChange(event: React.ChangeEvent<HTMLInputElement>)  {
         setSearch(event.target.value);
     };

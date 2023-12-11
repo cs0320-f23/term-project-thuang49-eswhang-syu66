@@ -6,40 +6,40 @@ interface sharedProps {
     seedMap: Map<String, String[]>
     featsMap: Map<String, Number>
 }
+
+/**
+ * the component in charge of the duration page. 
+ * @param props shared props as defined above.
+ * @returns the html/jselements required for rendering the page.
+ */
 export function DurationPage(props: sharedProps) {
   const [totalDuration, setTotalDuration] = useState<number>(0);
   const [mode, setMode] = useState<string>("duration");
   const nav = useNavigate()
 
   useEffect(() => {
-    console.log(totalDuration)
-    console.log(mode)
   }, [totalDuration, mode])
 
-
+  // an updater function
   function updateMode(str: string) {
     setMode(str)
   }
 
+  /**
+   * The function responsible for assembling the query to be passed to get_recommendations
+   */
   async function submitQuery() {
 
-    console.log(props.seedMap)
-
-    for (const key in props.seedMap.keys()) {
-        console.log(key)
-    }
-    
-    // props.seedMap
     const baseurl = "http://localhost:3000/get_recommendations?"
-
     let url = ""
+
+    // this loops through the seedMap and adds all of the seeds to the query
     for (const [key, value] of props.seedMap) {
         console.log(key)
         let seed = `seed_${key}=`
         if (value.length > 0) {
             for (let i = 0; i < value.length; i ++) {
                 seed += `${value[i]}`
-                // if (i != value.length-1 ) { seed += ","}
                 if (i != value.length-1 ) { 
                     seed += ","
                 }
@@ -49,15 +49,17 @@ export function DurationPage(props: sharedProps) {
         }
       }
 
-      //props.featsMap
+      // looping through the featsmap and adding all of the seeds to the query.
       for (const [key, value] of props.featsMap) {
         url += `${key}=${value}&`
       }
 
-      const finalQuery = await fetch(baseurl + url).then(res => res.json())
+      // performing query.
+      let duration = `${mode}=${totalDuration}`
+      const finalQuery = await fetch(baseurl + url + duration).then(res => res.json())
 
       console.log(finalQuery)
-      console.log(baseurl + url)
+      console.log(baseurl + url + duration)
     // nav('/results')
   }
   return (
@@ -100,12 +102,18 @@ interface prop {
     setMode: React.Dispatch<React.SetStateAction<string>>
 }
 
+/**
+ * The component responsible for number selection (inputting duration or no. tracks)
+ * @param props shared props, specified in the interface above.
+ * @returns the number inputs
+ */
 function NumberSelector(props: prop) {
-    const [val, setVal] = useState<number>(0);
+    const [val, setVal] = useState<number>(30);
     const [hour, setHour] = useState<number>(0);
     // const [comp, setComp] = useState<JSX.Element>(renderComp());
 
     useEffect(() => {
+        console.log(val)
         if (props.mode == "duration") {
             let totalSec = 0;
             totalSec += hour * 60 * 60
@@ -115,13 +123,20 @@ function NumberSelector(props: prop) {
         } else if (props.mode == "number") {
             props.setTotalDuration(val)
         }
-    }, [val, hour])
+    }, [val, hour, props.mode])
 
     useEffect(() => {
-        setVal(0)
+        setVal(30)
         setHour(0)
-        props.setTotalDuration(0)
-        // setComp(renderComp())
+        if (props.mode == "duration") {
+            let totalSec = 0;
+            totalSec += hour * 60 * 60
+            totalSec += val * 60
+            let msDuration = totalSec * 1000
+            props.setTotalDuration(msDuration)
+        } else if (props.mode == "number") {
+            props.setTotalDuration(val)
+        }
     }, [props.mode])
 
     function changeVal(event: React.ChangeEvent<HTMLInputElement>, setter: React.Dispatch<React.SetStateAction<number>>) {
@@ -135,16 +150,16 @@ function NumberSelector(props: prop) {
             return (
                 <div>
                     <input type = "number" onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        return changeVal(event, setHour)}} max = "4"></input>
+                        return changeVal(event, setHour)}} max = "4" value = {hour}></input>
                     <input type = "number" onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        return changeVal(event, setVal)}} max = "59"></input>  
+                        return changeVal(event, setVal)}} max = "59" value = {val}></input>  
                 </div>
             )
         } else if (props.mode == "number") {
             return (   
                 <div>
                     <input type = "number" onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        return changeVal(event, setVal)}} max = "100"></input>  
+                        return changeVal(event, setVal)}} max = "100" value = {val}></input>  
                 </div>)
         } else {
             console.error("mode not duration or number")

@@ -9,6 +9,8 @@ interface sharedProps {
 }
 export function FeatsPage(props: sharedProps) {
   const { featNames } = props;
+
+  // all of the supported parameters
   const paramNames: string[] = [
     "Acousticness",
     "Danceability",
@@ -30,6 +32,7 @@ export function FeatsPage(props: sharedProps) {
     }
   }, []);
 
+  // disables the user from continuing without selecting any feature categories
   useEffect(() => {
     const continueButton = document.getElementById("continue-button");
     if (featNames.length > 0) {
@@ -42,6 +45,8 @@ export function FeatsPage(props: sharedProps) {
       }
     }
   }, [featNames]);
+
+
   return (
     <>
       <body>

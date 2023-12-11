@@ -18,10 +18,6 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
     } else {
         let url = "https://api.spotify.com/v1/recommendations?"
 
-        if (req.query.limit != undefined) {
-            url += `limit=${req.query.limit}&`
-        }
-
         // adding all of the parameters to the query
         if (req.query.seed_artists != undefined) {
             url += `seed_artists=${req.query.seed_artists}&`
@@ -57,7 +53,7 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
 
         //duraction 
         if (req.query.min_duration_ms != undefined) {
-            url += `min_duration_ms =${req.query.min_duration_ms}&`
+            url += `min_duration_ms=${req.query.min_duration_ms}&`
         }
         if (req.query.max_duration_ms != undefined) {
             url += `max_duration_ms=${req.query.max_duration_ms}&`
@@ -68,7 +64,7 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
 
         //energy
         if (req.query.min_energy != undefined) {
-            url += `min_energy =${req.query.min_energy}&`
+            url += `min_energy=${req.query.min_energy}&`
         }
         if (req.query.max_energy != undefined) {
             url += `max_energy=${req.query.max_energy}&`
@@ -79,7 +75,7 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
 
         //instrumentalness
         if (req.query.min_instrumentalness != undefined) {
-            url += `min_instrumentalness =${req.query.min_instrumentalness}&`
+            url += `min_instrumentalness=${req.query.min_instrumentalness}&`
         }
         if (req.query.max_instrumentalness != undefined) {
             url += `max_instrumentalness=${req.query.max_instrumentalness}&`
@@ -90,7 +86,7 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
                 
         // key
         if (req.query.min_key != undefined) {
-            url += `min_key =${req.query.min_key}&`
+            url += `min_key=${req.query.min_key}&`
         }
         if (req.query.max_key != undefined) {
             url += `max_key=${req.query.max_key}&`
@@ -101,7 +97,7 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
 
         // liveness
         if (req.query.min_liveness != undefined) {
-            url += `min_liveness =${req.query.min_liveness}&`
+            url += `min_liveness=${req.query.min_liveness}&`
         }
         if (req.query.max_liveness != undefined) {
             url += `max_liveness=${req.query.max_liveness}&`
@@ -112,7 +108,7 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
 
         // loudness
         if (req.query.min_loudness != undefined) {
-            url += `min_loudness =${req.query.min_loudness}&`
+            url += `min_loudness=${req.query.min_loudness}&`
         }
         if (req.query.max_loudness != undefined) {
             url += `max_loudness=${req.query.max_loudness}&`
@@ -123,7 +119,7 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
 
         // popularity
         if (req.query.min_popularity != undefined) {
-            url += `min_popularity =${req.query.min_popularity}&`
+            url += `min_popularity=${req.query.min_popularity}&`
         }
         if (req.query.max_popularity != undefined) {
             url += `max_popularity=${req.query.max_popularity}&`
@@ -136,7 +132,7 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
 
         // tempo
         if (req.query.min_tempo != undefined) {
-            url += `min_tempo =${req.query.min_tempo}&`
+            url += `min_tempo=${req.query.min_tempo}&`
         }
         if (req.query.max_tempo != undefined) {
             url += `max_tempo=${req.query.max_tempo}&`
@@ -149,7 +145,7 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
 
         // valence
         if (req.query.min_valence != undefined) {
-            url += `min_valence =${req.query.min_valence}&`
+            url += `min_valence=${req.query.min_valence}&`
         }
         if (req.query.max_valence != undefined) {
             url += `max_valence=${req.query.max_valence}&`
@@ -157,6 +153,14 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
         if (req.query.target_valence != undefined) {
             url += `target_valence=${req.query.target_valence}&`
         }
+
+        // taking care of length of playlist: 
+        if (req.query.number != undefined) {
+            url += `limit=${req.query.number}`
+        } else {
+            url += `limit=100`
+        }
+
 
 
         const headers = {
@@ -172,9 +176,20 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
         console.log(queryResponse)
 
         if ("tracks" in queryResponse) {
+
+            // @TODO: use the fischer gates algorithm to SHUFFLE the returned list of tracks. 
+            // this prevents the same set of queries from returning the same thing everytime
+
+            // @TODO: Implement the duration filtering function. (look in each track's duration_ms field and accumulate it until it's just
+            // gone over the limit specified by the user.)
+
             let clientResponse : successMap = {
                 status: "success",
-                data: queryResponse.tracks
+                data: { 
+                    tracks: queryResponse.tracks, // change this to reflect the shuffling function and filtering functionality
+                    total_ms: 0, //@ TODO: change this to the sum of all of the tracks' durations. 
+                    no_songs: 0, // update with the number of songs actually aded to the response
+                }
             }
             res.send(clientResponse)
         } else {

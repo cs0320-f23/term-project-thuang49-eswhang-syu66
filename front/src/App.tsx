@@ -9,23 +9,14 @@ import { SelectFeatsPage } from './pages/SelectFeatsPage';
 import { SelectSeedsPage } from './pages/SelectSeedsPage';
 import { DurationPage } from './pages/DurationsPage';
 
-
-// export interface sharedProps {
-//   featList : string[], 
-//   setFeatList : React.Dispatch<React.SetStateAction<never[]>>, 
-
-//   seeds: string[], 
-//   setSeeds: React.Dispatch<React.SetStateAction<never[]>>,
-// }
-
 function App() {
 
   const [featNames, setFeatNames] = useState<string[]>([])
   const [seedNames, setSeedNames] = useState<string[]>([])
 
   // a map from featMax or featMin to number
-  const [featsMap] = useState<Map<String, Number>>(new Map<String, Number>())
-  const [seedsMap] = useState<Map<String, String[]>>(new Map<String, String[]>())
+  const [featsMap] = useState<Map<string, number>>(new Map<string, number>())
+  const [seedsMap] = useState<Map<string, string[]>>(new Map<string, string[]>())
 
 	return (
     <Router basename="">

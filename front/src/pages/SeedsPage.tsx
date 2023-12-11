@@ -21,6 +21,9 @@ export function SeedsPage(props: sharedProps) {
     }
   }, []);
 
+  /**
+   * disables users from continuing without selecting any seeds
+   */
   useEffect(() => {
     const continueButton = document.getElementById("continue-button");
     if (seedNames.length > 0) {
