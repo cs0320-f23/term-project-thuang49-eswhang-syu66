@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { SelectButton } from "../components/SelectButton";
 import { useEffect } from "react";
-import "../css/FeatsPage.css";
+import "../css/ParamsPage.css";
 
 interface sharedProps {
   seedNames: string[];
@@ -45,15 +45,14 @@ export function SeedsPage(props: sharedProps) {
             <button
               className="continue-button"
               id="continue-button"
-              onClick={() => nav("/seeds")}
+              onClick={() => nav("/select-feats")}
             >
-              {" "}
-              Continue{" "}
+              Continue
             </button>
           </nav>
-          <div className="feats-content">
+          <div className="params-content">
             <div className="title">
-              <h3>Select Seeds</h3>
+              <h3>Select seeds</h3>
             </div>
             <div className="params">
               {seedNameList.map((seed) => (
