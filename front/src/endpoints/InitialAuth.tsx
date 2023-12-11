@@ -1,30 +1,36 @@
-import { useNavigate } from "react-router-dom";
-// import { sharedProps } from '../App';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function InitialAuth() {
   const nav = useNavigate();
-  let error: string = "";
+  const [authUrl, setAuthUrl] = useState('');
+  const[error, setError] = useState<string>('')
 
-  async function auth() {
-    const authEndpoint: string = "http://localhost:3000/client_auth";
+  useEffect(() => {
+    async function fetchAuthUrl(){
+      const authEndpoint: string = 'http://localhost:3000/client_auth';
 
-    const response = await fetch(authEndpoint).then((res) => res.json());
+      const response = await fetch(authEndpoint).then((res) => res.json());
 
-    console.log(response);
+      console.log(response);
 
-    if (response.status === "success") {
-      nav("/feats");
-    } else {
-      error =
-        "Could not proceed with user flow; please refresh or contact admin.";
-    }
-  }
+      if (response.status === 'success') {
+        // nav("/feats");
+        setAuthUrl('http://localhost:3000/auth');
+      } else {
+        setError('Could not proceed with the user flow; please refresh or contact admin.')
+        setAuthUrl('#');
+      }
+    };
+
+    fetchAuthUrl();
+  }, []); // Empty dependency array ensures that the effect runs only once when the component mounts
 
   return (
     <div>
-      <button className="get-started-button" onClick={auth}>
-        Get Started
-      </button>
+      <a href={authUrl}>
+        <button className="get-started-button">Authenticate</button>
+      </a>
       <p>{error}</p>
     </div>
   );

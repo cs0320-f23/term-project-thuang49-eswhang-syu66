@@ -11,7 +11,7 @@ export function UserAuth() {
     return (
         <a href = {authHandle()}>
             <button onClick={authHandle}>
-                Get Started
+                Add to Library
             </button>
         </a>
     )
