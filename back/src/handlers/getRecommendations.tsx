@@ -6,7 +6,6 @@ import { errorMap, successMap } from "../server"
 
 
 export async function getRecommendationsHandle(req: Request, res: Response, token: AuthKey) {
-    console.log(req.query.artist)
 
 
     if (req.query.seed_genres == undefined && req.query.seed_tracks == undefined && req.query.seed_artists == undefined) {
@@ -120,6 +119,17 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
         }
         if (req.query.target_loudness != undefined) {
             url += `target_loudness=${req.query.target_loudness}&`
+        }
+
+        // popularity
+        if (req.query.min_popularity != undefined) {
+            url += `min_popularity =${req.query.min_popularity}&`
+        }
+        if (req.query.max_popularity != undefined) {
+            url += `max_popularity=${req.query.max_popularity}&`
+        }
+        if (req.query.target_popularity != undefined) {
+            url += `target_popularity=${req.query.target_popularity}&`
         }
 
         // skipping mode, popularity, speechiness

@@ -6,6 +6,11 @@ export class AuthKey {
     setAuthToken(token: string) {
       this.userAuthToken = token;
     }
+
+    // clears the existing token
+    clearAuthToken(token: string) {
+        this.userAuthToken = undefined
+    }
   
     // Get userAuthToken
     getAuthToken() {
@@ -15,5 +20,7 @@ export class AuthKey {
             return this.userAuthToken.slice();
         }
     }
+
+
   }
   

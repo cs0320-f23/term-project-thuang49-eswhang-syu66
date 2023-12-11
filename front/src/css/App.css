@@ -21,6 +21,7 @@ body {
   color: white;
   transition-duration: 0.5s;
   transition-timing-function: ease;
+
 }
 
 main {
@@ -159,6 +160,7 @@ nav button {
   animation-timing-function: ease;
   animation-delay: 2s;
   animation-fill-mode: backwards;
+  color: rgb(110, 110, 110);
 }
 
 @keyframes navButton {
@@ -230,4 +232,272 @@ nav button {
   position: absolute;
   left: 0em;
   top: calc(0em - 1.5px);
+}
+
+/* select buttons on params and seeds */
+.select-button {
+  border-color: transparent;
+  border-radius: 24px;
+  background-color: transparent;
+}
+/* .select-button:hover {
+  filter: brightness(1.2); 
+} */
+.select-button-clicked {
+  border-radius: 24px;
+  background-color: #e3fd7f;
+  border-color: white;
+  color: rgb(110, 110, 110)
+  
+}
+
+/* slider  */
+
+.slide-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 50vw;
+  height: 3rem;
+}
+/* .double-slider width must be the same as .double-slier input[type=range] width*/
+.double-slider{
+  width: 45vw;
+  position: relative;
+}
+
+/* actual range */
+.double-slider input[type = range] {
+  -webkit-appearance: none;
+  appearance: none;
+
+  border: 0.5px rgb(255, 255, 255) solid ;
+  border-radius: 5rem;
+
+  position: absolute;
+  pointer-events: none;
+
+  width: 45vw;
+  height: 2rem;
+  
+
+}
+
+/* dragger/selector */
+.double-slider input::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+
+  background-color: transparent; 
+  padding-bottom: 1rem;
+
+  border-radius: 4rem;
+
+  width: 3rem;  
+  height: 2rem;  
+
+  cursor: pointer;
+
+  pointer-events: all;
+  position: relative;
+  z-index: 1;
+}
+
+.double-slider input::-moz-range-thumb {
+  pointer-events: all;
+  position: relative;
+}
+
+.double-slider input::-moz-range-track {
+  position: relative;
+  z-index: -1; 
+  /* border: 0; */
+}
+
+.double-slider input[type = range]::-webkit-slider-runnable-track{
+  border-radius: 4rem;
+
+}
+.double-slider input:last-of-type::-moz-range-track {
+  -moz-appearance: none;
+  background: none transparent;
+  border: 0;
+}
+
+/*  parent component in the front that houses all of the sliders*/
+.select-feat {
+  display: flex;
+  width: 80vw;
+  justify-content: space-between;
+}
+
+/*  search bar styling*/
+
+.search-box input[type = search]{
+  background: none;
+  outline: none;
+  border: none;
+  border-bottom: 1px white solid;
+}
+
+/* artist search results */
+
+.artist-result-card {
+  display:flex;
+  justify-content: space-between;
+  border-radius: 1rem;
+  border: white 1px solid;
+  padding:1rem;
+  background-color:   rgb(197, 197, 197, 0.25);
+  align-content: center;
+  align-items:center;
+  width: 25rem;
+
+  cursor:grab;
+
+  position: relative;
+  transition: left ease 0.25s;
+  margin-bottom: 0.05rem;
+
+}
+
+.artist-result-card:hover {
+  left: 10px;
+}
+.artist-result-card:active {
+  background-color: #e4fd7f61;
+  border: 1px #e3fd7f solid;
+}
+/* .artist-result-card-added {
+  
+  display:flex;
+  justify-content: space-between;
+  border-radius: 1rem;
+
+  padding:1rem;
+  align-content: center;
+  align-items:center;
+  width: 25rem;
+
+  cursor:grab;
+  border: 1px #e3fd7f solid;
+  background-color: #e4fd7f54;
+
+  margin-bottom: 0.05rem;
+
+
+}
+ .artist-result-card-added:hover{
+  left: 10px;
+} */
+
+
+
+/* track search results*/ 
+.track-result-card {
+  display:flex;
+  justify-content: space-between;
+  border-radius: 1rem;
+  border: white 1px solid;
+  padding:1rem;
+  background-color:   rgb(197, 197, 197, 0.25);
+  align-content: center;
+  align-items:center;
+  width: 30rem;
+
+  cursor:grab;
+
+  position: relative;
+  transition: left ease 0.25s;
+  margin-bottom: 0.05rem;
+
+}
+.track-result-card:hover{
+  left: 10px;
+}
+.track-result-card:active {
+  background-color: #e3fd7f;
+}
+
+/* .track-result-card-added {
+  display:flex;
+  justify-content: space-between;
+  border-radius: 1rem;
+  border: white 1px solid;
+  padding:1rem;
+  background-color:   rgb(197, 197, 197, 0.25);
+  align-content: center;
+  align-items:center;
+  width: 30rem;
+
+  cursor:grab;
+
+  position: relative;
+  transition: left ease 0.25s;
+
+  border: 1px #e3fd7f solid;
+  background-color: #e4fd7f54;
+  margin-bottom: 0.05rem;
+
+
+} */
+.track-result-card-added:hover{
+  left: 10px;
+
+}
+
+.artist-names {
+  font-size: 12px;
+}
+
+
+/* search result container*/
+.search-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 85vw;
+  justify-self:center;
+}
+
+/* modifying the acutal search bar*/
+.search-bar {
+  width: 30rem;
+  color: #fafafa;
+  height: 2rem;
+  font-size: 2rem;
+  font-weight: 200;
+}
+
+.selected-seed {
+  display: flex;
+  padding: 0.5rem;
+  flex-direction: row;
+  border-radius: 3rem;
+  border: 1px white solid;
+  width: 15rem;
+  justify-content: space-around;
+
+  align-items: center;
+  font-size:14px;
+  cursor: grab;
+  margin: 1rem;
+}
+
+.selected-seed:hover {
+  transform: scale(1.05);
+  background-color: #fafafa59;
+}
+
+.selected-seed img {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.25rem;
+  margin-left: 0.5rem;
+}
+.selected-seed-container {
+  display: flex;
+  padding: 3rem;
+  flex-wrap: wrap;
 }

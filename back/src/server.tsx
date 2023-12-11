@@ -7,6 +7,7 @@ import { initialAuth } from './handlers/initialAuth';
 import { searchArtistHandle } from './handlers/searchArtist';
 import { getRecommendationsHandle } from './handlers/getRecommendations';
 import { generatePlaylistHandle } from './handlers/generatePlaylist';
+import { search_uid } from './handlers/UIDSearch';
 
 
 
@@ -47,19 +48,22 @@ app.get('/client_auth', cors(), (req: Request, res: Response) => initialAuth(req
 app.get('/auth', cors(), (req: Request, res: Response) => authHandle(req, res))
 
 // fetches user authorization token.
-app.get('/fetch_auth', (req: Request, res: Response) => fetchToken(req, res, userAuthToken))
+app.get('/fetch_auth', (req: Request, res: Response) => fetchToken(req, res))
 
 // for test purposes.
-app.get('/test', (req: Request, res: Response) => test(req, res, userAuthToken))
+// app.get('/test', (req: Request, res: Response) => test(req, res, userAuthToken))
 
 // to search an artist and get their uri -- needs the client Auth Token
-app.get('/search_artist', (req: Request, res: Response) => searchArtistHandle(req, res, clientAuthToken) )
+app.get('/search',cors(), (req: Request, res: Response) => searchArtistHandle(req, res, clientAuthToken) )
 
 // to search for a set of recommendations
 app.get('/get_recommendations', (req: Request, res: Response) => getRecommendationsHandle(req, res, clientAuthToken) )
 
-app.get('/generate_playlist', (req: Request, res: Response) => generatePlaylistHandle(req, res, clientAuthToken))
+// generates a new playlist for the user.
+app.get('/generate_playlist', cors(), (req: Request, res: Response) => generatePlaylistHandle(req, res, clientAuthToken))
 
+// searches for an artist or track based on the id
+app.get('/search_id', cors(), (req: Request, res: Response) => search_uid(req, res, clientAuthToken))
 
 app.listen(port, () => {
     console.log('Server running on http://localhost:' + port)
