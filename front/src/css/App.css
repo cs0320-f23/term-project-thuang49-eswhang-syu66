@@ -240,9 +240,9 @@ nav button {
   border-radius: 24px;
   background-color: transparent;
 }
-.select-button:hover {
-  /* filter: brightness(1.2); */
-}
+/* .select-button:hover {
+  filter: brightness(1.2); 
+} */
 .select-button-clicked {
   border-radius: 24px;
   background-color: #e3fd7f;

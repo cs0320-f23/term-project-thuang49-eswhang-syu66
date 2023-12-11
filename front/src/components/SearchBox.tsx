@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { ArtistResultCard } from "./ArtistResultCard"
-import { TrackResultCard } from "./TrackResultCard"
+import { ArtistResultCard, artistResponse } from "./ArtistResultCard"
+import { TrackResultCard, trackResponse } from "./TrackResultCard"
 
 interface prop {
     seedType : string, // either artist or track
@@ -15,7 +15,7 @@ interface prop {
 export function SearchBox(props: prop) {
     const[search, setSearch] = useState<string>("")
 
-    const[searchResults, setSearchResults] = useState<any>([])
+    const[searchResults, setSearchResults] = useState<artistResponse[] | trackResponse[]>([])
 
     // edit this to allow for songs as well.
     async function fetchData() {
@@ -44,6 +44,8 @@ export function SearchBox(props: prop) {
         console.log(search);
         if (search != "") {
             fetchData();
+        } else {
+            setSearchResults([]);
         }
         console.log(searchResults)
       }, [search]);
@@ -56,11 +58,13 @@ export function SearchBox(props: prop) {
         
         <div className = "search-box">
             <input className = "search-bar" type = "search" placeholder={props.seedType} onChange = {handleChange}></input>
-            {searchResults.map((res : any) => { 
+            {searchResults.map((res : artistResponse | trackResponse) => { 
                 if ("type" in res) {
                     if (res.type == "artist") {
+                        res = res as artistResponse
                         return <ArtistResultCard selectedSeeds={props.selectedSeeds} setSelectedSeeds={props.setSelectedSeeds} resultInfo={res} seedMap={props.seedMap}></ArtistResultCard>
                     } else if (res.type == "track") {
+                        res = res as trackResponse
                         return <TrackResultCard selectedSeeds={props.selectedSeeds} setSelectedSeeds={props.setSelectedSeeds} resultInfo={res} seedMap = {props.seedMap}></TrackResultCard>
                     }
                 } else {

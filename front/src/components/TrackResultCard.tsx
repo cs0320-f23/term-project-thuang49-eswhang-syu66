@@ -12,7 +12,7 @@ interface prop {
 /**
  * All the vital information pertaining to a given track.
  */
-interface trackResponse {
+export interface trackResponse {
     album: {
         images: {
             url: string

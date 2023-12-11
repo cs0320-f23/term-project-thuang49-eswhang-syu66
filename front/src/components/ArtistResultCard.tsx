@@ -7,10 +7,7 @@ interface prop {
     resultInfo: artistResponse;
 }
 
-interface artistResponse {
-    external_urls: any
-    followers: any
-    genres: any
+export interface artistResponse {
     href: string
     id: string
     images: {

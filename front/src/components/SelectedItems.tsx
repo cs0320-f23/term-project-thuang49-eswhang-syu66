@@ -60,6 +60,8 @@ export function SelectedItems( props: prop ) {
     }
 }
 
+
+
   return (
         <div className = "selected-seed" onClick = {() => {unselect(props.seedInfo[1], props.seedInfo[0])}}>
           <img src={props.seedInfo[3]} alt="Item" />
