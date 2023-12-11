@@ -1,18 +1,29 @@
 .continue-button {
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 50%;
+  pointer-events: none;
+}
+
+.continue-button.toggle {
   background-color: #fffdce;
+  opacity: 100%;
+  pointer-events: all;
 }
 
-.content {
+.feats-content {
   height: calc(100vh - 5em);
-  flex-direction: row;
   padding: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
-.content div {
+.feats-content div {
   display: flex;
 }
 
-h3 {
+.feats-content h3 {
   font-size: 3em;
   width: fit-content;
   text-wrap: nowrap;

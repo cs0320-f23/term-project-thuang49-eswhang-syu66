@@ -8,6 +8,7 @@ interface sharedProps {
   setFeatNames: React.Dispatch<React.SetStateAction<string[]>>;
 }
 export function FeatsPage(props: sharedProps) {
+  const { featNames } = props;
   const paramNames: string[] = [
     "Acousticness",
     "Danceability",
@@ -23,21 +24,42 @@ export function FeatsPage(props: sharedProps) {
 
   useEffect(() => {
     document.body.style.backgroundColor = "#C2C4F7";
+    const logo: HTMLElement | null = document.querySelector("a#logo h2");
+    if (logo) {
+      logo.style.color = "black";
+    }
   }, []);
+
+  useEffect(() => {
+    const continueButton = document.getElementById("continue-button");
+    if (featNames.length > 0) {
+      if (continueButton) {
+        continueButton.classList.add("toggle");
+      }
+    } else {
+      if (continueButton) {
+        continueButton.classList.remove("toggle");
+      }
+    }
+  }, [featNames]);
   return (
     <>
       <body>
         <main className="container-fluid">
           <nav className="row flex-nowrap">
-            <a href="/">
+            <a id="logo" href="/">
               <h2>Amplify</h2>
             </a>
-            <button className="continue-button" onClick={() => nav("/seeds")}>
+            <button
+              className="continue-button"
+              id="continue-button"
+              onClick={() => nav("/seeds")}
+            >
               {" "}
               Continue{" "}
             </button>
           </nav>
-          <div className="content">
+          <div className="feats-content">
             <h3>Select parameters</h3>
             <div className="params">
               {paramNames.map((p) => (
