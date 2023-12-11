@@ -182,6 +182,7 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
                 status: "error",
                 error_type: "bad_search",
                 error_message: "search failed; client likely did not authenticate before searching"
+                // console.log(queryResponse)
             }
             res.send(clientResponse)
         }

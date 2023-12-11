@@ -57,7 +57,7 @@ app.get('/fetch_auth', (req: Request, res: Response) => fetchToken(req, res))
 app.get('/search',cors(), (req: Request, res: Response) => searchArtistHandle(req, res, clientAuthToken) )
 
 // to search for a set of recommendations
-app.get('/get_recommendations', (req: Request, res: Response) => getRecommendationsHandle(req, res, clientAuthToken) )
+app.get('/get_recommendations', cors(), (req: Request, res: Response) => getRecommendationsHandle(req, res, clientAuthToken) )
 
 // generates a new playlist for the user.
 app.get('/generate_playlist', cors(), (req: Request, res: Response) => generatePlaylistHandle(req, res, clientAuthToken))

@@ -53,9 +53,9 @@ export function SearchBox(props: prop) {
     console.log(searchResults);
   }, [search]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
-  };
+    function handleChange(event: React.ChangeEvent<HTMLInputElement>)  {
+        setSearch(event.target.value);
+    };
 
   return (
     <div className="search-box">

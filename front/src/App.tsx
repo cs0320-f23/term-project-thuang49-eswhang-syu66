@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { SeedsPage } from './pages/SeedsPage';
 import { SelectFeatsPage } from './pages/SelectFeatsPage';
 import { SelectSeedsPage } from './pages/SelectSeedsPage';
+import { DurationPage } from './pages/DurationsPage';
 
 
 // export interface sharedProps {
@@ -35,8 +36,7 @@ function App() {
         {/* make a duration page, pass in the feats map*/}
 
         <Route path="/duration" element = 
-          {<SelectSeedsPage seedNames = {seedNames} setSeedNames= {setSeedNames} 
-                      seedsMap = {seedsMap}></SelectSeedsPage>}
+          {<DurationPage featsMap={featsMap} seedMap = {seedsMap}></DurationPage>}
         /> 
 
         <Route path="/select-seeds" element = 
