@@ -60,7 +60,9 @@ export function FeatsPage(props: sharedProps) {
             </button>
           </nav>
           <div className="feats-content">
-            <h3>Select parameters</h3>
+            <div className="title">
+              <h3>Select parameters</h3>
+            </div>
             <div className="params">
               {paramNames.map((p) => (
                 <SelectButton

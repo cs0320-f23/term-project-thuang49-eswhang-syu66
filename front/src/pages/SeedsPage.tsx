@@ -1,28 +1,70 @@
 import { useNavigate } from "react-router-dom";
 import { SelectButton } from "../components/SelectButton";
-import "../css/App.css";
-import { InitialAuth } from "../endpoints/InitialAuth";
+import { useEffect } from "react";
+import "../css/FeatsPage.css";
 
 interface sharedProps {
-  seedNames: string[], 
-  setSeedNames: React.Dispatch<React.SetStateAction<string[]>>,
+  seedNames: string[];
+  setSeedNames: React.Dispatch<React.SetStateAction<string[]>>;
 }
 export function SeedsPage(props: sharedProps) {
-  const seedNames : string[] = ["artists", "genres", "tracks"]
+  const { seedNames } = props;
+  const seedNameList: string[] = ["Artists", "Genres", "Tracks"];
 
-  const nav = useNavigate()
+  const nav = useNavigate();
+
+  useEffect(() => {
+    document.body.style.backgroundColor = "#B8DDF9";
+    const logo: HTMLElement | null = document.querySelector("a#logo h2");
+    if (logo) {
+      logo.style.color = "black";
+    }
+  }, []);
+
+  useEffect(() => {
+    const continueButton = document.getElementById("continue-button");
+    if (seedNames.length > 0) {
+      if (continueButton) {
+        continueButton.classList.add("toggle");
+      }
+    } else {
+      if (continueButton) {
+        continueButton.classList.remove("toggle");
+      }
+    }
+  }, [seedNames]);
 
   return (
     <>
       <body>
         <main className="container-fluid">
           <nav className="row flex-nowrap">
-            <a href = "/">
+            <a id="logo" href="/">
               <h2>Amplify</h2>
             </a>
-            <button onClick={() => nav("/select-feats")}> → </button>
+            <button
+              className="continue-button"
+              id="continue-button"
+              onClick={() => nav("/seeds")}
+            >
+              {" "}
+              Continue{" "}
+            </button>
           </nav>
-          {seedNames.map(seed => <SelectButton list = {props.seedNames} listSetter={props.setSeedNames} toAdd={seed}></SelectButton>)}
+          <div className="feats-content">
+            <div className="title">
+              <h3>Select Seeds</h3>
+            </div>
+            <div className="params">
+              {seedNameList.map((seed) => (
+                <SelectButton
+                  list={props.seedNames}
+                  listSetter={props.setSeedNames}
+                  toAdd={seed}
+                ></SelectButton>
+              ))}
+            </div>
+          </div>
         </main>
       </body>
     </>

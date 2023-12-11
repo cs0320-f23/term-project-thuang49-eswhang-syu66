@@ -2,12 +2,14 @@
   background-color: rgba(255, 255, 255, 0.5);
   opacity: 50%;
   pointer-events: none;
+  transition: 0.5s ease;
 }
 
 .continue-button.toggle {
   background-color: #fffdce;
   opacity: 100%;
   pointer-events: all;
+  transition: 0.5s ease;
 }
 
 .feats-content {
@@ -15,7 +17,7 @@
   padding: 2.5em;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
 }
 
@@ -32,6 +34,7 @@
 }
 
 .params {
+  width: max-content;
   justify-content: center;
   flex-wrap: wrap;
 }
