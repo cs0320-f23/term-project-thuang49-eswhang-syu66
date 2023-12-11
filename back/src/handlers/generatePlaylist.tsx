@@ -2,7 +2,6 @@ import { clientId } from "../../private/keys"
 import {Request, Response} from 'express'
 import { AuthKey } from "../handlerUtilities/authObj"
 import { errorMap, successMap } from "../server"
-import { authHandle } from "./auth"
 
 
 
@@ -29,8 +28,8 @@ export async function generatePlaylistHandle(req: Request, res: Response, client
             Authorization: "Bearer " + userToken
         }
     }).then(res => res.json())
-
-    if ("id" !in profileFetch) {
+    
+    if (!("id" in profileFetch)) {
         let clientResponse : errorMap = {
             status: "error",
             error_type: "user_not_found",
@@ -43,7 +42,7 @@ export async function generatePlaylistHandle(req: Request, res: Response, client
     const userid : string = profileFetch.id
 
 
-    // todo make this playlist name customizable.
+    // MAYBE: make this playlist name customizable (make changes to frontend and pass in name as a query param).
     const data = {
         "name": "Amplify Playlist",
         "public": false
@@ -58,7 +57,10 @@ export async function generatePlaylistHandle(req: Request, res: Response, client
         body: JSON.stringify(data)
     }).then(res => res.json())
 
+    console.log(playlist)
+
     // not really sure what this is? checking playlist.status for !201 is sufficient.
+    // i check it this way because the success response does not have a status for some reason
     if ("status" in playlist) {
         let clientResponse : errorMap = {
             status: "error",
@@ -76,14 +78,11 @@ export async function generatePlaylistHandle(req: Request, res: Response, client
     // stopped here 
 
 
-    const playlist_id = playlist.data.id
+    const playlist_id = playlist.id
+    console.log(playlist_id)
       
-    const url = playlist.data.external_urls.spotify
-
-    let uri_string = ""
-    // for (const uri of songs) {
-    //   uri_string += uri + ","
-    // }
+    // format for query param should be comma separated, example: url?songs=spotify%3Atrack%3A4iV5W9uYEdYUVa79Axb7Rh,spotify%3Atrack%3A1301WleyT98MSxVHPZCA6M
+    const uri_string = req.query.songs
 
     const addSongs = await fetch("https://api.spotify.com/v1/playlists/" + playlist_id + "/tracks?uris=" + uri_string, {
       method: 'POST',
@@ -91,6 +90,8 @@ export async function generatePlaylistHandle(req: Request, res: Response, client
         Authorization: "Bearer " + userToken,
       }
     }).then(res => res.json())
+
+    console.log(addSongs)
 
     if ("snapshot_id" in addSongs) {
         let clientResponse : successMap = {
