@@ -1,0 +1,58 @@
+.continue-button {
+  background-color: #fffdce;
+}
+
+.content {
+  height: calc(100vh - 5em);
+  flex-direction: row;
+  padding: 2.5em;
+}
+
+.content div {
+  display: flex;
+}
+
+h3 {
+  font-size: 3em;
+  width: fit-content;
+  text-wrap: nowrap;
+  color: black;
+  font-weight: 600;
+}
+
+.params {
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.params button {
+  margin: 0.5em;
+  font-weight: 400;
+  font-size: 2em;
+  border-radius: 1.5em;
+}
+
+/* select buttons on params and seeds */
+.select-button {
+  opacity: 50%;
+  background-color: transparent;
+  border: 0;
+  transition: 0.25s ease;
+}
+
+.select-button:hover {
+  opacity: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: 0.25s ease;
+}
+
+.select-button-clicked {
+  background-color: #fffdce;
+  border: 0;
+  transition: 0.25s ease;
+}
+
+.select-button-clicked:hover {
+  opacity: 75%;
+  transition: 0.25s ease;
+}
