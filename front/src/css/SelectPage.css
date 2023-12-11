@@ -1,0 +1,297 @@
+.continue-button {
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 50%;
+  pointer-events: none;
+  transition: 0.5s ease;
+}
+
+.continue-button.toggle {
+  background-color: #fffdce;
+  opacity: 100%;
+  pointer-events: all;
+  transition: 0.5s ease;
+}
+
+.select-content {
+  height: calc(100vh - 5em);
+  padding: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.select-content h3 {
+  font-size: 3em;
+  width: fit-content;
+  text-wrap: nowrap;
+  color: white;
+  font-weight: 600;
+}
+
+.select {
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.select button {
+  margin: 0.5em;
+  font-weight: 400;
+  font-size: 2em;
+  border-radius: 1.5em;
+}
+
+/* slider  */
+
+.slide-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 50em;
+  height: 3em;
+}
+/* .double-slider width must be the same as .double-slier input[type=range] width*/
+.double-slider {
+  width: calc(100% - 2em);
+  top: -1em;
+}
+
+/* actual range */
+.double-slider input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 5em;
+  position: absolute;
+  pointer-events: none;
+  width: calc(100% - 2em);
+  height: 2em;
+  margin: 0 1em;
+}
+
+/* dragger/selector */
+.double-slider input::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+
+  background-color: transparent;
+  border-radius: 4em;
+  width: 3em;
+  height: 2em;
+
+  cursor: pointer;
+  pointer-events: all;
+  position: relative;
+  z-index: 1;
+}
+
+.double-slider input::-moz-range-thumb {
+  pointer-events: all;
+}
+
+.double-slider input::-moz-range-track {
+  z-index: -1;
+}
+
+.double-slider input[type="range"]::-webkit-slider-runnable-track {
+  border-radius: 4em;
+}
+.double-slider input:last-of-type::-moz-range-track {
+  -moz-appearance: none;
+  background: none transparent;
+  border: 0;
+}
+
+/*  parent component in the front that houses all of the sliders*/
+.select-feat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 1em 0;
+}
+
+/*  search bar styling*/
+
+.search-box input[type="search"] {
+  background: none;
+  outline: none;
+  border: none;
+  border-bottom: 1px white solid;
+  width: 50vw;
+}
+
+::placeholder {
+  color: white;
+  font-weight: 100;
+  opacity: 0.5;
+  font-size: 0.75em;
+}
+
+/* artist search results */
+
+.artist-result-card {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 1rem;
+  border: white 1px solid;
+  padding: 1rem;
+  background-color: rgb(197, 197, 197, 0.25);
+  align-content: center;
+  align-items: center;
+  width: 25rem;
+
+  cursor: grab;
+
+  position: relative;
+  transition: left ease 0.25s;
+  margin-bottom: 0.05rem;
+}
+
+.artist-result-card:hover {
+  left: 10px;
+}
+.artist-result-card:active {
+  background-color: #e4fd7f61;
+  border: 1px #e3fd7f solid;
+}
+/* .artist-result-card-added {
+  
+  display:flex;
+  justify-content: space-between;
+  border-radius: 1rem;
+
+  padding:1rem;
+  align-content: center;
+  align-items:center;
+  width: 25rem;
+
+  cursor:grab;
+  border: 1px #e3fd7f solid;
+  background-color: #e4fd7f54;
+
+  margin-bottom: 0.05rem;
+
+
+}
+ .artist-result-card-added:hover{
+  left: 10px;
+} */
+
+/* track search results*/
+.track-result-card {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 1rem;
+  border: white 1px solid;
+  padding: 1rem;
+  background-color: rgb(197, 197, 197, 0.25);
+  align-content: center;
+  align-items: center;
+  width: 30rem;
+
+  cursor: grab;
+
+  position: relative;
+  transition: left ease 0.25s;
+  margin-bottom: 0.05rem;
+}
+.track-result-card:hover {
+  left: 10px;
+}
+.track-result-card:active {
+  background-color: #e3fd7f;
+}
+
+/* .track-result-card-added {
+  display:flex;
+  justify-content: space-between;
+  border-radius: 1rem;
+  border: white 1px solid;
+  padding:1rem;
+  background-color:   rgb(197, 197, 197, 0.25);
+  align-content: center;
+  align-items:center;
+  width: 30rem;
+
+  cursor:grab;
+
+  position: relative;
+  transition: left ease 0.25s;
+
+  border: 1px #e3fd7f solid;
+  background-color: #e4fd7f54;
+  margin-bottom: 0.05rem;
+
+
+} */
+.track-result-card-added:hover {
+  left: 10px;
+}
+
+.artist-names {
+  font-size: 12px;
+}
+
+/* search result container*/
+.search-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.select-seed {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0.5em 0;
+}
+
+/* modifying the acutal search bar*/
+.search-bar {
+  color: #fafafa;
+  font-size: 2em;
+
+  background-color: blue;
+}
+
+.selected-seed {
+  display: flex;
+  padding: 0.5rem;
+  flex-direction: row;
+  border-radius: 3rem;
+  border: 1px white solid;
+  justify-content: space-around;
+
+  align-items: center;
+  cursor: grab;
+}
+
+.selected-seed:hover {
+  transform: scale(1.05);
+  background-color: #fafafa59;
+}
+
+.selected-seed img {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.25rem;
+  margin-left: 0.5rem;
+}
+.selected-seed-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.search-icon {
+  float: right;
+  margin-left: -1.5em;
+  top: 1vh;
+  height: 1.5em;
+  width: 1.5em;
+  opacity: 0.5;
+}

@@ -22,7 +22,9 @@ export function InitialAuth() {
 
   return (
     <div>
-      <button onClick={auth}>Get Started</button>
+      <button className="get-started-button" onClick={auth}>
+        Get Started
+      </button>
       <p>{error}</p>
     </div>
   );

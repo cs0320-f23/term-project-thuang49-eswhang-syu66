@@ -1,0 +1,72 @@
+.continue-button {
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 50%;
+  pointer-events: none;
+  transition: 0.5s ease;
+}
+
+.continue-button.toggle {
+  background-color: #fffdce;
+  opacity: 100%;
+  pointer-events: all;
+  transition: 0.5s ease;
+}
+
+.params-content {
+  height: calc(100vh - 5em);
+  padding: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.params-content div {
+  display: flex;
+}
+
+.params-content h3 {
+  font-size: 3em;
+  width: fit-content;
+  text-wrap: nowrap;
+  color: black;
+  font-weight: 600;
+}
+
+.params {
+  width: max-content;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.params button {
+  margin: 0.5em;
+  font-weight: 400;
+  font-size: 2em;
+  border-radius: 1.5em;
+}
+
+/* select buttons on params and seeds */
+.select-button {
+  opacity: 50%;
+  background-color: transparent;
+  border: 0;
+  transition: 0.25s ease;
+}
+
+.select-button:hover {
+  opacity: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: 0.25s ease;
+}
+
+.select-button-clicked {
+  background-color: #fffdce;
+  border: 0;
+  transition: 0.25s ease;
+}
+
+.select-button-clicked:hover {
+  opacity: 75%;
+  transition: 0.25s ease;
+}

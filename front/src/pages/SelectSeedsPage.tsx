@@ -2,54 +2,81 @@ import { useEffect, useState } from "react";
 import { SearchBox } from "../components/SearchBox";
 import { SelectedItems } from "../components/SelectedItems";
 import { useNavigate } from "react-router-dom";
+import "../css/SelectPage.css";
 
 interface sharedProps {
-    seedNames: string[], 
-    setSeedNames: React.Dispatch<React.SetStateAction<string[]>>,
-    seedsMap: Map<String, String[]>
-  }
+  seedNames: string[];
+  setSeedNames: React.Dispatch<React.SetStateAction<string[]>>;
+  seedsMap: Map<string, string[]>;
+}
 
-export function SelectSeedsPage(props :sharedProps) {
-
+export function SelectSeedsPage(props: sharedProps) {
   //selected seeds is an array of arrays where each inner array has the following elements:
   // [0] = id (of the track or artist)
   // [1] = category (indicating track or artit)
-  // [2] = name 
+  // [2] = name
   // [3] = image path
-  const [selectedSeeds, setSelectedSeeds] = useState<string[][]>([])
+  const [selectedSeeds, setSelectedSeeds] = useState<string[][]>([]);
 
+  const [selectedList, setSelectedList] = useState<JSX.Element[]>([]);
 
-  const [selectedList, setSelectedList] = useState<JSX.Element[]>([])
-  
   function makeSelectedCards() {
-    setSelectedList(selectedSeeds.map(obj => <SelectedItems seedsMap = {props.seedsMap} seedInfo={obj} selectedSeeds={selectedSeeds} setSelectedSeeds={setSelectedSeeds}></SelectedItems>))
+    setSelectedList(
+      selectedSeeds.map((obj) => (
+        <SelectedItems
+          seedsMap={props.seedsMap}
+          seedInfo={obj}
+          selectedSeeds={selectedSeeds}
+          setSelectedSeeds={setSelectedSeeds}
+        ></SelectedItems>
+      ))
+    );
   }
   useEffect(() => {
     // console.log(props.)
-    makeSelectedCards()
-    console.log(props.seedsMap)
-    console.log(selectedSeeds)
-  }, [selectedSeeds])
+    makeSelectedCards();
+    console.log(props.seedsMap);
+    console.log(selectedSeeds);
+  }, [selectedSeeds]);
 
+  useEffect(() => {
+    document.body.style.backgroundColor = "#335B79";
+  }, []);
   const nav = useNavigate();
-    return (
-        <>
-          <body>
-            <main className="container-fluid">
-              <nav className="row flex-nowrap">
-                <a href = "/">
-                <h2>Amplify</h2>
-                </a>
-                <button onClick={() => nav("/select-seeds")}> → </button>
-              </nav>
-              <div className="search-container">
-              {props.seedNames.map(seed => <SearchBox seedType={seed} seedMap={props.seedsMap} selectedSeeds={selectedSeeds} setSelectedSeeds={setSelectedSeeds}></SearchBox>)}
-              </div>
-              <div className = "selected-seed-container">
-                {selectedList}
-              </div>
-            </main>
-          </body>
-        </>
-      );
+  return (
+    <>
+      <body>
+        <main className="container-fluid">
+          <nav className="row flex-nowrap">
+            <a id="logo" href="/">
+              <h2>Amplify</h2>
+            </a>
+            <button
+              className="continue-button toggle"
+              id="continue-button"
+              onClick={() => nav("/duration")}
+            >
+              Continue
+            </button>
+          </nav>
+          <div className="select-content">
+            <div className="search-container">
+              {props.seedNames.map((seed) => (
+                <div className="select-seed">
+                  <h3>{seed}</h3>
+                  <SearchBox
+                    seedType={seed.toLowerCase()}
+                    seedMap={props.seedsMap}
+                    selectedSeeds={selectedSeeds}
+                    setSelectedSeeds={setSelectedSeeds}
+                  ></SearchBox>
+                </div>
+              ))}
+            </div>
+            <div className="selected-seed-container">{selectedList}</div>
+          </div>
+        </main>
+      </body>
+    </>
+  );
 }
