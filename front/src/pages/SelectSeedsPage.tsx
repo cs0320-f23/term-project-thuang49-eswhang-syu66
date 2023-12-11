@@ -39,6 +39,9 @@ export function SelectSeedsPage(props: sharedProps) {
     console.log(selectedSeeds);
   }, [selectedSeeds]);
 
+  useEffect(() => {
+    document.body.style.backgroundColor = "#335B79";
+  }, []);
   const nav = useNavigate();
   return (
     <>
@@ -49,25 +52,29 @@ export function SelectSeedsPage(props: sharedProps) {
               <h2>Amplify</h2>
             </a>
             <button
-              className="continue-button"
+              className="continue-button toggle"
               id="continue-button"
               onClick={() => nav("/duration")}
             >
-              {" "}
-              Continue{" "}
+              Continue
             </button>
           </nav>
-          <div className="search-container">
-            {props.seedNames.map((seed) => (
-              <SearchBox
-                seedType={seed}
-                seedMap={props.seedsMap}
-                selectedSeeds={selectedSeeds}
-                setSelectedSeeds={setSelectedSeeds}
-              ></SearchBox>
-            ))}
+          <div className="select-content">
+            <div className="search-container">
+              {props.seedNames.map((seed) => (
+                <div className="select-seed">
+                  <h3>{seed}</h3>
+                  <SearchBox
+                    seedType={seed.toLowerCase()}
+                    seedMap={props.seedsMap}
+                    selectedSeeds={selectedSeeds}
+                    setSelectedSeeds={setSelectedSeeds}
+                  ></SearchBox>
+                </div>
+              ))}
+            </div>
+            <div className="selected-seed-container">{selectedList}</div>
           </div>
-          <div className="selected-seed-container">{selectedList}</div>
         </main>
       </body>
     </>
