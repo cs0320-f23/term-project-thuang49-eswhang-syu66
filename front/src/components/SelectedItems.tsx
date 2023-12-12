@@ -20,30 +20,6 @@ interface prop {
  * @returns component 
  */
 export function SelectedItems( props: prop ) {
-//   const [queryResult, setQueryResult] = useState<queryResponse | null>(null);
-
-//   useEffect(() => {
-//     fetchCall(props.category, props.id);
-//     console.log(queryResult)
-//   }, []); // Empty dependency array to run only once when the component mounts
-
-
-//   async function fetchCall(category: String, id: String) {
-//     try {
-//       const url = `http://localhost:3000/search_id?category=${category}&id=${id}`;
-//       const response = await fetch(url).then(res => res.json());
-
-//       console.log(response)
-
-//       if (response.status === "success") {
-//         setQueryResult(response);
-//       } else {
-//         console.error("Faulty request");
-//       }
-//     } catch (error) {
-//       console.error("Error fetching data:", error);
-//     }
-//   }
 
   /**
    * unselects something (removes a track or a song) from the shared state objects.

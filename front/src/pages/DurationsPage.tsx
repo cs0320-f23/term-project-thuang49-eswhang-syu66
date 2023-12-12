@@ -1,10 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import "../css/App.css";
 import { useEffect, useState } from "react";
+import { trackResponse } from "../components/TrackResultCard";
 
 interface sharedProps {
     seedMap: Map<String, String[]>
     featsMap: Map<String, Number>
+
+    returnedTracks: trackResponse[]
+    setReturnedTracks: React.Dispatch<React.SetStateAction<trackResponse[]>>;
+
+    totalTime: number
+    setTotalTime: React.Dispatch<React.SetStateAction<number>>;
+
+    noSongs: number
+    setNoSongs: React.Dispatch<React.SetStateAction<number>>;
 }
 
 /**
@@ -58,9 +68,17 @@ export function DurationPage(props: sharedProps) {
       let duration = `${mode}=${totalDuration}`
       const finalQuery = await fetch(baseurl + url + duration).then(res => res.json())
 
+      if (finalQuery.status == "success") {
+        props.setReturnedTracks(finalQuery.data.tracks)
+        props.setNoSongs(finalQuery.data.no_songs)
+        props.setTotalTime(finalQuery.data.total_ms)
+        nav('/results')
+
+      } else {
+        console.error("error ocurred in fetch; could not perform query")
+      }
       console.log(finalQuery)
       console.log(baseurl + url + duration)
-    // nav('/results')
   }
   return (
     <>
@@ -148,18 +166,21 @@ function NumberSelector(props: prop) {
     function renderComp() {
         if (props.mode == "duration") {
             return (
-                <div>
-                    <input type = "number" onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                <div className = "enter-time">
+                    <input type = "number" className = "hour-selector" onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         return changeVal(event, setHour)}} max = "4" value = {hour}></input>
-                    <input type = "number" onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        <label>hr</label>
+                    <input type = "number" className = "minute-selector" onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         return changeVal(event, setVal)}} max = "59" value = {val}></input>  
+                        <label>min</label>
                 </div>
             )
         } else if (props.mode == "number") {
             return (   
-                <div>
-                    <input type = "number" onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                <div className = "enter-time">
+                    <input className = "minute-selector" type = "number" onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         return changeVal(event, setVal)}} max = "100" value = {val}></input>  
+                        <label>no. songs</label>
                 </div>)
         } else {
             console.error("mode not duration or number")

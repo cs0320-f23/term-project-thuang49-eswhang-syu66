@@ -11,7 +11,7 @@ interface sharedProps {
 }
 
 export function SelectSeedsPage(props: sharedProps) {
-  //selected seeds is an array of arrays where each inner array has the following elements:
+  // selected seeds is an array of arrays where each inner array has the following elements:
   // [0] = id (of the track or artist)
   // [1] = category (indicating track or artit)
   // [2] = name

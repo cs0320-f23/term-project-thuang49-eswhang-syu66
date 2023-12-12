@@ -1,20 +1,51 @@
-import { UserAuth } from "../endpoints/UserAuth";
-import { useParams, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
+import { trackResponse } from "../components/TrackResultCard";
+import { RecommendedTrackCard } from "../components/RecommendedTrackCard";
 
-export function ResultsPage() {
 
-    let [searchParams] = useSearchParams();
+interface sharedProps {
+  returnedTracks: trackResponse[]
+  setReturnedTracks: React.Dispatch<React.SetStateAction<trackResponse[]>>;
+
+  totalTime: number
+  setTotalTime: React.Dispatch<React.SetStateAction<number>>;
+
+  noSongs: number
+  setNoSongs: React.Dispatch<React.SetStateAction<number>>;
+
+  authToken: string
+}
+
+export function ResultsPage(props: sharedProps) {
+
+    async function createPlaylist(authToken: string) {
+      let url = "http://localhost:3000/generate_playlist?"
+      url += `${'userToken'}=${authToken}&`
+      url += `songs=${props.returnedTracks.map(track => track.uri).join(',')}`
+      console.log(url)
+      let genPlaylist = await fetch(url).then(res => res.json())
+
+      if (genPlaylist.status === "success") {
+        console.log('successfully addded to library')
+      } else {
+        console.error('error occurred in adding to library')
+      }
+    }
 
     useEffect(() => {
-      const authToken = searchParams.get("success")
-      if (authToken == null) {
-        console.log("don't do anything")
+      const continueButton = document.getElementById("continue-button");
+      if (props.authToken === "") {
+        if (continueButton) {
+          continueButton.classList.add("toggle");
+        }
       } else {
-        console.log("do something with the token ")
+        if (continueButton) {
+          continueButton.classList.remove("toggle");
+        }
       }
-    })
+    }, []);
 
+    // aa
     return (
       <>
         <body>
@@ -23,10 +54,18 @@ export function ResultsPage() {
               <a href = "/">
                 <h2>Amplify</h2>
               </a>
-              <UserAuth></UserAuth>
+              <button className="get-started-button" id="continue-button" onClick={() => createPlaylist(props.authToken)}>
+                Add to Library
+              </button>
             </nav>
+
+            <div>
+              {props.returnedTracks.map(track =>   
+             <RecommendedTrackCard resultInfo = {track}></RecommendedTrackCard>)}
+            </div>
           </main>
         </body>
       </>
     );
   }
+

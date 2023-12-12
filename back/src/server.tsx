@@ -4,10 +4,11 @@ import cors from 'cors';
 import { test } from './handlers/test';
 import {AuthKey} from './handlerUtilities/authObj'
 import { initialAuth } from './handlers/initialAuth';
-import { searchArtistHandle } from './handlers/searchArtist';
+import { searchHandle } from './handlers/search';
 import { getRecommendationsHandle } from './handlers/getRecommendations';
 import { generatePlaylistHandle } from './handlers/generatePlaylist';
 import { search_uid } from './handlers/UIDSearch';
+import { getGenres } from './handlers/getGenres';
 
 
 
@@ -54,7 +55,7 @@ app.get('/fetch_auth', (req: Request, res: Response) => fetchToken(req, res))
 // app.get('/test', (req: Request, res: Response) => test(req, res, userAuthToken))
 
 // to search an artist and get their uri -- needs the client Auth Token
-app.get('/search',cors(), (req: Request, res: Response) => searchArtistHandle(req, res, clientAuthToken) )
+app.get('/search',cors(), (req: Request, res: Response) => searchHandle(req, res, clientAuthToken) )
 
 // to search for a set of recommendations
 app.get('/get_recommendations', cors(), (req: Request, res: Response) => getRecommendationsHandle(req, res, clientAuthToken) )
@@ -64,6 +65,9 @@ app.get('/generate_playlist', cors(), (req: Request, res: Response) => generateP
 
 // searches for an artist or track based on the id
 app.get('/search_id', cors(), (req: Request, res: Response) => search_uid(req, res, clientAuthToken))
+
+// retrives all available genres
+app.get('/get_genres', cors(), (req: Request, res: Response) => getGenres(req, res, clientAuthToken))
 
 app.listen(port, () => {
     console.log('Server running on http://localhost:' + port)

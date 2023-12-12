@@ -2,8 +2,21 @@ import "../css/App.css";
 import { useState, useEffect } from "react";
 import MusicGraph from "../components/MusicGraph";
 import { InitialAuth } from "../endpoints/InitialAuth";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
-export function HomePage() {
+interface prop {
+  authToken: string
+  setAuthToken: React.Dispatch<React.SetStateAction<string>>
+}
+export function HomePage(props: prop) {
+
+  // checking for the presence of an authentication token
+  let [searchParams] = useSearchParams();
+  const authToken = searchParams.get("success")
+
+  const navigate = useNavigate()
+
+  const [nav, setNav] = useState<JSX.Element>()
   const [word, setWord] = useState<string>("dancing");
   const [barData, setBarData] = useState<string[][]>([
     ["2em", "", ""],
@@ -126,6 +139,35 @@ export function HomePage() {
     }, 3000);
   }, [step]);
 
+ 
+
+  useEffect(() => {
+    // console.log(props.returnedTracks)
+    if (authToken == null) {
+      setNav(
+        <InitialAuth></InitialAuth>
+      )
+    } else {
+      // we set the authentication token in the beginning and carry it throughout
+      // the user experience.
+      console.log("do something with the token ")
+
+
+      props.setAuthToken(authToken)
+
+      setNav(
+        <div>
+            <button
+            className="get-started-button"
+            id="continue-button"
+            onClick={() => navigate("/feats")}>
+              Continue
+              <p style = {{fontSize: "4px"}}><i>authenticated</i></p>
+          </button>
+        </div>           
+    )}}, [])
+
+
   return (
     <>
       <body>
@@ -134,7 +176,7 @@ export function HomePage() {
             <a id="logo" href="/">
               <h2>Amplify</h2>
             </a>
-            <InitialAuth />
+            {nav}
           </nav>
           <div className="content">
             <MusicGraph barData={barData} />

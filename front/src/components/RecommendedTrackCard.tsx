@@ -1,70 +1,20 @@
-import { useEffect} from "react";
+import { useEffect } from "react";
+import { trackResponse } from "./TrackResultCard";
 
 interface prop {
-    selectedSeeds: string[][], 
-    setSelectedSeeds: React.Dispatch<React.SetStateAction<string[][]>>,
 
-    seedMap: Map<String, String[]>,
 
     resultInfo: trackResponse;
 }
-
-/**
- * All the vital information pertaining to a given track.
- */
-export interface trackResponse {
-    album: {
-        images: {
-            url: string
-            height: number
-            width: number
-        }[]
-    }
-    artists: {
-        name: string
-    }[]
-    id: string
-    name: string
-    type: string
-    duration_ms: number
-    uri:string
-}
-
 /**
  * This component defines the drop down search results from searching for a track
  * @param props of type prop is defined by the interface above.
  * @returns a component containing information about a given track.
  */
-export function TrackResultCard(props: prop) {
+export function RecommendedTrackCard(props: prop) {
 
     useEffect(() => {
     } ,[props.resultInfo])
-
-    /**
-     * This function adds a track to the seedsMap in addition to the seeds list.
-     */
-    function addTrack() {
-        if (!(props.selectedSeeds.map(x => x[0]).includes(props.resultInfo.id))) {
-
-            // selectedSeeds keeps track of the id, category, name and image
-            props.setSelectedSeeds([... props.selectedSeeds, [props.resultInfo.id, "tracks", props.resultInfo.name, returnImages()]])
-
-            //updating seeds map
-            let existing: String[] | undefined = props.seedMap.get("tracks")!;
-            if (existing !== undefined) {
-                props.seedMap.set("tracks", [...existing, props.resultInfo.id]);
-            } else {
-                props.seedMap.set("tracks", [props.resultInfo.id]);
-            }
-
-        } else {
-            props.setSelectedSeeds(props.selectedSeeds.filter(obj => !(obj.includes(props.resultInfo.id))))
-            let existing = props.seedMap.get("tracks");
-            if ( existing !== undefined) {
-                props.seedMap.set("tracks", existing.filter(obj => obj!= props.resultInfo.id))
-            }
-        }
-    }
 
     /**
      * Extracts the artis information from a given track. must loop through all artists
@@ -123,7 +73,7 @@ export function TrackResultCard(props: prop) {
         }
     }
     return (
-        <div className = {"track-result-card"} id = {"tracks"+props.resultInfo.id} onClick = {addTrack}>
+        <div className = {"track-result-card"} id = {"tracks"+props.resultInfo.id}>
             <div style = {{display: "flex", alignItems:"center"}}>
                 <img src = {returnImages()} style = {{width:"50px", height:"50px", marginRight: "1rem"}}/>
                 <div>

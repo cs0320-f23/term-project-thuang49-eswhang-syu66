@@ -5,7 +5,7 @@ import { errorMap, successMap } from "../server"
 
 
 
-export async function searchArtistHandle(req: Request, res: Response, token: AuthKey) {
+export async function searchHandle(req: Request, res: Response, token: AuthKey) {
     console.log(req.query.artists)
     console.log(req.query.tracks)
     
