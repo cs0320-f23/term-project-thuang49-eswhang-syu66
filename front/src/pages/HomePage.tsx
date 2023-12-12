@@ -5,18 +5,17 @@ import { InitialAuth } from "../endpoints/InitialAuth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 interface prop {
-  authToken: string
-  setAuthToken: React.Dispatch<React.SetStateAction<string>>
+  authToken: string;
+  setAuthToken: React.Dispatch<React.SetStateAction<string>>;
 }
 export function HomePage(props: prop) {
-
   // checking for the presence of an authentication token
-  let [searchParams] = useSearchParams();
-  const authToken = searchParams.get("success")
+  const [searchParams] = useSearchParams();
+  const authToken = searchParams.get("success");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [nav, setNav] = useState<JSX.Element>()
+  const [nav, setNav] = useState<JSX.Element>();
   const [word, setWord] = useState<string>("dancing");
   const [barData, setBarData] = useState<string[][]>([
     ["2em", "", ""],
@@ -139,34 +138,30 @@ export function HomePage(props: prop) {
     }, 3000);
   }, [step]);
 
- 
-
   useEffect(() => {
     // console.log(props.returnedTracks)
     if (authToken == null) {
-      setNav(
-        <InitialAuth></InitialAuth>
-      )
+      setNav(<InitialAuth></InitialAuth>);
     } else {
       // we set the authentication token in the beginning and carry it throughout
       // the user experience.
-      console.log("do something with the token ")
+      console.log("do something with the token ");
 
-
-      props.setAuthToken(authToken)
+      props.setAuthToken(authToken);
 
       setNav(
         <div>
-            <button
+          <button
             className="get-started-button"
             id="continue-button"
-            onClick={() => navigate("/feats")}>
-              Continue
-              <p style = {{fontSize: "4px"}}><i>authenticated</i></p>
+            onClick={() => navigate("/feats")}
+          >
+            Continue
           </button>
-        </div>           
-    )}}, [])
-
+        </div>
+      );
+    }
+  }, []);
 
   return (
     <>
