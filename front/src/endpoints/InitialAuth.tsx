@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export function InitialAuth() {
-  const nav = useNavigate();
   const [authUrl, setAuthUrl] = useState('');
   const[error, setError] = useState<string>('')
 
@@ -15,7 +13,6 @@ export function InitialAuth() {
       console.log(response);
 
       if (response.status === 'success') {
-        // nav("/feats");
         setAuthUrl('http://localhost:3000/auth');
       } else {
         setError('Could not proceed with the user flow; please refresh or contact admin.')

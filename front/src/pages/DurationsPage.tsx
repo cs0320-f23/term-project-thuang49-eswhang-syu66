@@ -166,18 +166,21 @@ function NumberSelector(props: prop) {
     function renderComp() {
         if (props.mode == "duration") {
             return (
-                <div>
-                    <input type = "number" onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                <div className = "enter-time">
+                    <input type = "number" className = "hour-selector" onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         return changeVal(event, setHour)}} max = "4" value = {hour}></input>
-                    <input type = "number" onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        <label>hr</label>
+                    <input type = "number" className = "minute-selector" onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         return changeVal(event, setVal)}} max = "59" value = {val}></input>  
+                        <label>min</label>
                 </div>
             )
         } else if (props.mode == "number") {
             return (   
-                <div>
-                    <input type = "number" onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                <div className = "enter-time">
+                    <input className = "minute-selector" type = "number" onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         return changeVal(event, setVal)}} max = "100" value = {val}></input>  
+                        <label>no. songs</label>
                 </div>)
         } else {
             console.error("mode not duration or number")

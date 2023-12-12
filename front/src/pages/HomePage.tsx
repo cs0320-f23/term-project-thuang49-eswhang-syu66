@@ -165,10 +165,7 @@ export function HomePage(props: prop) {
               <p style = {{fontSize: "4px"}}><i>authenticated</i></p>
           </button>
         </div>           
-)
-
-    }
-  }, [])
+    )}}, [])
 
 
   return (

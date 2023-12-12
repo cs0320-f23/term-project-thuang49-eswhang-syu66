@@ -1,4 +1,3 @@
-import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { trackResponse } from "../components/TrackResultCard";
 import { RecommendedTrackCard } from "../components/RecommendedTrackCard";
@@ -19,8 +18,6 @@ interface sharedProps {
 
 export function ResultsPage(props: sharedProps) {
 
-    let [searchParams] = useSearchParams();
-
     async function createPlaylist(authToken: string) {
       let url = "http://localhost:3000/generate_playlist?"
       url += `${'userToken'}=${authToken}&`
@@ -28,14 +25,11 @@ export function ResultsPage(props: sharedProps) {
       console.log(url)
       let genPlaylist = await fetch(url).then(res => res.json())
 
-
       if (genPlaylist.status === "success") {
         console.log('successfully addded to library')
       } else {
         console.error('error occurred in adding to library')
       }
-
-
     }
 
     useEffect(() => {

@@ -22,7 +22,7 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
         if (req.query.seed_artists != undefined) {
             url += `seed_artists=${req.query.seed_artists}&`
         }
-        if (req.query.seed_artists != undefined) {
+        if (req.query.seed_genres != undefined) {
             url += `seed_genres=${req.query.seed_genres}&`
         }
         if (req.query.seed_tracks != undefined) {
