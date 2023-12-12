@@ -11,7 +11,10 @@ interface prop {
 
 export function GenreResultCard(props: prop) {
   function addTrack() {
-    if (!props.selectedSeeds.map((x) => x[0]).includes(props.resultInfo.data)) {
+    if (
+      !props.selectedSeeds.map((x) => x[0]).includes(props.resultInfo.data) &&
+      props.selectedSeeds.length < 5
+    ) {
       // selectedSeeds keeps track of the id, category, name and image
       // TODO: replace the fourth argument with a valid photo path.
       props.setSelectedSeeds([

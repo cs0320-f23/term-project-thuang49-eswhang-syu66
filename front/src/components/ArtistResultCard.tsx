@@ -34,7 +34,10 @@ export function ArtistResultCard(props: prop) {
    */
   function addArtist() {
     // adding
-    if (!props.selectedSeeds.map((x) => x[0]).includes(props.resultInfo.id)) {
+    if (
+      !props.selectedSeeds.map((x) => x[0]).includes(props.resultInfo.id) &&
+      props.selectedSeeds.length < 5
+    ) {
       // updating the seedsMap
       const existing: string[] | undefined = props.seedMap.get("artists")!;
       console.log("artists" in props.seedMap);

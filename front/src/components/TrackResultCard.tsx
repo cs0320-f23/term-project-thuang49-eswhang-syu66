@@ -42,7 +42,10 @@ export function TrackResultCard(props: prop) {
    * This function adds a track to the seedsMap in addition to the seeds list.
    */
   function addTrack() {
-    if (!props.selectedSeeds.map((x) => x[0]).includes(props.resultInfo.id)) {
+    if (
+      !props.selectedSeeds.map((x) => x[0]).includes(props.resultInfo.id) &&
+      props.selectedSeeds.length < 5
+    ) {
       // selectedSeeds keeps track of the id, category, name and image
       props.setSelectedSeeds([
         ...props.selectedSeeds,

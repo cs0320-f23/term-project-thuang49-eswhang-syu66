@@ -40,18 +40,15 @@ export function SelectedItems(props: prop) {
 
   return (
     <div
-      className="selected-seed"
+      className={"selected-seed-" + props.seedInfo[1] + " selected-seed"}
       onClick={() => {
         unselect(props.seedInfo[1], props.seedInfo[0]);
       }}
     >
       <img src={props.seedInfo[3]} alt="Item" />
-      {/* <category : name> */}
-      <p>
-        {props.seedInfo[1]} : {props.seedInfo[2]}
-      </p>
+      <p>{props.seedInfo[2]}</p>
       <div>
-        <b>✕</b>
+        <b className="close">✕</b>
       </div>
     </div>
   );
