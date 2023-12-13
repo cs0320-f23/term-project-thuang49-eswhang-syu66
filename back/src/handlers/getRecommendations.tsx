@@ -154,9 +154,15 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
             url += `target_valence=${req.query.target_valence}&`
         }
 
+
+        let isLimitNum = false
+        let limit = 0
+
         // taking care of length of playlist: 
         if (req.query.number != undefined) {
             url += `limit=${req.query.number}`
+            isLimitNum = true
+            limit = Number(req.query.number)
         } else {
             url += `limit=100`
         }
@@ -177,18 +183,41 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
 
         if ("tracks" in queryResponse) {
 
-            // @TODO: use the fischer gates algorithm to SHUFFLE the returned list of tracks. 
-            // this prevents the same set of queries from returning the same thing everytime
+            let tracks = queryResponse.tracks
+            if (!isLimitNum) {
+                limit = Number(req.query.timeLimit) // given a timeLimit, it is assumed the limit is given in ms
+            }
 
-            // @TODO: Implement the duration filtering function. (look in each track's duration_ms field and accumulate it until it's just
-            // gone over the limit specified by the user.)
+            // using Fisher-Yates algorithm to shuffle the returned list of tracks
+            for (let i = tracks.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1)); 
+                [tracks[i], tracks[j]] = [tracks[j], tracks[i]];
+            } 
+
+            // limit filtering function (can either limit by amount of songs or playlist duration)
+            let tracksToAdd = []
+            let numSongs = 0
+            let playlistDuration = 0
+            if (isLimitNum) {
+                while (numSongs < limit) { 
+                    tracksToAdd.push(tracks[numSongs])
+                    numSongs += 1
+                    playlistDuration += tracks[numSongs].duration_ms
+                }
+            } else {
+                while (numSongs < 100 && playlistDuration < limit) {
+                    tracksToAdd.push(tracks[numSongs])
+                    numSongs += 1
+                    playlistDuration += tracks[numSongs].duration_ms
+                }
+            }
 
             let clientResponse : successMap = {
                 status: "success",
                 data: { 
-                    tracks: queryResponse.tracks, // change this to reflect the shuffling function and filtering functionality
-                    total_ms: 0, //@ TODO: change this to the sum of all of the tracks' durations. 
-                    no_songs: 0, // update with the number of songs actually aded to the response
+                    tracks: tracksToAdd,
+                    total_ms: playlistDuration,
+                    no_songs: numSongs
                 }
             }
             res.send(clientResponse)
@@ -197,7 +226,6 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
                 status: "error",
                 error_type: "bad_search",
                 error_message: "search failed; client likely did not authenticate before searching"
-                // console.log(queryResponse)
             }
             res.send(clientResponse)
         }
