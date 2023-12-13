@@ -47,19 +47,12 @@ export function GenreResultCard(props: prop) {
 
   return (
     <div
-      className={"track-result-card"}
+      className={"genre-result-card result-card"}
       id={"genres" + props.resultInfo.data}
       onClick={addTrack}
     >
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <img
-          src={""}
-          style={{ width: "50px", height: "50px", marginRight: "1rem" }}
-        />
-        <div>
-          <h4>{props.resultInfo.data}</h4>
-        </div>
-      </div>
+      <img src={""} />
+      <p>{props.resultInfo.data}</p>
     </div>
   );
 }

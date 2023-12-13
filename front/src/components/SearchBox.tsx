@@ -25,6 +25,7 @@ export interface genreResponse {
 export function SearchBox(props: prop) {
   const [search, setSearch] = useState<string>("");
   const [genres, setGenres] = useState<string[]>([]);
+  const [searchValue, setSearchValue] = useState<string>("");
 
   const [searchResults, setSearchResults] = useState<
     artistResponse[] | trackResponse[] | genreResponse[]
@@ -93,15 +94,21 @@ export function SearchBox(props: prop) {
   }
 
   /**
-   * re-searches everytime the textbox is udpated.
+   * re-searches every time the textbox is updated.
    */
   useEffect(() => {
     if (search != "") {
       fetchData();
     } else {
       setSearchResults([]);
+      setSearchValue("");
     }
   }, [search]);
+
+  useEffect(() => {
+    setSearchResults([]);
+    setSearchValue("");
+  }, [props.selectedSeeds]);
 
   useEffect(() => {
     console.log(props.seedType);
@@ -113,6 +120,7 @@ export function SearchBox(props: prop) {
   // updater function
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setSearch(event.target.value);
+    setSearchValue(event.target.value);
   }
 
   return (
@@ -121,8 +129,13 @@ export function SearchBox(props: prop) {
       <input
         className="search-bar"
         type="search"
+        id="search-bar"
         placeholder={"Search for " + props.seedType.toLowerCase() + "..."}
         onChange={handleChange}
+        value={searchValue}
+        onBlur={() => {
+          setSearchValue("");
+        }}
       ></input>
 
       {searchResults.map(

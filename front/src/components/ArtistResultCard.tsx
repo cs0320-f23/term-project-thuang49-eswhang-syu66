@@ -82,18 +82,12 @@ export function ArtistResultCard(props: prop) {
 
   return (
     <div
-      className={"artist-result-card"}
+      className={"artist-result-card result-card"}
       id={"artists" + props.resultInfo.id}
       onClick={addArtist}
     >
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <img
-          src={returnImages()}
-          style={{ width: "50px", height: "50px", marginRight: "10px" }}
-          placeholder={props.resultInfo.name}
-        />
-        <h4>{props.resultInfo.name}</h4>
-      </div>
+      <img src={returnImages()} placeholder={props.resultInfo.name} />
+      <p>{props.resultInfo.name}</p>
     </div>
   );
 }

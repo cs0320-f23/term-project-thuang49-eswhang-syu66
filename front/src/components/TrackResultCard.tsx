@@ -134,21 +134,16 @@ export function TrackResultCard(props: prop) {
   }
   return (
     <div
-      className={"track-result-card"}
+      className={"track-result-card result-card"}
       id={"tracks" + props.resultInfo.id}
       onClick={addTrack}
     >
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <img
-          src={returnImages()}
-          style={{ width: "50px", height: "50px", marginRight: "1rem" }}
-        />
-        <div>
-          <h4>{props.resultInfo.name}</h4>
-          <div className="artist-names">{extractArtists().toString()}</div>
-        </div>
+      <img src={returnImages()} />
+      <div className="track-metadata">
+        <p>{props.resultInfo.name}</p>
+        <div className="artist-names">{extractArtists().toString()}</div>
       </div>
-      <div>{extractTime()}</div>
+      <div className="track-time">{extractTime()}</div>
     </div>
   );
 }
