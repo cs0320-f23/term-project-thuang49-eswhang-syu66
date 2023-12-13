@@ -35,8 +35,8 @@ export function SelectSeedsPage(props: sharedProps) {
   useEffect(() => {
     // console.log(props.)
     makeSelectedCards();
-    console.log(props.seedsMap);
-    console.log(selectedSeeds);
+    //console.log(props.seedsMap);
+    //console.log(selectedSeeds);
   }, [selectedSeeds]);
 
   useEffect(() => {
@@ -63,7 +63,17 @@ export function SelectSeedsPage(props: sharedProps) {
             <div className="search-container">
               {props.seedNames.map((seed) => (
                 <div className="select-seed">
-                  <h3>{seed}</h3>
+                  <div className="seed-title">
+                    <h3>{seed}</h3>
+                    <div className="selected-seed-container">
+                      {selectedList.filter((selected: JSX.Element) => {
+                        return (
+                          selected.props.seedInfo[1] === seed.toLowerCase()
+                        );
+                      })}
+                    </div>
+                  </div>
+
                   <SearchBox
                     seedType={seed.toLowerCase()}
                     seedMap={props.seedsMap}
@@ -73,7 +83,6 @@ export function SelectSeedsPage(props: sharedProps) {
                 </div>
               ))}
             </div>
-            <div className="selected-seed-container">{selectedList}</div>
           </div>
         </main>
       </body>

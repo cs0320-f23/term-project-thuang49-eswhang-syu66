@@ -13,18 +13,19 @@ interface prop {
 }
 
 export interface genreResponse {
-  type: string
-  data: string
+  type: string;
+  data: string;
 }
 /**
- * The component responsible for creading search boxes and dropdown 
+ * The component responsible for creading search boxes and dropdown
  * search options
  * @param props the interface as defined above
  * @returns html component.
  */
 export function SearchBox(props: prop) {
   const [search, setSearch] = useState<string>("");
-  const [genres, setGenres] = useState<string[]>([])
+  const [genres, setGenres] = useState<string[]>([]);
+  const [searchValue, setSearchValue] = useState<string>("");
 
   const [searchResults, setSearchResults] = useState<
     artistResponse[] | trackResponse[] | genreResponse[]
@@ -36,16 +37,18 @@ export function SearchBox(props: prop) {
   async function fetchData() {
     if (props.seedType == "artists" || props.seedType == "tracks") {
       try {
-        const url = `http://localhost:3000/search?${props.seedType}=${encodeURIComponent(search)}`;
+        const url = `http://localhost:3000/search?${
+          props.seedType
+        }=${encodeURIComponent(search)}`;
         console.log(url);
         const response = await fetch(url);
-  
+
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
-  
+
         const data = await response.json();
-  
+
         if ("data" in data) {
           setSearchResults(data.data);
         } else {
@@ -55,23 +58,20 @@ export function SearchBox(props: prop) {
         console.error("Error during fetch:");
       }
     } else {
-
-      let res : genreResponse[] = [];
-      for (let i = 0; i < genres.length; i ++) {
+      let res: genreResponse[] = [];
+      for (let i = 0; i < genres.length; i++) {
         if (genres[i].startsWith(search)) {
-          res = [...res, {type: "genre", data: genres[i]}]
-          
+          res = [...res, { type: "genre", data: genres[i] }];
         }
         if (res.length == 5) {
-          break
+          break;
         }
       }
 
-      setSearchResults(res)
+      setSearchResults(res);
     }
-
   }
-  
+
   async function fetchGenres() {
     try {
       const url = `http://localhost:3000/get_genres`;
@@ -94,27 +94,34 @@ export function SearchBox(props: prop) {
   }
 
   /**
-   * re-searches everytime the textbox is udpated.
+   * re-searches every time the textbox is updated.
    */
   useEffect(() => {
     if (search != "") {
       fetchData();
     } else {
       setSearchResults([]);
+      setSearchValue("");
     }
   }, [search]);
 
   useEffect(() => {
-    console.log(props.seedType)
+    setSearchResults([]);
+    setSearchValue("");
+  }, [props.selectedSeeds]);
+
+  useEffect(() => {
+    console.log(props.seedType);
     if (props.seedType === "genres") {
-      fetchGenres()
+      fetchGenres();
     }
-  }, [])
+  }, []);
 
   // updater function
-    function handleChange(event: React.ChangeEvent<HTMLInputElement>)  {
-        setSearch(event.target.value);
-    };
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setSearch(event.target.value);
+    setSearchValue(event.target.value);
+  }
 
   return (
     <div className="search-box">
@@ -122,47 +129,55 @@ export function SearchBox(props: prop) {
       <input
         className="search-bar"
         type="search"
+        id="search-bar"
         placeholder={"Search for " + props.seedType.toLowerCase() + "..."}
         onChange={handleChange}
+        value={searchValue}
+        onBlur={() => {
+          setSearchValue("");
+        }}
       ></input>
 
-      {searchResults.map((res: artistResponse | trackResponse | genreResponse) => {
-        console.log(res)
-        if ("type" in res) {
-          if (res.type == "artist") {
-            res = res as artistResponse;
-            return (
-              <ArtistResultCard
-                selectedSeeds={props.selectedSeeds}
-                setSelectedSeeds={props.setSelectedSeeds}
-                resultInfo={res}
-                seedMap={props.seedMap}
-              ></ArtistResultCard>
-            );
-          } else if (res.type == "track") {
-            res = res as trackResponse;
-            return (
-              <TrackResultCard
-                selectedSeeds={props.selectedSeeds}
-                setSelectedSeeds={props.setSelectedSeeds}
-                resultInfo={res}
-                seedMap={props.seedMap}
-              ></TrackResultCard>
-            );
-          } else if (res.type == "genre") {
-            res = res as genreResponse;
-            return (<GenreResultCard
-              selectedSeeds={props.selectedSeeds}
-              setSelectedSeeds={props.setSelectedSeeds}
-              resultInfo={res}
-              seedMap={props.seedMap}></GenreResultCard>
-              )
-            
+      {searchResults.map(
+        (res: artistResponse | trackResponse | genreResponse) => {
+          console.log(res);
+          if ("type" in res) {
+            if (res.type == "artist") {
+              res = res as artistResponse;
+              return (
+                <ArtistResultCard
+                  selectedSeeds={props.selectedSeeds}
+                  setSelectedSeeds={props.setSelectedSeeds}
+                  resultInfo={res}
+                  seedMap={props.seedMap}
+                ></ArtistResultCard>
+              );
+            } else if (res.type == "track") {
+              res = res as trackResponse;
+              return (
+                <TrackResultCard
+                  selectedSeeds={props.selectedSeeds}
+                  setSelectedSeeds={props.setSelectedSeeds}
+                  resultInfo={res}
+                  seedMap={props.seedMap}
+                ></TrackResultCard>
+              );
+            } else if (res.type == "genre") {
+              res = res as genreResponse;
+              return (
+                <GenreResultCard
+                  selectedSeeds={props.selectedSeeds}
+                  setSelectedSeeds={props.setSelectedSeeds}
+                  resultInfo={res}
+                  seedMap={props.seedMap}
+                ></GenreResultCard>
+              );
+            }
+          } else {
+            console.error("could not find type in the response object.");
           }
-        }else {
-          console.error("could not find type in the response object.");
         }
-      })}
+      )}
     </div>
   );
 }
