@@ -99,6 +99,7 @@ export async function generatePlaylistHandle(req: Request, res: Response, client
             data: "playlist successfully created"
         }
         res.send(clientResponse)
+        return 
     } else {
         let clientResponse : errorMap = {
             status: "error",
@@ -106,5 +107,6 @@ export async function generatePlaylistHandle(req: Request, res: Response, client
             error_message: "adding songs to playlist failed"
         }
         res.send(clientResponse)
+        return 
     }
 }

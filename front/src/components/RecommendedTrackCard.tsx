@@ -1,8 +1,20 @@
 import { useEffect } from "react";
-import { trackResponse } from "./TrackResultCard";
+import { featuresResponse } from "../interfaces/featuresResponse";
+import { trackResponse } from "../interfaces/trackResponse";
 
 interface prop {
   resultInfo: trackResponse;
+
+  idFeatureMap: Map<string, featuresResponse>
+
+  currFeature: featuresResponse | undefined ;
+  setCurrFeatures: React.Dispatch<React.SetStateAction<featuresResponse|undefined>> ;
+
+  currId: string
+  setCurrId: React.Dispatch<React.SetStateAction<string>>;
+
+  currSong: trackResponse | undefined
+  setCurrSong: React.Dispatch<React.SetStateAction<trackResponse | undefined>>;
 }
 /**
  * This component defines the drop down search results from searching for a track
@@ -71,8 +83,18 @@ export function RecommendedTrackCard(props: prop) {
       return "";
     }
   }
+
+  function setStates(id: string) {
+    props.setCurrId(id)
+    props.setCurrSong(props.resultInfo)
+    
+    let toBeId = props.idFeatureMap.get(id)
+    if (toBeId != undefined && props.setCurrFeatures != undefined) {
+      props.setCurrFeatures(toBeId)
+    }
+  }
   return (
-    <div className={"track-result-card"} id={"tracks" + props.resultInfo.id}>
+    <div className={"track-result-card result-card"} id={"tracks" + props.resultInfo.id} onMouseOver = {() => setStates(props.resultInfo.id)}>
       <div style={{ display: "flex", alignItems: "center" }}>
         <img
           src={returnImages()}

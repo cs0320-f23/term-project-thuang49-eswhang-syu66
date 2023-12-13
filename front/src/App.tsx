@@ -8,7 +8,8 @@ import { SeedsPage } from './pages/SeedsPage';
 import { SelectFeatsPage } from './pages/SelectFeatsPage';
 import { SelectSeedsPage } from './pages/SelectSeedsPage';
 import { DurationPage } from './pages/DurationsPage';
-import { trackResponse } from './components/TrackResultCard';
+import { trackResponse } from './interfaces/trackResponse';
+
 
 function App() {
 
@@ -50,14 +51,14 @@ function App() {
           {<SelectFeatsPage featNames = {featNames} setFeatNames = {setFeatNames}
                             featsMap = {featsMap}></SelectFeatsPage>}
         /> 
-        <Route path="/feats" element = {<FeatsPage featNames = {featNames} setFeatNames = {setFeatNames}></FeatsPage>}/> 
-        <Route path="/seeds" element = {<SeedsPage seedNames = {seedNames} setSeedNames= {setSeedNames}></SeedsPage>}/> 
+        <Route path="/feats" element = {<FeatsPage featNames = {featNames} setFeatNames = {setFeatNames} authToken={authToken} setAuthToken={setAuthToken} ></FeatsPage>}/> 
+        <Route path="/seeds" element = {<SeedsPage seedNames = {seedNames} setSeedNames= {setSeedNames} ></SeedsPage>}/> 
         <Route path="/results" element = {<ResultsPage
                   authToken={authToken}
                   returnedTracks = {returnedTracks} setReturnedTracks = {setReturnedTracks}
                   totalTime = {totalTime} setTotalTime = {setTotalTime}
                   noSongs = {noSongs} setNoSongs = {setNoSongs}></ResultsPage>}/> 
-        <Route path="/" element = {<HomePage authToken={authToken} setAuthToken={setAuthToken}></HomePage>}/> 
+        <Route path="/" element = {<HomePage></HomePage>}/> 
       </Routes>
     </Router>
           );

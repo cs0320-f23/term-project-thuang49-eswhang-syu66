@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import "../css/App.css";
 import { useEffect, useState } from "react";
-import { trackResponse } from "../components/TrackResultCard";
+import { trackResponse } from "../interfaces/trackResponse";
+
 
 interface sharedProps {
     seedMap: Map<String, String[]>
@@ -68,6 +69,7 @@ export function DurationPage(props: sharedProps) {
       let duration = `${mode}=${totalDuration}`
       const finalQuery = await fetch(baseurl + url + duration).then(res => res.json())
 
+      console.log(finalQuery)
       if (finalQuery.status == "success") {
         props.setReturnedTracks(finalQuery.data.tracks)
         props.setNoSongs(finalQuery.data.no_songs)

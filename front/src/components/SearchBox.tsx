@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { ArtistResultCard, artistResponse } from "./ArtistResultCard";
-import { TrackResultCard, trackResponse } from "./TrackResultCard";
+import { ArtistResultCard } from "./ArtistResultCard";
+import { TrackResultCard } from "./TrackResultCard";
 import { RiSearchLine } from "../../node_modules/react-icons/ri";
 import { GenreResultCard } from "./GenreResultCard";
+import { artistResponse } from "../interfaces/artistResponse";
+import { trackResponse } from "../interfaces/trackResponse";
+import { genreResponse } from "../interfaces/genreResponse";
 
 interface prop {
   seedType: string; // either artist or track
@@ -12,10 +15,7 @@ interface prop {
   setSelectedSeeds: React.Dispatch<React.SetStateAction<string[][]>>;
 }
 
-export interface genreResponse {
-  type: string;
-  data: string;
-}
+
 /**
  * The component responsible for creading search boxes and dropdown
  * search options

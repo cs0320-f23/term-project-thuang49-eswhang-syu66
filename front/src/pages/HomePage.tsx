@@ -2,20 +2,10 @@ import "../css/App.css";
 import { useState, useEffect } from "react";
 import MusicGraph from "../components/MusicGraph";
 import { InitialAuth } from "../endpoints/InitialAuth";
-import { useNavigate, useSearchParams } from "react-router-dom";
 
-interface prop {
-  authToken: string;
-  setAuthToken: React.Dispatch<React.SetStateAction<string>>;
-}
-export function HomePage(props: prop) {
+export function HomePage() {
   // checking for the presence of an authentication token
-  const [searchParams] = useSearchParams();
-  const authToken = searchParams.get("success");
 
-  const navigate = useNavigate();
-
-  const [nav, setNav] = useState<JSX.Element>();
   const [word, setWord] = useState<string>("dancing");
   const [barData, setBarData] = useState<string[][]>([
     ["2em", "", ""],
@@ -138,30 +128,31 @@ export function HomePage(props: prop) {
     }, 3000);
   }, [step]);
 
-  useEffect(() => {
-    // console.log(props.returnedTracks)
-    if (authToken == null) {
-      setNav(<InitialAuth></InitialAuth>);
-    } else {
-      // we set the authentication token in the beginning and carry it throughout
-      // the user experience.
-      console.log("do something with the token ");
+  // useEffect(() => {
+  //   // console.log(props.returnedTracks)
+  //   if (authToken == null) {
+  //     setNav(<InitialAuth></InitialAuth>);
+  //   } else {
+  //     // we set the authentication token in the beginning and carry it throughout
+  //     // the user experience.
+  //     console.log("do something with the token ");
 
-      props.setAuthToken(authToken);
+  //     props.setAuthToken(authToken);
 
-      setNav(
-        <div>
-          <button
-            className="get-started-button"
-            id="continue-button"
-            onClick={() => navigate("/feats")}
-          >
-            Continue
-          </button>
-        </div>
-      );
-    }
-  }, []);
+  //     setNav(
+  //       <div>
+  //         <button
+  //           className="get-started-button"
+  //           id="continue-button"
+  //           onClick={() => navigate("/feats")}
+  //         >
+  //           Continue
+  //         </button>
+
+  //       </div>
+  //     );
+  //   }
+  // }, []);
 
   return (
     <>
@@ -171,7 +162,13 @@ export function HomePage(props: prop) {
             <a id="logo" href="/">
               <h2>Amplify</h2>
             </a>
-            {nav}
+            <div>
+              <InitialAuth/>
+              <div style = {{fontSize: "8px"}}>
+
+                <i>continue without authenticating</i>
+              </div>
+          </div>
           </nav>
           <div className="content">
             <MusicGraph barData={barData} />

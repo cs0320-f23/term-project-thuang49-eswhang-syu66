@@ -16,6 +16,8 @@ export function SelectSeedsPage(props: sharedProps) {
   // [1] = category (indicating track or artit)
   // [2] = name
   // [3] = image path
+
+  
   const [selectedSeeds, setSelectedSeeds] = useState<string[][]>([]);
 
   const [selectedList, setSelectedList] = useState<JSX.Element[]>([]);

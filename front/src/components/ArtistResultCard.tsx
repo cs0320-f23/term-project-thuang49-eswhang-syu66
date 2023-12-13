@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { artistResponse } from "../interfaces/artistResponse";
 
 interface prop {
   selectedSeeds: string[][];
@@ -7,19 +8,6 @@ interface prop {
   resultInfo: artistResponse;
 }
 
-export interface artistResponse {
-  href: string;
-  id: string;
-  images: {
-    url: string;
-    height: number;
-    width: number;
-  }[];
-  name: string;
-  popularity: number;
-  type: string;
-  uri: string;
-}
 
 /**
  * Defines the component to dislpay after searching for an artist

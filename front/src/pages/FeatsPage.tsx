@@ -1,13 +1,21 @@
 import { useEffect } from "react";
 import { SelectButton } from "../components/SelectButton";
 import "../css/ParamsPage.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 interface sharedProps {
   featNames: string[];
   setFeatNames: React.Dispatch<React.SetStateAction<string[]>>;
+
+  authToken: string;
+  setAuthToken: React.Dispatch<React.SetStateAction<string>>;
 }
 export function FeatsPage(props: sharedProps) {
+
+  const [searchParams] = useSearchParams();
+  const authToken = searchParams.get("success");
+
+
   const { featNames } = props;
 
   // all of the supported parameters
@@ -30,6 +38,11 @@ export function FeatsPage(props: sharedProps) {
     if (logo) {
       logo.style.color = "black";
     }
+
+    if (authToken != undefined) {
+      props.setAuthToken(authToken);
+    }
+
   }, []);
 
   // disables the user from continuing without selecting any feature categories

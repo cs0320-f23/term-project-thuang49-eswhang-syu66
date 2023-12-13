@@ -3,7 +3,23 @@ import {Request, Response} from 'express'
 import { AuthKey } from "../handlerUtilities/authObj"
 import { errorMap, successMap } from "../server"
 
-
+interface trackResponse {
+    album: {
+      images: {
+        url: string;
+        height: number;
+        width: number;
+      }[];
+    };
+    artists: {
+      name: string;
+    }[];
+    id: string;
+    name: string;
+    type: string;
+    duration_ms: number;
+    uri: string;
+  }
 
 export async function getRecommendationsHandle(req: Request, res: Response, token: AuthKey) {
 
@@ -155,17 +171,13 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
         }
 
 
-        let isLimitNum = false
-        let limit = 0
-
         // taking care of length of playlist: 
-        if (req.query.number != undefined) {
+        if (req.query.number != undefined && req.query.duration == undefined) {
             url += `limit=${req.query.number}`
-            isLimitNum = true
-            limit = Number(req.query.number)
-        } else {
+        } else if (req.query.number == undefined && req.query.duration != undefined) {
             url += `limit=100`
         }
+        // else, limit = 20 by default
 
 
 
@@ -179,14 +191,11 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
             headers : headers
         }).then(res => res.json())
 
-        console.log(queryResponse)
+        // console.log(queryResponse)
 
         if ("tracks" in queryResponse) {
 
             let tracks = queryResponse.tracks
-            if (!isLimitNum) {
-                limit = Number(req.query.timeLimit) // given a timeLimit, it is assumed the limit is given in ms
-            }
 
             // using Fisher-Yates algorithm to shuffle the returned list of tracks
             for (let i = tracks.length - 1; i > 0; i--) {
@@ -194,23 +203,36 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
                 [tracks[i], tracks[j]] = [tracks[j], tracks[i]];
             } 
 
-            // limit filtering function (can either limit by amount of songs or playlist duration)
-            let tracksToAdd = []
+            let tracksToAdd : trackResponse[] = []
             let numSongs = 0
             let playlistDuration = 0
-            if (isLimitNum) {
-                while (numSongs < limit) { 
-                    tracksToAdd.push(tracks[numSongs])
+
+            // playlist of a specified number of songs
+            if (req.query.number != undefined && req.query.duration == undefined) {
+                console.log("num songs ")
+                tracksToAdd = tracks
+                numSongs = tracks.length
+                tracks.map((track : trackResponse) => playlistDuration += track.duration_ms)
+
+            } else if (req.query.number == undefined && req.query.duration != undefined) {
+                console.log("duration")
+                //filtering for a given duration
+                while (numSongs < 100 && playlistDuration < Number(req.query.duration)) {
+                    tracksToAdd = [...tracksToAdd, tracks[numSongs]]
                     numSongs += 1
                     playlistDuration += tracks[numSongs].duration_ms
                 }
-            } else {
-                while (numSongs < 100 && playlistDuration < limit) {
-                    tracksToAdd.push(tracks[numSongs])
-                    numSongs += 1
-                    playlistDuration += tracks[numSongs].duration_ms
-                }
+
+            } else  {
+
+                // default 20-song playlist
+                tracksToAdd = tracks
+                numSongs = tracks.length
+                tracks.map((track : trackResponse) => playlistDuration += track.duration_ms)
             }
+
+            console.log("original length after shuffle " + tracks.length)
+            console.log("filtered length " + tracksToAdd.length)
 
             let clientResponse : successMap = {
                 status: "success",

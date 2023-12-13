@@ -3,7 +3,7 @@ import {clientId, client_secret} from "../../private/keys";
 import {Buffer} from 'buffer'
 
 import {Request, Response} from 'express'
-const frontEndBaseURL = 'http://localhost:8000/'
+const frontEndBaseURL = 'http://localhost:8000/feats'
 
 // checkout https://developer.spotify.com/documentation/web-api/tutorials/code-flow 
 // for workflow 

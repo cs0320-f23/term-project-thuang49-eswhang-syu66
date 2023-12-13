@@ -23,7 +23,7 @@ export function InitialAuth() {
     }
 
     fetchAuthUrl();
-  }, []); // Empty dependency array ensures that the effect runs only once when the component mounts
+  }, []); //runs once upon rendering
 
   return (
     <div>

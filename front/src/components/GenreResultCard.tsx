@@ -1,4 +1,5 @@
-import { genreResponse } from "./SearchBox";
+import { genreResponse } from "../interfaces/genreResponse";
+
 
 interface prop {
   selectedSeeds: string[][];

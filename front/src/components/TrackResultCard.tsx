@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { trackResponse } from "../interfaces/trackResponse";
 
 interface prop {
   selectedSeeds: string[][];
@@ -9,26 +10,7 @@ interface prop {
   resultInfo: trackResponse;
 }
 
-/**
- * All the vital information pertaining to a given track.
- */
-export interface trackResponse {
-  album: {
-    images: {
-      url: string;
-      height: number;
-      width: number;
-    }[];
-  };
-  artists: {
-    name: string;
-  }[];
-  id: string;
-  name: string;
-  type: string;
-  duration_ms: number;
-  uri: string;
-}
+
 
 /**
  * This component defines the drop down search results from searching for a track

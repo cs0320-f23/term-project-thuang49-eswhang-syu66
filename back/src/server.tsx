@@ -1,7 +1,6 @@
 import express, {Request, Response} from 'express'
 import { authHandle, fetchToken } from './handlers/auth';
 import cors from 'cors';
-import { test } from './handlers/test';
 import {AuthKey} from './handlerUtilities/authObj'
 import { initialAuth } from './handlers/initialAuth';
 import { searchHandle } from './handlers/search';
@@ -9,6 +8,7 @@ import { getRecommendationsHandle } from './handlers/getRecommendations';
 import { generatePlaylistHandle } from './handlers/generatePlaylist';
 import { search_uid } from './handlers/UIDSearch';
 import { getGenres } from './handlers/getGenres';
+import { getAudioFeatures } from './handlers/getAudioFeatures';
 
 
 
@@ -34,9 +34,6 @@ export const port = process.env.PORT || 3000;
 // necessary to perform all spotify api calls not related to the user themselves
 const clientAuthToken = new AuthKey()
 
-// necessary to perform all spotify api calls related to the USER
-const userAuthToken = new AuthKey()
-
 app.options('*', cors())
 
 app.get('/', (req: Request, res: Response) => {
@@ -50,9 +47,6 @@ app.get('/auth', cors(), (req: Request, res: Response) => authHandle(req, res))
 
 // fetches user authorization token.
 app.get('/fetch_auth', (req: Request, res: Response) => fetchToken(req, res))
-
-// for test purposes.
-// app.get('/test', (req: Request, res: Response) => test(req, res, userAuthToken))
 
 // to search an artist and get their uri -- needs the client Auth Token
 app.get('/search',cors(), (req: Request, res: Response) => searchHandle(req, res, clientAuthToken) )
@@ -68,6 +62,9 @@ app.get('/search_id', cors(), (req: Request, res: Response) => search_uid(req, r
 
 // retrives all available genres
 app.get('/get_genres', cors(), (req: Request, res: Response) => getGenres(req, res, clientAuthToken))
+
+// analyzes all recommended tracks.
+app.get('/analyze_tracks', cors(), (req: Request, res: Response) => getAudioFeatures(req, res, clientAuthToken))
 
 app.listen(port, () => {
     console.log('Server running on http://localhost:' + port)
