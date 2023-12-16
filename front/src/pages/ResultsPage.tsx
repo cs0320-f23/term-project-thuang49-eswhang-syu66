@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { RecommendedTrackCard } from "../components/RecommendedTrackCard";
 import { trackResponse } from "../interfaces/trackResponse";
 import { featuresResponse } from "../interfaces/featuresResponse";
 import { TrackAnalysis } from "../components/TrackAnalysis";
+import domtoimage from "dom-to-image";
 import "../css/ResultsPage.css";
 
 interface sharedProps {
@@ -27,12 +28,14 @@ export function ResultsPage(props: sharedProps) {
     featuresResponse | undefined
   >();
   const [currSong, setCurrSong] = useState<trackResponse | undefined>();
+  const [playlistTitle, setPlaylistTitle] = useState("Playlists");
+  const [albumArt, setAlbumArt] = useState<ReactElement[]>([]);
 
   async function createPlaylist(authToken: string) {
     let url = "http://localhost:3000/generate_playlist?";
     url += `${"userToken"}=${authToken}&`;
     url += `songs=${props.returnedTracks.map((track) => track.uri).join(",")}`;
-    console.log(url);
+    // console.log(url);
     const genPlaylist = await fetch(url).then((res) => res.json());
 
     if (genPlaylist.status === "success") {
@@ -70,7 +73,7 @@ export function ResultsPage(props: sharedProps) {
       console.error("error occurred in adding to library");
     }
 
-    console.log(idFeatureMap);
+    // console.log(idFeatureMap);
   }
 
   function convertToTime(durationMs: number) {
@@ -113,7 +116,7 @@ export function ResultsPage(props: sharedProps) {
   }, []);
 
   useEffect(() => {
-    console.log(currFeatures);
+    // console.log(currFeatures);
   }, [currFeatures]);
 
   useEffect(() => {
@@ -166,8 +169,53 @@ export function ResultsPage(props: sharedProps) {
       if (addToLibButton) {
         addToLibButton.style.top = "1em";
       }
+      generateAlbumArt();
+      //generateAlbumImg();
     }, 5300); // 0ms + 1250ms + 250ms + 1250ms + 300ms + 1250ms + 1000ms delay
   }, []);
+
+  const generateAlbumImg = () => {
+    const node = document.getElementById("album-image");
+
+    if (node) {
+      domtoimage
+        .toJpeg(node)
+        .then(function (dataUrl: string) {
+          const img = new Image();
+          img.src = dataUrl;
+          const album = document.querySelector("#album-image");
+          album?.appendChild(img);
+        })
+        .catch(function (error: string) {
+          console.error("oops, imgsomething went wrong!", error);
+        });
+    }
+  };
+
+  const generateAlbumArt = () => {
+    const circleCount = parseInt("" + Math.random() * 20 + 5);
+    const circleArr = [];
+    for (let i = 0; i < circleCount; i++) {
+      const left = parseInt("" + Math.random() * 5) * 4 + "vw";
+      const top = parseInt("" + Math.random() * 5) * 4 + "vw";
+      circleArr.push(
+        <div className="circle" style={{ left: left, top: top }}></div>
+      );
+    }
+    setAlbumArt(circleArr);
+  };
+
+  useEffect(() => {
+    const title: HTMLElement | null = document.querySelector(
+      ".playlist-header-wrapper span"
+    );
+    if (title) {
+      title.addEventListener("input", function () {
+        setPlaylistTitle(title.innerHTML);
+      });
+    }
+  }, []);
+
   return (
     <>
       <body>
@@ -189,14 +237,34 @@ export function ResultsPage(props: sharedProps) {
             <h1 className="loading-title">Sourcing tracks...</h1>
             <h1 className="loading-title">Generating playlist...</h1>
           </div>
+
           <div className="results-content">
-            <TrackAnalysis
+            <div className="playlist-data">
+              <div id="album-image">
+                {albumArt}
+                <div>
+                  {playlistTitle}, <br /> Amplified
+                </div>
+              </div>
+              <div className="playlist-header-wrapper">
+                <div className="playlist-header">
+                  <span className="input" role="textbox" contentEditable>
+                    Playlists
+                  </span>
+                </div>
+                <div className="playlist-header-data">
+                  {props.noSongs} songs,
+                  {convertToTime(props.totalTime)}
+                </div>
+              </div>
+              {/* <TrackAnalysis
               trackData={currSong}
               trackFeatures={currFeatures}
-            ></TrackAnalysis>
+            ></TrackAnalysis> */}
+              {/* <div className="track-analysis"></div> */}
+            </div>
+
             <div className="recommended-track-container">
-              {props.noSongs} songs,
-              {convertToTime(props.totalTime)}
               {props.returnedTracks.map((track: trackResponse) => (
                 <RecommendedTrackCard
                   currFeature={currFeatures}

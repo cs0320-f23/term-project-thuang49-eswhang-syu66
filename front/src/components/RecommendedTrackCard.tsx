@@ -83,20 +83,21 @@ export function RecommendedTrackCard(props: prop) {
     }
   }
 
-  function setStates(id: string) {
-    props.setCurrId(id);
-    props.setCurrSong(props.resultInfo);
+  // function setStates(id: string) {
+  //   props.setCurrId(id);
+  //   props.setCurrSong(props.resultInfo);
 
-    const toBeId = props.idFeatureMap.get(id);
-    if (toBeId != undefined && props.setCurrFeatures != undefined) {
-      props.setCurrFeatures(toBeId);
-    }
-  }
+  //   const toBeId = props.idFeatureMap.get(id);
+  //   if (toBeId != undefined && props.setCurrFeatures != undefined) {
+  //     props.setCurrFeatures(toBeId);
+  //   }
+  // }
+
   return (
     <div
       className={"result-page-track-card"}
       id={"tracks" + props.resultInfo.id}
-      onMouseOver={() => setStates(props.resultInfo.id)}
+      // onMouseOver={() => setStates(props.resultInfo.id)}
     >
       <div className="track-data">
         <div className="track-number">{props.number}</div>
