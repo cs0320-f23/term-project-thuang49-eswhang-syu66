@@ -1,0 +1,96 @@
+.results-content,
+.loading-content {
+  height: calc(100vh - 5em);
+  padding: 2.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  transition: 1.6s cubic-bezier(0.68, 0.69, 0.03, 1);
+}
+
+#logo,
+.add-to-library-button {
+  transition: 1.6s cubic-bezier(0.68, 0.69, 0.03, 1);
+  color: white;
+}
+
+.add-to-library-button {
+  background-color: #3a5353;
+  top: -100%;
+}
+
+.results-content {
+  top: 100%;
+  color: black;
+}
+
+.loading-content {
+  top: 0;
+}
+
+.loading-content h1 {
+  min-width: calc(100vw - 2em);
+  font-weight: 600;
+  font-size: 5em;
+  margin: 0.25em 0em;
+  padding: 0em 1em;
+}
+
+.loading-content .loading-title {
+  top: 100%;
+  transition: 1.25s cubic-bezier(0.5, 0.5, 0.2, 1);
+}
+
+.results-content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.results-content .track-analysis {
+  background-color: pink;
+  width: 20vw;
+  margin: 0;
+}
+
+.results-content .track-analysis img {
+  width: 5em;
+  height: 5em;
+}
+
+.recommended-track-container {
+  width: calc(80vw - 1em);
+  margin-left: 1em;
+  height: calc(100vh - 5em);
+  overflow: scroll;
+}
+
+.result-page-track-card {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 0.5em;
+  margin-bottom: 0.75em;
+  padding: 0.75em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result-page-track-card img {
+  width: 2em;
+  height: 2em;
+  margin: 0 1em 0 1.5em;
+}
+
+.result-page-track-card .track-data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.track-length,
+.track-number {
+  opacity: 50%;
+}

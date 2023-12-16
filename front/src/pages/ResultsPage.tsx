@@ -3,6 +3,7 @@ import { RecommendedTrackCard } from "../components/RecommendedTrackCard";
 import { trackResponse } from "../interfaces/trackResponse";
 import { featuresResponse } from "../interfaces/featuresResponse";
 import { TrackAnalysis } from "../components/TrackAnalysis";
+import "../css/ResultsPage.css";
 
 interface sharedProps {
   returnedTracks: trackResponse[];
@@ -115,6 +116,58 @@ export function ResultsPage(props: sharedProps) {
     console.log(currFeatures);
   }, [currFeatures]);
 
+  useEffect(() => {
+    document.body.style.backgroundColor = "#162764";
+    document.body.style.transition = "1.6s cubic-bezier(0.68, 0.69, 0.03, 1)";
+    const resultsContent: HTMLElement | null =
+      document.querySelector(".results-content");
+    const loadingContent: HTMLElement | null =
+      document.querySelector(".loading-content");
+    if (resultsContent) {
+      resultsContent.style.opacity = "0";
+    }
+    const loadingTitles: HTMLElement[] =
+      document.getElementsByClassName("loading-title");
+    setTimeout(() => {
+      document.body.style.backgroundColor = "#BF357F";
+      loadingTitles[0].style.top = "0";
+    }, 0); // 0ms delay
+    setTimeout(() => {
+      document.body.style.backgroundColor = "#FA7D6C";
+      loadingTitles[0].style.opacity = "70%";
+      loadingTitles[1].style.top = "0";
+    }, 1500); // 0ms + 1250ms + 250ms delay
+    setTimeout(() => {
+      document.body.style.backgroundColor = "#F6AACF";
+      loadingTitles[0].style.opacity = "40%";
+      loadingTitles[1].style.opacity = "70%";
+      loadingTitles[2].style.top = "0";
+    }, 3050); // 0ms + 1250ms + 250ms + 1250ms + 300ms delay
+    setTimeout(() => {
+      document.body.style.backgroundColor = "#FFE27B";
+      document.body.style.transition = "1.6s cubic-bezier(0.68, 0.69, 0.03, 1)";
+      if (resultsContent) {
+        resultsContent.style.opacity = "100%";
+        resultsContent.style.top = "calc(-100% + 3em)";
+      }
+      if (loadingContent) {
+        loadingContent.style.top = "-100%";
+        loadingContent.style.opacity = "0";
+      }
+
+      const logo: HTMLElement | null = document.querySelector("a#logo h2");
+      if (logo) {
+        logo.style.color = "black";
+        logo.style.transition = "1.6s cubic-bezier(0.68, 0.69, 0.03, 1)";
+      }
+      const addToLibButton: HTMLElement | null = document.querySelector(
+        ".add-to-library-button"
+      );
+      if (addToLibButton) {
+        addToLibButton.style.top = "1em";
+      }
+    }, 5300); // 0ms + 1250ms + 250ms + 1250ms + 300ms + 1250ms + 1000ms delay
+  }, []);
   return (
     <>
       <body>
@@ -131,16 +184,18 @@ export function ResultsPage(props: sharedProps) {
               Add to Library
             </button>
           </nav>
-          <div>
-            <div>
-              <TrackAnalysis
-                trackData={currSong}
-                trackFeatures={currFeatures}
-              ></TrackAnalysis>
-            </div>
+          <div className="loading-content">
+            <h1 className="loading-title">Gathering beats...</h1>
+            <h1 className="loading-title">Sourcing tracks...</h1>
+            <h1 className="loading-title">Generating playlist...</h1>
+          </div>
+          <div className="results-content">
+            <TrackAnalysis
+              trackData={currSong}
+              trackFeatures={currFeatures}
+            ></TrackAnalysis>
             <div className="recommended-track-container">
-              header
-              {props.noSongs} Songs,
+              {props.noSongs} songs,
               {convertToTime(props.totalTime)}
               {props.returnedTracks.map((track: trackResponse) => (
                 <RecommendedTrackCard
@@ -153,6 +208,7 @@ export function ResultsPage(props: sharedProps) {
                   idFeatureMap={idFeatureMap}
                   resultInfo={track}
                   key={track.id}
+                  number={props.returnedTracks.indexOf(track) + 1}
                 />
               ))}
             </div>

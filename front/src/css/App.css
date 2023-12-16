@@ -243,9 +243,3 @@ nav button {
   left: 0em;
   top: calc(0em - 1.5px);
 }
-
-.recommended-track-container {
-  max-height: 500px; /* Set the desired height */
-  overflow-y: scroll;
-  width: 60vw;
-}
