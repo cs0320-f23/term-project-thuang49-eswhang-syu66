@@ -161,6 +161,7 @@ nav button {
   position: fixed;
   top: 1em;
   right: 1em;
+  border: transparent;
 }
 
 .get-started-button {
@@ -243,10 +244,8 @@ nav button {
   top: calc(0em - 1.5px);
 }
 
-
 .recommended-track-container {
   max-height: 500px; /* Set the desired height */
   overflow-y: scroll;
-  width:60vw;
+  width: 60vw;
 }
-

@@ -1,0 +1,102 @@
+.duration-content {
+  height: calc(100vh - 5em);
+  padding: 2.5em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.duration-title {
+  width: max-content;
+}
+
+.duration-title h3 {
+  font-size: 3em;
+  width: fit-content;
+  text-wrap: nowrap;
+  color: white;
+  font-weight: 600;
+}
+
+.duration-options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.duration-option {
+  display: flex;
+  align-items: center;
+}
+
+.duration-option label {
+  margin-left: 0.5em;
+}
+
+.duration-option input[type="radio"] {
+  border: 1px solid white;
+  -webkit-appearance: none;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  color: white;
+  appearance: none;
+  display: grid;
+  place-content: center;
+}
+
+.duration-option input[type="radio"]:not(:checked)::before {
+  background-color: transparent;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  content: "";
+  transition: 0.25s ease;
+}
+
+.duration-option input[type="radio"]:checked::before {
+  background-color: white;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  content: "";
+  transition: 0.25s ease;
+}
+
+.number-selector-wrapper {
+  display: flex;
+  align-items: flex-end;
+}
+
+.number-selector-wrapper input.number-selector {
+  height: max-content;
+  width: 2em;
+  display: flex;
+  text-align: center;
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  background-color: transparent;
+  border-bottom: white 1px solid;
+  border-top: transparent;
+  border-left: transparent;
+  border-right: transparent;
+  font-size: 5em;
+  color: white;
+  outline: transparent;
+  margin-left: 0.25em;
+}
+
+.number-selector-wrapper label {
+  margin-bottom: 1em;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}

@@ -17,7 +17,6 @@ export function SelectSeedsPage(props: sharedProps) {
   // [2] = name
   // [3] = image path
 
-  
   const [selectedSeeds, setSelectedSeeds] = useState<string[][]>([]);
 
   const [selectedList, setSelectedList] = useState<JSX.Element[]>([]);
@@ -45,6 +44,7 @@ export function SelectSeedsPage(props: sharedProps) {
     document.body.style.backgroundColor = "#335B79";
   }, []);
   const nav = useNavigate();
+
   return (
     <>
       <body>

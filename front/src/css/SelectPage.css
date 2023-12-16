@@ -272,28 +272,3 @@
   width: 1.5em;
   opacity: 0.5;
 }
-
-.enter-time input[type="number"] {
-  -webkit-appearance: none; /* Override default look */
-  appearance: none;
-
-  background-color: transparent;
-
-  border-bottom: white 1px solid;
-  border-top: transparent;
-  border-left: transparent;
-  border-right: transparent;
-
-  width: 3em;
-  height: 2em;
-  margin-left: 1em;
-
-  font-size: 5em;
-
-  text-align: right;
-  /* text-align: bottom; */
-  align-items: center;
-}
-.enter-time input[type="number"]:active {
-  outline: transparent;
-}
