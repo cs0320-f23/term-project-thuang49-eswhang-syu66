@@ -163,12 +163,8 @@ export function HomePage() {
               <h2>Amplify</h2>
             </a>
             <div>
-              <InitialAuth/>
-              <div style = {{fontSize: "8px"}}>
-
-                <i>continue without authenticating</i>
-              </div>
-          </div>
+              <InitialAuth />
+            </div>
           </nav>
           <div className="content">
             <MusicGraph barData={barData} />

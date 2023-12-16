@@ -15,7 +15,6 @@ interface prop {
   setSelectedSeeds: React.Dispatch<React.SetStateAction<string[][]>>;
 }
 
-
 /**
  * The component responsible for creading search boxes and dropdown
  * search options
@@ -137,47 +136,48 @@ export function SearchBox(props: prop) {
           setSearchValue("");
         }}
       ></input>
-
-      {searchResults.map(
-        (res: artistResponse | trackResponse | genreResponse) => {
-          console.log(res);
-          if ("type" in res) {
-            if (res.type == "artist") {
-              res = res as artistResponse;
-              return (
-                <ArtistResultCard
-                  selectedSeeds={props.selectedSeeds}
-                  setSelectedSeeds={props.setSelectedSeeds}
-                  resultInfo={res}
-                  seedMap={props.seedMap}
-                ></ArtistResultCard>
-              );
-            } else if (res.type == "track") {
-              res = res as trackResponse;
-              return (
-                <TrackResultCard
-                  selectedSeeds={props.selectedSeeds}
-                  setSelectedSeeds={props.setSelectedSeeds}
-                  resultInfo={res}
-                  seedMap={props.seedMap}
-                ></TrackResultCard>
-              );
-            } else if (res.type == "genre") {
-              res = res as genreResponse;
-              return (
-                <GenreResultCard
-                  selectedSeeds={props.selectedSeeds}
-                  setSelectedSeeds={props.setSelectedSeeds}
-                  resultInfo={res}
-                  seedMap={props.seedMap}
-                ></GenreResultCard>
-              );
+      <div className="search-results">
+        {searchResults.map(
+          (res: artistResponse | trackResponse | genreResponse) => {
+            console.log(res);
+            if ("type" in res) {
+              if (res.type == "artist") {
+                res = res as artistResponse;
+                return (
+                  <ArtistResultCard
+                    selectedSeeds={props.selectedSeeds}
+                    setSelectedSeeds={props.setSelectedSeeds}
+                    resultInfo={res}
+                    seedMap={props.seedMap}
+                  ></ArtistResultCard>
+                );
+              } else if (res.type == "track") {
+                res = res as trackResponse;
+                return (
+                  <TrackResultCard
+                    selectedSeeds={props.selectedSeeds}
+                    setSelectedSeeds={props.setSelectedSeeds}
+                    resultInfo={res}
+                    seedMap={props.seedMap}
+                  ></TrackResultCard>
+                );
+              } else if (res.type == "genre") {
+                res = res as genreResponse;
+                return (
+                  <GenreResultCard
+                    selectedSeeds={props.selectedSeeds}
+                    setSelectedSeeds={props.setSelectedSeeds}
+                    resultInfo={res}
+                    seedMap={props.seedMap}
+                  ></GenreResultCard>
+                );
+              }
+            } else {
+              console.error("could not find type in the response object.");
             }
-          } else {
-            console.error("could not find type in the response object.");
           }
-        }
-      )}
+        )}
+      </div>
     </div>
   );
 }
