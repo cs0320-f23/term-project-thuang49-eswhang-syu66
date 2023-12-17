@@ -90,11 +90,11 @@ export function ResultsPage(props: sharedProps) {
     if (hours < 10) {
       returnTime += "0";
     }
-    returnTime += hours + ":";
+    returnTime += hours + " hr ";
     if (minutes < 10) {
       returnTime += "0";
     }
-    returnTime += minutes;
+    returnTime += minutes + " min";
 
     return returnTime;
   }
@@ -131,20 +131,53 @@ export function ResultsPage(props: sharedProps) {
     }
     const loadingTitles: HTMLElement[] =
       document.getElementsByClassName("loading-title");
+    const loadingTitleDivs: HTLMElement[] =
+      document.querySelectorAll(".loading-title div");
     setTimeout(() => {
       document.body.style.backgroundColor = "#BF357F";
       loadingTitles[0].style.top = "0";
+      loadingTitleDivs[0].style.animation = "ellipse 0.5s ease";
+      loadingTitleDivs[1].style.animation = "ellipse 0.5s ease 0.1s";
+      loadingTitleDivs[2].style.animation = "ellipse 0.5s ease 0.25s";
     }, 0); // 0ms delay
+    setTimeout(() => {
+      loadingTitleDivs[0].style.animation = "";
+      loadingTitleDivs[1].style.animation = "";
+      loadingTitleDivs[2].style.animation = "";
+    }, 1250);
     setTimeout(() => {
       document.body.style.backgroundColor = "#FA7D6C";
       loadingTitles[0].style.opacity = "70%";
       loadingTitles[1].style.top = "0";
+      loadingTitleDivs[0].style.animation = "ellipse 0.5s ease 0.5s";
+      loadingTitleDivs[1].style.animation = "ellipse 0.5s ease 0.6s";
+      loadingTitleDivs[2].style.animation = "ellipse 0.5s ease 0.75s";
+      loadingTitleDivs[3].style.animation = "ellipse 0.5s ease 0.5s";
+      loadingTitleDivs[4].style.animation = "ellipse 0.5s ease 0.6s";
+      loadingTitleDivs[5].style.animation = "ellipse 0.5s ease 0.75s";
     }, 1500); // 0ms + 1250ms + 250ms delay
+    setTimeout(() => {
+      loadingTitleDivs[0].style.animation = "";
+      loadingTitleDivs[1].style.animation = "";
+      loadingTitleDivs[2].style.animation = "";
+      loadingTitleDivs[3].style.animation = "";
+      loadingTitleDivs[4].style.animation = "";
+      loadingTitleDivs[5].style.animation = "";
+    }, 2750);
     setTimeout(() => {
       document.body.style.backgroundColor = "#F6AACF";
       loadingTitles[0].style.opacity = "40%";
       loadingTitles[1].style.opacity = "70%";
       loadingTitles[2].style.top = "0";
+      loadingTitleDivs[0].style.animation = "ellipse 0.5s ease 0.75s";
+      loadingTitleDivs[1].style.animation = "ellipse 0.5s ease 0.85s";
+      loadingTitleDivs[2].style.animation = "ellipse 0.5s ease 1s";
+      loadingTitleDivs[3].style.animation = "ellipse 0.5s ease 0.75s";
+      loadingTitleDivs[4].style.animation = "ellipse 0.5s ease 0.85s";
+      loadingTitleDivs[5].style.animation = "ellipse 0.5s ease 1s";
+      loadingTitleDivs[6].style.animation = "ellipse 0.5s ease 0.75s";
+      loadingTitleDivs[7].style.animation = "ellipse 0.5s ease 0.85s";
+      loadingTitleDivs[8].style.animation = "ellipse 0.5s ease 1s";
     }, 3050); // 0ms + 1250ms + 250ms + 1250ms + 300ms delay
     setTimeout(() => {
       document.body.style.backgroundColor = "#FFE27B";
@@ -223,7 +256,7 @@ export function ResultsPage(props: sharedProps) {
     );
     if (title) {
       title.addEventListener("input", function () {
-        setPlaylistTitle(title.innerHTML);
+        setPlaylistTitle(title.innerText);
       });
       title.addEventListener("blur", () => {
         generateAlbumImg();
@@ -248,18 +281,32 @@ export function ResultsPage(props: sharedProps) {
             </button>
           </nav>
           <div className="loading-content">
-            <h1 className="loading-title">Gathering beats...</h1>
-            <h1 className="loading-title">Sourcing tracks...</h1>
-            <h1 className="loading-title">Generating playlist...</h1>
+            <h1 className="loading-title">
+              Gathering beats
+              <div>.</div>
+              <div>.</div>
+              <div>.</div>
+            </h1>
+            <h1 className="loading-title">
+              Sourcing tracks
+              <div>.</div>
+              <div>.</div>
+              <div>.</div>
+            </h1>
+            <h1 className="loading-title">
+              Generating playlist
+              <div>.</div>
+              <div>.</div>
+              <div>.</div>
+            </h1>
           </div>
 
           <div className="results-content">
             <div className="playlist-data">
               <div id="album-image">
                 {albumArt}
-                <div>
-                  {playlistTitle}, <br /> Amplified
-                </div>
+                <div>{playlistTitle},</div>
+                <div>Amplified</div>
               </div>
               <div className="playlist-header-wrapper">
                 <div className="playlist-header">
@@ -268,7 +315,7 @@ export function ResultsPage(props: sharedProps) {
                   </span>
                 </div>
                 <div className="playlist-header-data">
-                  {props.noSongs} songs,
+                  {props.noSongs} songs,&nbsp;
                   {convertToTime(props.totalTime)}
                 </div>
               </div>
