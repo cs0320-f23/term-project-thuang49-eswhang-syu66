@@ -100,7 +100,9 @@ export function RecommendedTrackCard(props: prop) {
       // onMouseOver={() => setStates(props.resultInfo.id)}
     >
       <div className="track-data">
-        <div className="track-number">{props.number}</div>
+        <div className="track-number">
+          {props.number < 10 ? "0" + props.number : props.number}
+        </div>
         <img className="track-img" src={returnImages()} />
         <div className="track-names">
           <p>{props.resultInfo.name}</p>

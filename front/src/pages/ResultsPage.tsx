@@ -2,7 +2,6 @@ import { ReactElement, useEffect, useState } from "react";
 import { RecommendedTrackCard } from "../components/RecommendedTrackCard";
 import { trackResponse } from "../interfaces/trackResponse";
 import { featuresResponse } from "../interfaces/featuresResponse";
-import { TrackAnalysis } from "../components/TrackAnalysis";
 import domtoimage from "dom-to-image";
 import "../css/ResultsPage.css";
 
@@ -34,7 +33,9 @@ export function ResultsPage(props: sharedProps) {
   async function createPlaylist(authToken: string) {
     let url = "http://localhost:3000/generate_playlist?";
     url += `${"userToken"}=${authToken}&`;
-    url += `songs=${props.returnedTracks.map((track) => track.uri).join(",")}`;
+    url += `songs=${props.returnedTracks.map((track) => track.uri).join(",")}&`;
+    url += `title=${playlistTitle}`;
+    console.log(url);
     // console.log(url);
     const genPlaylist = await fetch(url).then((res) => res.json());
 
@@ -87,13 +88,7 @@ export function ResultsPage(props: sharedProps) {
     seconds %= 60;
 
     let returnTime = ``;
-    if (hours < 10) {
-      returnTime += "0";
-    }
     returnTime += hours + " hr ";
-    if (minutes < 10) {
-      returnTime += "0";
-    }
     returnTime += minutes + " min";
 
     return returnTime;
@@ -315,7 +310,8 @@ export function ResultsPage(props: sharedProps) {
                   </span>
                 </div>
                 <div className="playlist-header-data">
-                  {props.noSongs} songs,&nbsp;
+                  {props.noSongs + (props.noSongs === 1 ? " song" : " songs")}
+                  ,&nbsp;
                   {convertToTime(props.totalTime)}
                 </div>
               </div>

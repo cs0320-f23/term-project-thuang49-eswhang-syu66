@@ -91,10 +91,16 @@
 }
 
 .recommended-track-container {
-  width: calc(80vw - 3em);
+  width: calc(80vw - 4em);
   margin-left: 1em;
   height: calc(100vh - 5em);
   overflow: scroll;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.recommended-track-container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
 .result-page-track-card {
@@ -179,7 +185,7 @@
 }
 
 .playlist-header-wrapper div.playlist-header {
-  margin-top: 0.5em;
+  margin-top: 0.75em;
   display: flex;
   font-weight: 600;
   align-items: center;
@@ -206,4 +212,10 @@
 
 .playlist-header-wrapper span::after {
   content: ", Amplified";
+}
+
+.playlist-header-data {
+  opacity: 0.75;
+  font-size: 90%;
+  margin-top: 0.25em;
 }
