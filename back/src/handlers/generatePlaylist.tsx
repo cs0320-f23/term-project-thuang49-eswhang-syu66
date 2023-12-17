@@ -90,6 +90,7 @@ export async function generatePlaylistHandle(
   const playlist_id = playlist.id;
   console.log(playlist_id);
 
+  // TODO: @Sean pls check out
   //   const img = await fetch(
   //     "https://api.spotify.com/v1/playlists" + playlist_id + "images",
   //     {

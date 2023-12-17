@@ -42,7 +42,11 @@ export function ResultsPage(props: sharedProps) {
     const genPlaylist = await fetch(url).then((res) => res.json());
 
     if (genPlaylist.status === "success") {
-      console.log("successfully addded to library");
+      console.log("successfully added to library");
+      const addToLibButton = document.getElementById("add-to-library-button");
+      if (addToLibButton) {
+        addToLibButton.innerText = "Added to library ✓";
+      }
     } else {
       console.error("error occurred in adding to library");
     }
