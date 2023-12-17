@@ -183,6 +183,15 @@
   margin-right: 0.75em;
 }
 
+.genre-result-card.result-card img {
+  width: 0;
+  margin-right: 0;
+}
+
+.genre-result-card.result-card {
+  text-transform: capitalize;
+}
+
 .track-time {
   position: absolute;
   right: 0.5em;
@@ -248,6 +257,10 @@
 
 .selected-seed p {
   margin: 0.25em 0.5em;
+}
+
+.selected-seed-genres.selected-seed p {
+  text-transform: capitalize;
 }
 
 .selected-seed:hover {
