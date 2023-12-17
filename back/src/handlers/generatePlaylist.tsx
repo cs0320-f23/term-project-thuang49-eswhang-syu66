@@ -87,14 +87,25 @@ export async function generatePlaylistHandle(
     return;
   }
 
+  const playlist_id = playlist.id;
+  console.log(playlist_id);
+
+  //   const img = await fetch(
+  //     "https://api.spotify.com/v1/playlists" + playlist_id + "images",
+  //     {
+  //       method: "PUT",
+  //       headers: {
+  //         Authorization: "Bearer " + userToken,
+  //       },
+  //       body: JSON.stringify(req.query.imgUrl),
+  //     }
+  //   ).then((res) => res.json());
+
   // ------------------------------------------------------------------------------------
   // --------------------------------------------------------------------------------------------------
   // ------------------------------------------------------------------------------------
   // --------------------------------------------------------------------------------------------------
   // stopped here
-
-  const playlist_id = playlist.id;
-  console.log(playlist_id);
 
   // format for query param should be comma separated, example: url?songs=spotify%3Atrack%3A4iV5W9uYEdYUVa79Axb7Rh,spotify%3Atrack%3A1301WleyT98MSxVHPZCA6M
   const uri_string = req.query.songs;

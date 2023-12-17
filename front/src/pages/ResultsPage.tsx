@@ -29,12 +29,14 @@ export function ResultsPage(props: sharedProps) {
   const [currSong, setCurrSong] = useState<trackResponse | undefined>();
   const [playlistTitle, setPlaylistTitle] = useState("Playlists");
   const [albumArt, setAlbumArt] = useState<ReactElement[]>([]);
+  const [imgUrl, setImgUrl] = useState("");
 
   async function createPlaylist(authToken: string) {
     let url = "http://localhost:3000/generate_playlist?";
     url += `${"userToken"}=${authToken}&`;
     url += `songs=${props.returnedTracks.map((track) => track.uri).join(",")}&`;
-    url += `title=${playlistTitle}`;
+    url += `title=${playlistTitle}&`;
+    // url += `img=${imgUrl.substring(23)}`;
     console.log(url);
     // console.log(url);
     const genPlaylist = await fetch(url).then((res) => res.json());
@@ -222,6 +224,7 @@ export function ResultsPage(props: sharedProps) {
           //const album = document.querySelector(".playlist-header-wrapper");
           //album?.appendChild(img);
           console.log(img.src);
+          setImgUrl(img.src);
         })
         .catch(function (error: string) {
           console.error("oops, something went wrong!", error);
@@ -243,6 +246,8 @@ export function ResultsPage(props: sharedProps) {
       );
     }
     setAlbumArt(circleArr);
+
+    generateAlbumImg();
   };
 
   useEffect(() => {
