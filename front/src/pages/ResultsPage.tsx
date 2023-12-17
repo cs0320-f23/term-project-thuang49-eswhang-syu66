@@ -133,7 +133,7 @@ export function ResultsPage(props: sharedProps) {
               <div>
                 <TrackAnalysis trackData = {currSong} trackFeatures = {currFeatures}></TrackAnalysis>
               </div>
-              <div className="recommended-track-container">
+              <div className="recommended-track-container" aria-label="recommended-track-container">
                 header
                 {props.noSongs} Songs, 
                 {convertToTime(props.totalTime)}

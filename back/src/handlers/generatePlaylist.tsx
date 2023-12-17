@@ -19,8 +19,6 @@ export async function generatePlaylistHandle(req: Request, res: Response, client
         res.send(clientResponse)
     }
 
-    //TODO: parse the query params from the req made by the frontend and create a fetch call with that
-
     // receiving a user's userid
     const profileFetch = await fetch("https://api.spotify.com/v1/me", {
         method: "GET",
