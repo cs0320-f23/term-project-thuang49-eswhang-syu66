@@ -37,7 +37,6 @@ export function ResultsPage(props: sharedProps) {
     url += `songs=${props.returnedTracks.map((track) => track.uri).join(",")}&`;
     url += `title=${playlistTitle}&`;
     // url += `img=${imgUrl.substring(23)}`;
-    console.log(url);
     // console.log(url);
     const genPlaylist = await fetch(url).then((res) => res.json());
 
@@ -227,7 +226,7 @@ export function ResultsPage(props: sharedProps) {
           img.src = dataUrl;
           //const album = document.querySelector(".playlist-header-wrapper");
           //album?.appendChild(img);
-          console.log(img.src);
+          //console.log(img.src);
           setImgUrl(img.src);
         })
         .catch(function (error: string) {
@@ -237,18 +236,59 @@ export function ResultsPage(props: sharedProps) {
   };
 
   const generateAlbumArt = () => {
-    let circleCount = parseInt("" + Math.random() * 25);
-    if (circleCount < 5) {
-      circleCount += 5;
-    }
+    let circleCount = parseInt("" + Math.random() * 21);
+    circleCount += 5;
     const circleArr = [];
+
+    const div = circleCount / 4;
+    console.log(parseInt("" + div));
+    let bgColor = "";
+    let circleColor = "";
+    switch (parseInt("" + div)) {
+      case 1:
+        bgColor = "#3A5353";
+        circleColor = "#6E96BB";
+        break;
+      case 2:
+        bgColor = "#738676";
+        circleColor = "#CDD4D5";
+        break;
+      case 3:
+        bgColor = "#133F0F";
+        circleColor = "#D2D396";
+        break;
+      case 4:
+        bgColor = "#6371A2";
+        circleColor = "#C7C8D3";
+        break;
+      default:
+        bgColor = "#8A385A";
+        circleColor = "#CFB2AF";
+        break;
+    }
+
+    console.log(bgColor);
     for (let i = 0; i < circleCount; i++) {
       const left = parseInt("" + Math.random() * 5) * 4 + "vw";
       const top = parseInt("" + Math.random() * 5) * 4 + "vw";
       circleArr.push(
-        <div className="circle" style={{ left: left, top: top }}></div>
+        <div
+          className="circle"
+          style={{ left: left, top: top, backgroundColor: circleColor }}
+        ></div>
       );
     }
+
+    const albumImg = document.getElementById("album-image");
+    if (albumImg) {
+      albumImg.style.backgroundColor = bgColor;
+    }
+
+    const addToLibButton = document.getElementById("add-to-library-button");
+    if (addToLibButton) {
+      addToLibButton.style.backgroundColor = bgColor;
+    }
+
     setAlbumArt(circleArr);
 
     generateAlbumImg();
