@@ -134,6 +134,9 @@ export function SearchBox(props: prop) {
         value={searchValue}
         onBlur={() => {
           setSearchValue("");
+          setTimeout(() => {
+            setSearchResults([]);
+          }, 500);
         }}
       ></input>
       <div className="search-results">
