@@ -41,6 +41,19 @@ export function SelectSeedsPage(props: sharedProps) {
   }, [selectedSeeds]);
 
   useEffect(() => {
+    const continueButton = document.getElementById("continue-button");
+    if (selectedSeeds.length > 0) {
+      if (continueButton) {
+        continueButton.classList.add("toggle");
+      }
+    } else {
+      if (continueButton) {
+        continueButton.classList.remove("toggle");
+      }
+    }
+  }, [selectedSeeds]);
+
+  useEffect(() => {
     document.body.style.backgroundColor = "#335B79";
   }, []);
   const nav = useNavigate();
@@ -54,7 +67,7 @@ export function SelectSeedsPage(props: sharedProps) {
               <h2>Amplify</h2>
             </a>
             <button
-              className="continue-button toggle"
+              className="continue-button"
               id="continue-button"
               onClick={() => nav("/duration")}
             >
