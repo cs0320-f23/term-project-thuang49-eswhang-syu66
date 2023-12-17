@@ -171,6 +171,7 @@ nav button {
   animation-timing-function: ease;
   animation-delay: 2s;
   animation-fill-mode: backwards;
+  color: black;
   /* color: rgb(110, 110, 110); */
 }
 

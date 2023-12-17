@@ -52,6 +52,7 @@
   background-color: transparent;
   border: 0;
   transition: 0.25s ease;
+  color: black;
 }
 
 .select-button:hover {
@@ -64,6 +65,7 @@
   background-color: #fffdce;
   border: 0;
   transition: 0.25s ease;
+  color: black;
 }
 
 .select-button-clicked:hover {
