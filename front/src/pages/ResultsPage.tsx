@@ -133,9 +133,9 @@ export function ResultsPage(props: sharedProps) {
     setTimeout(() => {
       document.body.style.backgroundColor = "#BF357F";
       loadingTitles[0].style.top = "0";
-      loadingTitleDivs[0].style.animation = "ellipse 0.5s ease";
-      loadingTitleDivs[1].style.animation = "ellipse 0.5s ease 0.1s";
-      loadingTitleDivs[2].style.animation = "ellipse 0.5s ease 0.25s";
+      loadingTitleDivs[0].style.animation = "ellipse 0.5s ease 0.6s";
+      loadingTitleDivs[1].style.animation = "ellipse 0.5s ease 0.7s";
+      loadingTitleDivs[2].style.animation = "ellipse 0.5s ease 0.85s";
     }, 0); // 0ms delay
     setTimeout(() => {
       loadingTitleDivs[0].style.animation = "";
@@ -146,12 +146,12 @@ export function ResultsPage(props: sharedProps) {
       document.body.style.backgroundColor = "#FA7D6C";
       loadingTitles[0].style.opacity = "70%";
       loadingTitles[1].style.top = "0";
-      loadingTitleDivs[0].style.animation = "ellipse 0.5s ease 0.5s";
-      loadingTitleDivs[1].style.animation = "ellipse 0.5s ease 0.6s";
-      loadingTitleDivs[2].style.animation = "ellipse 0.5s ease 0.75s";
-      loadingTitleDivs[3].style.animation = "ellipse 0.5s ease 0.5s";
-      loadingTitleDivs[4].style.animation = "ellipse 0.5s ease 0.6s";
-      loadingTitleDivs[5].style.animation = "ellipse 0.5s ease 0.75s";
+      loadingTitleDivs[0].style.animation = "ellipse 0.5s ease 0.6s";
+      loadingTitleDivs[1].style.animation = "ellipse 0.5s ease 0.7s";
+      loadingTitleDivs[2].style.animation = "ellipse 0.5s ease 0.85s";
+      loadingTitleDivs[3].style.animation = "ellipse 0.5s ease 0.6s";
+      loadingTitleDivs[4].style.animation = "ellipse 0.5s ease 0.7s";
+      loadingTitleDivs[5].style.animation = "ellipse 0.5s ease 0.85s";
     }, 1500); // 0ms + 1250ms + 250ms delay
     setTimeout(() => {
       loadingTitleDivs[0].style.animation = "";
