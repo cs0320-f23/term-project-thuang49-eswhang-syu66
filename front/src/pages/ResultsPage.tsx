@@ -170,7 +170,6 @@ export function ResultsPage(props: sharedProps) {
         addToLibButton.style.top = "1em";
       }
       generateAlbumArt();
-      //generateAlbumImg();
     }, 5300); // 0ms + 1250ms + 250ms + 1250ms + 300ms + 1250ms + 1000ms delay
   }, []);
 
@@ -179,21 +178,34 @@ export function ResultsPage(props: sharedProps) {
 
     if (node) {
       domtoimage
-        .toJpeg(node)
+        .toJpeg(node, {
+          quality: 0.99,
+          width: 600,
+          height: 600,
+          style: {
+            borderRadius: 0,
+            transform: `scale(calc(600 / ${node.clientWidth}))`,
+            transformOrigin: "top left",
+          },
+        })
         .then(function (dataUrl: string) {
           const img = new Image();
           img.src = dataUrl;
-          const album = document.querySelector("#album-image");
-          album?.appendChild(img);
+          //const album = document.querySelector(".playlist-header-wrapper");
+          //album?.appendChild(img);
+          console.log(img.src);
         })
         .catch(function (error: string) {
-          console.error("oops, imgsomething went wrong!", error);
+          console.error("oops, something went wrong!", error);
         });
     }
   };
 
   const generateAlbumArt = () => {
-    const circleCount = parseInt("" + Math.random() * 20 + 5);
+    let circleCount = parseInt("" + Math.random() * 25);
+    if (circleCount < 5) {
+      circleCount += 5;
+    }
     const circleArr = [];
     for (let i = 0; i < circleCount; i++) {
       const left = parseInt("" + Math.random() * 5) * 4 + "vw";
@@ -212,6 +224,9 @@ export function ResultsPage(props: sharedProps) {
     if (title) {
       title.addEventListener("input", function () {
         setPlaylistTitle(title.innerHTML);
+      });
+      title.addEventListener("blur", () => {
+        generateAlbumImg();
       });
     }
   }, []);
