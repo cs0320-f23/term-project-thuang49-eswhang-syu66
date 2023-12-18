@@ -241,7 +241,6 @@ export function ResultsPage(props: sharedProps) {
         });
     }
   };
-
   const generateAlbumArt = () => {
     let circleCount = parseInt("" + Math.random() * 21);
     circleCount += 5;
