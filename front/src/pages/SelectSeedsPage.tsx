@@ -3,6 +3,7 @@ import { SearchBox } from "../components/SearchBox";
 import { SelectedItems } from "../components/SelectedItems";
 import { useNavigate } from "react-router-dom";
 import "../css/SelectPage.css";
+import logo from "../assets/Logo White.svg";
 
 interface sharedProps {
   seedNames: string[];
@@ -17,7 +18,6 @@ export function SelectSeedsPage(props: sharedProps) {
   // [2] = name
   // [3] = image path
 
-  
   const [selectedSeeds, setSelectedSeeds] = useState<string[][]>([]);
 
   const [selectedList, setSelectedList] = useState<JSX.Element[]>([]);
@@ -42,19 +42,34 @@ export function SelectSeedsPage(props: sharedProps) {
   }, [selectedSeeds]);
 
   useEffect(() => {
+    const continueButton = document.getElementById("continue-button");
+    if (selectedSeeds.length > 0) {
+      if (continueButton) {
+        continueButton.classList.add("toggle");
+      }
+    } else {
+      if (continueButton) {
+        continueButton.classList.remove("toggle");
+      }
+    }
+  }, [selectedSeeds]);
+
+  useEffect(() => {
     document.body.style.backgroundColor = "#335B79";
   }, []);
   const nav = useNavigate();
+
   return (
     <>
       <body>
         <main className="container-fluid">
           <nav className="row flex-nowrap">
             <a id="logo" href="/">
-              <h2>Amplify</h2>
+              {/* <h2>Amplify</h2> */}
+              <img src={logo} alt="Amplify Logo"></img>
             </a>
             <button
-              className="continue-button toggle"
+              className="continue-button"
               id="continue-button"
               onClick={() => nav("/duration")}
             >

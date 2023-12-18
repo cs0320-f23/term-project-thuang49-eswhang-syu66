@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Slider } from "../components/Slider";
 import { useEffect } from "react";
 import "../css/SelectPage.css";
+import logo from "../assets/Logo White.svg";
 
 interface sharedProps {
   featNames: string[];
@@ -21,7 +22,8 @@ export function SelectFeatsPage(props: sharedProps) {
         <main className="container-fluid">
           <nav className="row flex-nowrap">
             <a id="logo" href="/">
-              <h2>Amplify</h2>
+              {/* <h2>Amplify</h2> */}
+              <img src={logo} alt="Amplify Logo"></img>
             </a>
             <button
               className="continue-button toggle"

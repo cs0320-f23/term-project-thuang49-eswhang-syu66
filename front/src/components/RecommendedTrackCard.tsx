@@ -4,17 +4,16 @@ import { trackResponse } from "../interfaces/trackResponse";
 
 interface prop {
   resultInfo: trackResponse;
-
-  idFeatureMap: Map<string, featuresResponse>
-
-  currFeature: featuresResponse | undefined ;
-  setCurrFeatures: React.Dispatch<React.SetStateAction<featuresResponse|undefined>> ;
-
-  currId: string
+  idFeatureMap: Map<string, featuresResponse>;
+  currFeature: featuresResponse | undefined;
+  setCurrFeatures: React.Dispatch<
+    React.SetStateAction<featuresResponse | undefined>
+  >;
+  currId: string;
   setCurrId: React.Dispatch<React.SetStateAction<string>>;
-
-  currSong: trackResponse | undefined
+  currSong: trackResponse | undefined;
   setCurrSong: React.Dispatch<React.SetStateAction<trackResponse | undefined>>;
+  number: number;
 }
 /**
  * This component defines the drop down search results from searching for a track
@@ -84,28 +83,33 @@ export function RecommendedTrackCard(props: prop) {
     }
   }
 
-  function setStates(id: string) {
-    props.setCurrId(id)
-    props.setCurrSong(props.resultInfo)
-    
-    let toBeId = props.idFeatureMap.get(id)
-    if (toBeId != undefined && props.setCurrFeatures != undefined) {
-      props.setCurrFeatures(toBeId)
-    }
-  }
+  // function setStates(id: string) {
+  //   props.setCurrId(id);
+  //   props.setCurrSong(props.resultInfo);
+
+  //   const toBeId = props.idFeatureMap.get(id);
+  //   if (toBeId != undefined && props.setCurrFeatures != undefined) {
+  //     props.setCurrFeatures(toBeId);
+  //   }
+  // }
+
   return (
-    <div className={"track-result-card result-card"} id={"tracks" + props.resultInfo.id} onMouseOver = {() => setStates(props.resultInfo.id)}>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <img
-          src={returnImages()}
-          style={{ width: "50px", height: "50px", marginRight: "1rem" }}
-        />
-        <div>
-          <h4>{props.resultInfo.name}</h4>
+    <div
+      className={"result-page-track-card"}
+      id={"tracks" + props.resultInfo.id}
+      // onMouseOver={() => setStates(props.resultInfo.id)}
+    >
+      <div className="track-data">
+        <div className="track-number">
+          {props.number < 10 ? "0" + props.number : props.number}
+        </div>
+        <img className="track-img" src={returnImages()} />
+        <div className="track-names">
+          <p>{props.resultInfo.name}</p>
           <div className="artist-names">{extractArtists().toString()}</div>
         </div>
       </div>
-      <div>{extractTime()}</div>
+      <div className="track-length">{extractTime()}</div>
     </div>
   );
 }

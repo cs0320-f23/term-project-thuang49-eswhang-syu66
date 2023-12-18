@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { SelectButton } from "../components/SelectButton";
 import { useEffect } from "react";
 import "../css/ParamsPage.css";
+import logo from "../assets/Logo Black.svg";
 
 interface sharedProps {
   seedNames: string[];
@@ -15,10 +16,10 @@ export function SeedsPage(props: sharedProps) {
 
   useEffect(() => {
     document.body.style.backgroundColor = "#B8DDF9";
-    const logo: HTMLElement | null = document.querySelector("a#logo h2");
-    if (logo) {
-      logo.style.color = "black";
-    }
+    // const logo: HTMLElement | null = document.querySelector("a#logo h2");
+    // if (logo) {
+    //   logo.style.color = "black";
+    // }
   }, []);
 
   /**
@@ -43,7 +44,8 @@ export function SeedsPage(props: sharedProps) {
         <main className="container-fluid">
           <nav className="row flex-nowrap">
             <a id="logo" href="/">
-              <h2>Amplify</h2>
+              {/* <h2>Amplify</h2> */}
+              <img src={logo} alt="Amplify Logo"></img>
             </a>
             <button
               className="continue-button"

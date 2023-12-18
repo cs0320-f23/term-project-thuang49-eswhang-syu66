@@ -39,6 +39,11 @@ nav a#logo {
   color: white;
   width: max-content;
   display: flex;
+  font-weight: 600;
+}
+
+#logo img {
+  height: 2em;
 }
 
 .content {
@@ -161,6 +166,7 @@ nav button {
   position: fixed;
   top: 1em;
   right: 1em;
+  border: transparent;
 }
 
 .get-started-button {
@@ -169,7 +175,7 @@ nav button {
   animation-timing-function: ease;
   animation-delay: 2s;
   animation-fill-mode: backwards;
-  /* color: rgb(110, 110, 110); */
+  color: black;
 }
 
 @keyframes navButton {
@@ -223,6 +229,7 @@ nav button {
   justify-content: center;
   align-items: center;
   background-color: white;
+  font-weight: 500;
 }
 
 .step.highlight {
@@ -242,11 +249,3 @@ nav button {
   left: 0em;
   top: calc(0em - 1.5px);
 }
-
-
-.recommended-track-container {
-  max-height: 500px; /* Set the desired height */
-  overflow-y: scroll;
-  width:60vw;
-}
-
