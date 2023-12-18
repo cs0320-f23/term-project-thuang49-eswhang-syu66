@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { SelectButton } from "../components/SelectButton";
 import "../css/ParamsPage.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import logo from "../assets/Logo Black.svg";
 
 interface sharedProps {
   featNames: string[];
@@ -11,10 +12,8 @@ interface sharedProps {
   setAuthToken: React.Dispatch<React.SetStateAction<string>>;
 }
 export function FeatsPage(props: sharedProps) {
-
   const [searchParams] = useSearchParams();
   const authToken = searchParams.get("success");
-
 
   const { featNames } = props;
 
@@ -34,15 +33,14 @@ export function FeatsPage(props: sharedProps) {
 
   useEffect(() => {
     document.body.style.backgroundColor = "#C2C4F7";
-    const logo: HTMLElement | null = document.querySelector("a#logo h2");
-    if (logo) {
-      logo.style.color = "black";
-    }
+    // const logo: HTMLElement | null = document.querySelector("a#logo img");
+    // if (logo) {
+    //   logo.style.color = "black";
+    // }
 
     if (authToken != undefined) {
       props.setAuthToken(authToken);
     }
-
   }, []);
 
   // disables the user from continuing without selecting any feature categories
@@ -59,14 +57,14 @@ export function FeatsPage(props: sharedProps) {
     }
   }, [featNames]);
 
-
   return (
     <>
       <body>
         <main className="container-fluid">
           <nav className="row flex-nowrap">
             <a id="logo" href="/">
-              <h2>Amplify</h2>
+              {/* <h2>Amplify</h2> */}
+              <img src={logo} alt="Amplify Logo"></img>
             </a>
             <button
               className="continue-button"

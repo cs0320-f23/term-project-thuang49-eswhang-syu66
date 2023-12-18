@@ -45,7 +45,11 @@ export function SelectedItems(props: prop) {
         unselect(props.seedInfo[1], props.seedInfo[0]);
       }}
     >
-      <img src={props.seedInfo[3]} alt="Item" />
+      {props.seedInfo[1] !== "genres" ? (
+        <img src={props.seedInfo[3]} alt="Item" />
+      ) : (
+        ""
+      )}
       <p>{props.seedInfo[2]}</p>
       <div>
         <b className="close">✕</b>

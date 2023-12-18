@@ -1,6 +1,5 @@
 import { genreResponse } from "../interfaces/genreResponse";
 
-
 interface prop {
   selectedSeeds: string[][];
   setSelectedSeeds: React.Dispatch<React.SetStateAction<string[][]>>;
