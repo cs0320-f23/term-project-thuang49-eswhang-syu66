@@ -22,6 +22,11 @@
   color: white;
 }
 
+#logoAlt {
+  position: absolute;
+  opacity: 0;
+}
+
 .add-to-library-button {
   background-color: #3a5353;
   top: -100%;

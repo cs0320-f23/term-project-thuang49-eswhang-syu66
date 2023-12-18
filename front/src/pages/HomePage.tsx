@@ -2,6 +2,7 @@ import "../css/App.css";
 import { useState, useEffect } from "react";
 import MusicGraph from "../components/MusicGraph";
 import { InitialAuth } from "../endpoints/InitialAuth";
+import logo from "../assets/Logo White.svg";
 
 export function HomePage() {
   // checking for the presence of an authentication token
@@ -160,7 +161,8 @@ export function HomePage() {
         <main className="container-fluid">
           <nav className="row flex-nowrap">
             <a id="logo" href="/">
-              <h2>Amplify</h2>
+              {/* <h2>Amplify</h2> */}
+              <img src={logo} alt="Amplify Logo"></img>
             </a>
             <div>
               <InitialAuth />

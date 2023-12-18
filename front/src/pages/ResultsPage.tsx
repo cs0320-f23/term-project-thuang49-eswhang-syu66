@@ -4,6 +4,8 @@ import { trackResponse } from "../interfaces/trackResponse";
 import { featuresResponse } from "../interfaces/featuresResponse";
 import domtoimage from "dom-to-image";
 import "../css/ResultsPage.css";
+import logo from "../assets/Logo White.svg";
+import logoBlack from "../assets/Logo Black.svg";
 
 interface sharedProps {
   returnedTracks: trackResponse[];
@@ -191,11 +193,16 @@ export function ResultsPage(props: sharedProps) {
         loadingContent.style.opacity = "0";
       }
 
-      const logo: HTMLElement | null = document.querySelector("a#logo h2");
-      if (logo) {
-        logo.style.color = "black";
+      const logo: HTMLImageElement | null =
+        document.querySelector("a#logo img");
+      const logo2: HTMLImageElement | null = document.querySelector("#logoAlt");
+      if (logo && logo2) {
+        logo.style.opacity = "0";
+        logo2.style.opacity = "1";
         logo.style.transition = "1.6s cubic-bezier(0.68, 0.69, 0.03, 1)";
+        logo2.style.transition = "1.6s cubic-bezier(0.68, 0.69, 0.03, 1)";
       }
+
       const addToLibButton: HTMLElement | null = document.querySelector(
         ".add-to-library-button"
       );
@@ -314,7 +321,9 @@ export function ResultsPage(props: sharedProps) {
         <main className="container-fluid">
           <nav className="row flex-nowrap">
             <a id="logo" href="/">
-              <h2>Amplify</h2>
+              {/* <h2>Amplify</h2> */}
+              <img src={logo} alt="Amplify Logo"></img>
+              <img id="logoAlt" src={logoBlack} alt="Amplify Logo"></img>
             </a>
             <button
               className="add-to-library-button"

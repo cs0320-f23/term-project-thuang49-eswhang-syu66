@@ -42,6 +42,10 @@ nav a#logo {
   font-weight: 600;
 }
 
+#logo img {
+  height: 2em;
+}
+
 .content {
   display: flex;
   align-items: center;
@@ -172,7 +176,6 @@ nav button {
   animation-delay: 2s;
   animation-fill-mode: backwards;
   color: black;
-  /* color: rgb(110, 110, 110); */
 }
 
 @keyframes navButton {

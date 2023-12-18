@@ -3,6 +3,7 @@ import { SearchBox } from "../components/SearchBox";
 import { SelectedItems } from "../components/SelectedItems";
 import { useNavigate } from "react-router-dom";
 import "../css/SelectPage.css";
+import logo from "../assets/Logo White.svg";
 
 interface sharedProps {
   seedNames: string[];
@@ -64,7 +65,8 @@ export function SelectSeedsPage(props: sharedProps) {
         <main className="container-fluid">
           <nav className="row flex-nowrap">
             <a id="logo" href="/">
-              <h2>Amplify</h2>
+              {/* <h2>Amplify</h2> */}
+              <img src={logo} alt="Amplify Logo"></img>
             </a>
             <button
               className="continue-button"

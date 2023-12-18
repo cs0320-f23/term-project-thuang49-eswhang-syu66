@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "../css/DurationPage.css";
 import { useEffect, useState } from "react";
 import { trackResponse } from "../interfaces/trackResponse";
+import logo from "../assets/Logo White.svg";
 
 interface sharedProps {
   seedMap: Map<string, string[]>;
@@ -104,7 +105,8 @@ export function DurationPage(props: sharedProps) {
         <main className="container-fluid">
           <nav className="row flex-nowrap">
             <a id="logo" href="/">
-              <h2>Amplify</h2>
+              {/* <h2>Amplify</h2> */}
+              <img src={logo} alt="Amplify Logo"></img>
             </a>
             <button
               className="continue-button"
