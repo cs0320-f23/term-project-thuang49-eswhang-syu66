@@ -38,9 +38,9 @@ export function ResultsPage(props: sharedProps) {
     url += `${"userToken"}=${authToken}&`;
     url += `songs=${props.returnedTracks.map((track) => track.uri).join(",")}&`;
     url += `title=${playlistTitle}&`;
-    // url += `img=${imgUrl.substring(23)}`;
-    console.log(url);
-    console.log(imgUrl)
+
+    await generateAlbumImg()
+
     const genPlaylist = await fetch(url, {
       method: "POST",
       headers: {
@@ -50,8 +50,6 @@ export function ResultsPage(props: sharedProps) {
         imgData: imgUrl.replace("data:image/jpeg;base64,", "")
       })
     }).then((res) => res.json());
-
-
 
     if (genPlaylist.status === "success") {
       console.log("successfully added to library");
@@ -64,36 +62,36 @@ export function ResultsPage(props: sharedProps) {
     }
   }
 
-  async function analyzeTracks() {
-    let url = "http://localhost:3000/analyze_tracks?";
-    url += `ids=${props.returnedTracks.map((track) => track.id).join(",")}`;
+  // async function analyzeTracks() {
+  //   let url = "http://localhost:3000/analyze_tracks?";
+  //   url += `ids=${props.returnedTracks.map((track) => track.id).join(",")}`;
 
-    const genPlaylist = await fetch(url).then((res) => res.json());
+  //   const genPlaylist = await fetch(url).then((res) => res.json());
 
-    if (genPlaylist.status === "success") {
-      console.log("successfully analyzed");
+  //   if (genPlaylist.status === "success") {
+  //     console.log("successfully analyzed");
 
-      const feats: featuresResponse[] = genPlaylist.data;
+  //     const feats: featuresResponse[] = genPlaylist.data;
 
-      if (feats != undefined) {
-        for (let i = 0; i < genPlaylist.data.length; i++) {
-          if (i == 0) {
-            setCurrFeatures(feats[i]);
-            setCurrSong(
-              props.returnedTracks.filter((x) => x.id === feats[i].id)[0]
-            );
-          }
-          idFeatureMap.set(feats[i].id, feats[i]);
-        }
-      } else {
-        console.error("malformed response produced by analyze_tracks endpoint");
-      }
-    } else {
-      console.error("error occurred in adding to library");
-    }
+  //     if (feats != undefined) {
+  //       for (let i = 0; i < genPlaylist.data.length; i++) {
+  //         if (i == 0) {
+  //           setCurrFeatures(feats[i]);
+  //           setCurrSong(
+  //             props.returnedTracks.filter((x) => x.id === feats[i].id)[0]
+  //           );
+  //         }
+  //         idFeatureMap.set(feats[i].id, feats[i]);
+  //       }
+  //     } else {
+  //       console.error("malformed response produced by analyze_tracks endpoint");
+  //     }
+  //   } else {
+  //     console.error("error occurred in adding to library");
+  //   }
 
-    // console.log(idFeatureMap);
-  }
+  //   // console.log(idFeatureMap);
+  // }
 
   function convertToTime(durationMs: number) {
     let seconds = durationMs / 1000;
@@ -129,7 +127,6 @@ export function ResultsPage(props: sharedProps) {
   }, []);
 
   useEffect(() => {
-    // console.log(currFeatures);
   }, [currFeatures]);
 
   useEffect(() => {
@@ -223,11 +220,11 @@ export function ResultsPage(props: sharedProps) {
     }, 5300); // 0ms + 1250ms + 250ms + 1250ms + 300ms + 1250ms + 1000ms delay
   }, []);
 
-  const generateAlbumImg = () => {
+  async function generateAlbumImg() {
     const node = document.getElementById("album-image");
 
     if (node) {
-      domtoimage
+      await domtoimage
         .toJpeg(node, {
           quality: 0.99,
           width: 600,
@@ -241,8 +238,6 @@ export function ResultsPage(props: sharedProps) {
         .then(function (dataUrl: string) {
           const img = new Image();
           img.src = dataUrl;
-          //const album = document.querySelector(".playlist-header-wrapper");
-          //album?.appendChild(img);
           console.log(img.src);
           setImgUrl(img.src);
         })
@@ -251,7 +246,7 @@ export function ResultsPage(props: sharedProps) {
         });
     }
   };
-  const generateAlbumArt = () => {
+  function generateAlbumArt()  {
     let circleCount = parseInt("" + Math.random() * 21);
     circleCount += 5;
     const circleArr = [];
@@ -304,11 +299,12 @@ export function ResultsPage(props: sharedProps) {
     if (addToLibButton) {
       addToLibButton.style.backgroundColor = bgColor;
     }
-
     setAlbumArt(circleArr);
-
-    generateAlbumImg();
   };
+
+  useEffect (() => {
+    generateAlbumImg();
+  }, [albumArt]) ;
 
   useEffect(() => {
     const title: HTMLElement | null = document.querySelector(

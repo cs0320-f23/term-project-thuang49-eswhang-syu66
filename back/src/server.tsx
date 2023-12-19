@@ -28,7 +28,7 @@ export interface errorMap {
 export type ResponseMap = successMap | errorMap;
 
 export const app = express();
-app.use(express.json())
+app.use(express.json({ limit: '2mb' }));
 
 export const port = process.env.PORT || 3000;
 
