@@ -191,7 +191,6 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
             headers : headers
         }).then(res => res.json())
 
-        // console.log(queryResponse)
 
         if ("tracks" in queryResponse) {
 
@@ -209,13 +208,11 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
 
             // playlist of a specified number of songs
             if (req.query.number != undefined && req.query.duration == undefined) {
-                console.log("num songs ")
                 tracksToAdd = tracks
                 numSongs = tracks.length
                 tracks.map((track : trackResponse) => playlistDuration += track.duration_ms)
 
             } else if (req.query.number == undefined && req.query.duration != undefined) {
-                console.log("duration")
                 //filtering for a given duration
                 while (numSongs < 100 && playlistDuration < Number(req.query.duration)) {
                     tracksToAdd = [...tracksToAdd, tracks[numSongs]]
@@ -231,8 +228,6 @@ export async function getRecommendationsHandle(req: Request, res: Response, toke
                 tracks.map((track : trackResponse) => playlistDuration += track.duration_ms)
             }
 
-            console.log("original length after shuffle " + tracks.length)
-            console.log("filtered length " + tracksToAdd.length)
 
             let clientResponse : successMap = {
                 status: "success",

@@ -39,8 +39,19 @@ export function ResultsPage(props: sharedProps) {
     url += `songs=${props.returnedTracks.map((track) => track.uri).join(",")}&`;
     url += `title=${playlistTitle}&`;
     // url += `img=${imgUrl.substring(23)}`;
-    // console.log(url);
-    const genPlaylist = await fetch(url).then((res) => res.json());
+    console.log(url);
+    console.log(imgUrl)
+    const genPlaylist = await fetch(url, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        imgData: imgUrl.replace("data:image/jpeg;base64,", "")
+      })
+    }).then((res) => res.json());
+
+
 
     if (genPlaylist.status === "success") {
       console.log("successfully added to library");
@@ -112,7 +123,7 @@ export function ResultsPage(props: sharedProps) {
         continueButton.classList.remove("toggle");
       }
     }
-    analyzeTracks();
+    // analyzeTracks();
 
     // fetch all of the audio features from the tracks
   }, []);
@@ -131,10 +142,9 @@ export function ResultsPage(props: sharedProps) {
     if (resultsContent) {
       resultsContent.style.opacity = "0";
     }
-    const loadingTitles: HTMLElement[] =
-      document.getElementsByClassName("loading-title");
-    const loadingTitleDivs: HTLMElement[] =
-      document.querySelectorAll(".loading-title div");
+    const loadingTitles: HTMLElement[] = Array.from(document.getElementsByClassName("loading-title") as HTMLCollectionOf<HTMLElement>);
+      
+    const loadingTitleDivs: HTMLElement[] = Array.from(document.querySelectorAll(".loading-title div"));
     setTimeout(() => {
       document.body.style.backgroundColor = "#BF357F";
       loadingTitles[0].style.top = "0";
@@ -233,7 +243,7 @@ export function ResultsPage(props: sharedProps) {
           img.src = dataUrl;
           //const album = document.querySelector(".playlist-header-wrapper");
           //album?.appendChild(img);
-          //console.log(img.src);
+          console.log(img.src);
           setImgUrl(img.src);
         })
         .catch(function (error: string) {

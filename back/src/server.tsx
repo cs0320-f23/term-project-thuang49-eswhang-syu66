@@ -28,6 +28,7 @@ export interface errorMap {
 export type ResponseMap = successMap | errorMap;
 
 export const app = express();
+app.use(express.json())
 
 export const port = process.env.PORT || 3000;
 
@@ -55,7 +56,7 @@ app.get('/search',cors(), (req: Request, res: Response) => searchHandle(req, res
 app.get('/get_recommendations', cors(), (req: Request, res: Response) => getRecommendationsHandle(req, res, clientAuthToken) )
 
 // generates a new playlist for the user.
-app.get('/generate_playlist', cors(), (req: Request, res: Response) => generatePlaylistHandle(req, res, clientAuthToken))
+app.post('/generate_playlist', cors(), (req: Request, res: Response) => generatePlaylistHandle(req, res, clientAuthToken))
 
 // searches for an artist or track based on the id
 app.get('/search_id', cors(), (req: Request, res: Response) => search_uid(req, res, clientAuthToken))

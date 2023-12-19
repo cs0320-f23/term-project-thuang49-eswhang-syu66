@@ -9,7 +9,7 @@ const frontEndBaseURL = 'http://localhost:8000/feats'
 // for workflow 
 export function authHandle(req: Request, res: Response) {
         const responseType = 'code'
-        const scope : string = "playlist-modify-private"
+        const scope : string = "playlist-modify-private playlist-modify-public ugc-image-upload"
         const state = Math.random()
     
         const redirect : string = 'https://accounts.spotify.com/authorize?' +

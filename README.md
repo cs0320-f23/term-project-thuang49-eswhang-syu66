@@ -16,6 +16,7 @@ Amplify allows users to randomly generate Spotify playlists based on a set of sp
     * ```npm install playwright```
     * ```npx playwright install```
     * ```npm install @playwright/test``` important!
+    * ```npm install dom-to-image```
 
 ### Form: 
 * All responses from the backend will be served as type ```Response``` that is either
