@@ -39,16 +39,16 @@ export function ResultsPage(props: sharedProps) {
     url += `songs=${props.returnedTracks.map((track) => track.uri).join(",")}&`;
     url += `title=${playlistTitle}&`;
 
-    await generateAlbumImg()
+    await generateAlbumImg();
 
     const genPlaylist = await fetch(url, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        imgData: imgUrl.replace("data:image/jpeg;base64,", "")
-      })
+        imgData: imgUrl.replace("data:image/jpeg;base64,", ""),
+      }),
     }).then((res) => res.json());
 
     if (genPlaylist.status === "success") {
@@ -126,8 +126,7 @@ export function ResultsPage(props: sharedProps) {
     // fetch all of the audio features from the tracks
   }, []);
 
-  useEffect(() => {
-  }, [currFeatures]);
+  useEffect(() => {}, [currFeatures]);
 
   useEffect(() => {
     document.body.style.backgroundColor = "#162764";
@@ -139,9 +138,15 @@ export function ResultsPage(props: sharedProps) {
     if (resultsContent) {
       resultsContent.style.opacity = "0";
     }
-    const loadingTitles: HTMLElement[] = Array.from(document.getElementsByClassName("loading-title") as HTMLCollectionOf<HTMLElement>);
-      
-    const loadingTitleDivs: HTMLElement[] = Array.from(document.querySelectorAll(".loading-title div"));
+    const loadingTitles: HTMLElement[] = Array.from(
+      document.getElementsByClassName(
+        "loading-title"
+      ) as HTMLCollectionOf<HTMLElement>
+    );
+
+    const loadingTitleDivs: HTMLElement[] = Array.from(
+      document.querySelectorAll(".loading-title div")
+    );
     setTimeout(() => {
       document.body.style.backgroundColor = "#BF357F";
       loadingTitles[0].style.top = "0";
@@ -245,8 +250,9 @@ export function ResultsPage(props: sharedProps) {
           console.error("oops, something went wrong!", error);
         });
     }
-  };
-  function generateAlbumArt()  {
+  }
+
+  function generateAlbumArt() {
     let circleCount = parseInt("" + Math.random() * 21);
     circleCount += 5;
     const circleArr = [];
@@ -300,11 +306,11 @@ export function ResultsPage(props: sharedProps) {
       addToLibButton.style.backgroundColor = bgColor;
     }
     setAlbumArt(circleArr);
-  };
+  }
 
-  useEffect (() => {
+  useEffect(() => {
     generateAlbumImg();
-  }, [albumArt]) ;
+  }, [albumArt]);
 
   useEffect(() => {
     const title: HTMLElement | null = document.querySelector(
@@ -313,6 +319,7 @@ export function ResultsPage(props: sharedProps) {
     if (title) {
       title.addEventListener("input", function () {
         setPlaylistTitle(title.innerText);
+        generateAlbumImg();
       });
       title.addEventListener("blur", () => {
         generateAlbumImg();
