@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("auth successfully redirects", async ({
+test("initial auth successfully redirects", async ({
     page,
   }) => {
     await page.goto('http://localhost:3000/client_auth');
