@@ -68,7 +68,7 @@ export function RecommendedTrackCard(props: prop) {
   }
 
   /**
-   * Extracs the image source url from a track.
+   * Extracts the image source url from a track.
    * @returns a string path to the image.
    */
   function returnImages() {

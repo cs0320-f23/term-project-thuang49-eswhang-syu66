@@ -9,6 +9,11 @@ interface prop {
   resultInfo: genreResponse;
 }
 
+/**
+ * This component defines the drop down search results from searching for a genre.
+ * @param props of type prop is defined by the interface above.
+ * @returns a component containing information about a given genre.
+ */
 export function GenreResultCard(props: prop) {
   function addTrack() {
     if (

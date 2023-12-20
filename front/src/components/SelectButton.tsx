@@ -8,6 +8,12 @@ interface prop {
   listSetter: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
+/**
+ * Component that shows whether a feature parameter has been selected by the
+ * user. Used on the Features parameter page.
+ * @param props containing shared states
+ * @returns component
+ */
 export function SelectButton(props: prop) {
   const [clicked, setClicked] = useState<string>("");
 
