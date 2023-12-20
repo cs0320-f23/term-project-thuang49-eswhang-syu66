@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 
+// this tests that a login with the auth endpoint fails as expected
 test("auth login fails", async ({
     page,
     }) => {
@@ -13,6 +14,7 @@ test("auth login fails", async ({
         await expect(page.getByText('Incorrect username or')).toBeVisible();
     });
 
+// this tests that a successful auth request correctly redirects to the success page
 test("auth successfully redirects", async ({
       page,
     }) => {
