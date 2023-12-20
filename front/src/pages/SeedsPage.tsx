@@ -8,6 +8,12 @@ interface sharedProps {
   seedNames: string[];
   setSeedNames: React.Dispatch<React.SetStateAction<string[]>>;
 }
+
+/**
+ * Component in charge of the Seeds page.
+ * @param props shared props for seeds
+ * @returns graphics for seeds page
+ */
 export function SeedsPage(props: sharedProps) {
   const { seedNames } = props;
   const seedNameList: string[] = ["Artists", "Genres", "Tracks"];

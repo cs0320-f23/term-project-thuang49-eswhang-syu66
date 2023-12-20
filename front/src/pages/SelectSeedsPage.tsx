@@ -11,6 +11,11 @@ interface sharedProps {
   seedsMap: Map<string, string[]>;
 }
 
+/**
+ * Component in charge of the Selecting Seeds page.
+ * @param props shared props for selected seeds
+ * @returns graphics for the select seeds page
+ */
 export function SelectSeedsPage(props: sharedProps) {
   // selected seeds is an array of arrays where each inner array has the following elements:
   // [0] = id (of the track or artist)

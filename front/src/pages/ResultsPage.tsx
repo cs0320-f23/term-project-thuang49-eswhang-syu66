@@ -20,6 +20,11 @@ interface sharedProps {
   authToken: string;
 }
 
+/**
+ * Component for the playlist generation loading screen and the Results page
+ * @param props shared props for auth and generated tracks
+ * @returns results page graphics
+ */
 export function ResultsPage(props: sharedProps) {
   const [idFeatureMap] = useState<Map<string, featuresResponse>>(
     new Map<string, featuresResponse>()

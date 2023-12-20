@@ -10,6 +10,11 @@ interface sharedProps {
   featsMap: Map<string, number>;
 }
 
+/**
+ * Component in charge of the Selecting Features page.
+ * @param props shared props for feature names
+ * @returns graphics for the selecting features page
+ */
 export function SelectFeatsPage(props: sharedProps) {
   const nav = useNavigate();
 

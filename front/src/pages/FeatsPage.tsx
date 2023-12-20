@@ -11,6 +11,12 @@ interface sharedProps {
   authToken: string;
   setAuthToken: React.Dispatch<React.SetStateAction<string>>;
 }
+
+/**
+ * Component in charge of the Features page.
+ * @param props props for the auth token and feature names
+ * @returns elements for the features params page
+ */
 export function FeatsPage(props: sharedProps) {
   const [searchParams] = useSearchParams();
   const authToken = searchParams.get("success");

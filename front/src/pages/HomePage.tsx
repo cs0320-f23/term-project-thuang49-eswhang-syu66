@@ -4,6 +4,10 @@ import MusicGraph from "../components/MusicGraph";
 import { InitialAuth } from "../endpoints/InitialAuth";
 import logo from "../assets/Logo White.svg";
 
+/**
+ * Component in charge of the LP
+ * @returns home page graphics
+ */
 export function HomePage() {
   // checking for the presence of an authentication token
 
