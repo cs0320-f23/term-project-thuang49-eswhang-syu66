@@ -10,22 +10,35 @@ interface sharedProps {
   featsMap: Map<string, number>;
 }
 
+/**
+ * Component in charge of the Selecting Features page.
+ * @param props shared props for feature names
+ * @returns graphics for the selecting features page
+ */
 export function SelectFeatsPage(props: sharedProps) {
   const nav = useNavigate();
 
+  /**
+   * Changes the background color upon load.
+   */
   useEffect(() => {
     document.body.style.backgroundColor = "#6367BC";
   }, []);
+
   return (
     <>
       <body>
-        <main className="container-fluid">
+        <main
+          aria-label="Adjusting feature parameters page"
+          className="container-fluid"
+        >
           <nav className="row flex-nowrap">
-            <a id="logo" href="/">
+            <a aria-label="Amplify Logo" id="logo" href="/">
               {/* <h2>Amplify</h2> */}
               <img src={logo} alt="Amplify Logo"></img>
             </a>
             <button
+              aria-label="Continue"
               className="continue-button toggle"
               id="continue-button"
               onClick={() => nav("/select-seeds")}
@@ -33,7 +46,10 @@ export function SelectFeatsPage(props: sharedProps) {
               Continue
             </button>
           </nav>
-          <div className="select-content">
+          <div
+            className="select-content"
+            aria-label="Use the sliders to customize the range of each parameter"
+          >
             <div className="select">
               {props.featNames.map((feat) => (
                 <div className="select-feat">

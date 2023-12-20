@@ -8,6 +8,12 @@ interface prop {
   listSetter: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
+/**
+ * Component that shows whether a feature parameter has been selected by the
+ * user. Used on the Features parameter page.
+ * @param props containing shared states
+ * @returns component
+ */
 export function SelectButton(props: prop) {
   const [clicked, setClicked] = useState<string>("");
 
@@ -25,8 +31,13 @@ export function SelectButton(props: prop) {
     }
   }
 
+  // TODO for future: can add the tooltip/feature description here
   return (
-    <button className={"select-button" + clicked} onClick={onButtonClick}>
+    <button
+      className={"select-button" + clicked}
+      onClick={onButtonClick}
+      aria-label={"Feature: " + props.toAdd}
+    >
       {props.toAdd}
     </button>
   );

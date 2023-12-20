@@ -11,6 +11,12 @@ interface sharedProps {
   authToken: string;
   setAuthToken: React.Dispatch<React.SetStateAction<string>>;
 }
+
+/**
+ * Component in charge of the Features page.
+ * @param props props for the auth token and feature names
+ * @returns elements for the features params page
+ */
 export function FeatsPage(props: sharedProps) {
   const [searchParams] = useSearchParams();
   const authToken = searchParams.get("success");
@@ -31,6 +37,9 @@ export function FeatsPage(props: sharedProps) {
   ];
   const nav = useNavigate();
 
+  /**
+   * Changes the background color upon load.
+   */
   useEffect(() => {
     document.body.style.backgroundColor = "#C2C4F7";
     // const logo: HTMLElement | null = document.querySelector("a#logo img");
@@ -43,7 +52,9 @@ export function FeatsPage(props: sharedProps) {
     }
   }, []);
 
-  // disables the user from continuing without selecting any feature categories
+  /**
+   * Disables the user from continuing without selecting any feature categories.
+   */
   useEffect(() => {
     const continueButton = document.getElementById("continue-button");
     if (featNames.length > 0) {
@@ -60,13 +71,17 @@ export function FeatsPage(props: sharedProps) {
   return (
     <>
       <body>
-        <main className="container-fluid">
+        <main
+          aria-label="Feature parameter selection page"
+          className="container-fluid"
+        >
           <nav className="row flex-nowrap">
-            <a id="logo" href="/">
+            <a aria-label="Amplify Logo" id="logo" href="/">
               {/* <h2>Amplify</h2> */}
               <img src={logo} alt="Amplify Logo"></img>
             </a>
             <button
+              aria-label="Continue"
               className="continue-button"
               id="continue-button"
               onClick={() => nav("/seeds")}
@@ -78,7 +93,10 @@ export function FeatsPage(props: sharedProps) {
             <div className="title">
               <h3>Select parameters</h3>
             </div>
-            <div className="params">
+            <div
+              aria-label="Features to use as parameters in playlist generation"
+              className="params"
+            >
               {paramNames.map((p) => (
                 <SelectButton
                   toAdd={p}

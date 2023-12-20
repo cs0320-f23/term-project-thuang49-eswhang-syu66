@@ -4,10 +4,17 @@ import MusicGraph from "../components/MusicGraph";
 import { InitialAuth } from "../endpoints/InitialAuth";
 import logo from "../assets/Logo White.svg";
 
+/**
+ * Component in charge of the LP
+ * @returns home page graphics
+ */
 export function HomePage() {
   // checking for the presence of an authentication token
 
+  // word in "a playlist for [word]."
   const [word, setWord] = useState<string>("dancing");
+
+  // data to set the heights for the different bars in the music graph
   const [barData, setBarData] = useState<string[][]>([
     ["2em", "", ""],
     ["5em", "", ""],
@@ -20,7 +27,11 @@ export function HomePage() {
     ["3em", "", ""],
     ["8em", "", ""],
   ]);
+
+  // sets the active/highlighted step
   const [step, setStep] = useState<number>(0);
+
+  // steps for using Amplify
   const steps = [
     "Select your parameters",
     "Specify music features",
@@ -29,6 +40,10 @@ export function HomePage() {
     "Listen and enjoy",
   ];
 
+  /**
+   * Timeouts that set up the loading states for opening screens. Each timeout
+   * changes the background color, the title, and the bar heights in the graphic.
+   */
   useEffect(() => {
     const title = document.getElementsByClassName("title");
     document.body.style.backgroundColor = "#b32cd5";
@@ -111,6 +126,11 @@ export function HomePage() {
     }, 3000);
   }, []);
 
+  /**
+   * Sets up the timing for how each step at the bottom of the page is
+   * highlighted, via toggling classNames that dictate whether a step is
+   * highlighted. Each step is highlighte for three seconds.
+   */
   useEffect(() => {
     setTimeout(() => {
       const steps = document.getElementsByClassName("step");
@@ -158,17 +178,17 @@ export function HomePage() {
   return (
     <>
       <body>
-        <main className="container-fluid">
+        <main aria-label="Home page" className="container-fluid">
           <nav className="row flex-nowrap">
-            <a id="logo" href="/">
+            <a aria-label="Amplify Logo" id="logo" href="/">
               {/* <h2>Amplify</h2> */}
               <img src={logo} alt="Amplify Logo"></img>
             </a>
-            <div>
+            <div aria-label="Get started">
               <InitialAuth />
             </div>
           </nav>
-          <div className="content">
+          <div aria-label="Hero graphic" className="content">
             <MusicGraph barData={barData} />
             <div className="title">
               <h1>A playlist for</h1>
@@ -180,7 +200,10 @@ export function HomePage() {
               all parts of life.
             </h3>
           </div>
-          <div className="steps container-fluid">
+          <div
+            aria-label="Steps for using Amplify"
+            className="steps container-fluid"
+          >
             {steps.map((step: string) => {
               return (
                 <div className="step">

@@ -19,7 +19,7 @@ interface sharedProps {
 }
 
 /**
- * the component in charge of the duration page.
+ * The component in charge of the duration page.
  * @param props shared props as defined above.
  * @returns the html/jselements required for rendering the page.
  */
@@ -30,13 +30,14 @@ export function DurationPage(props: sharedProps) {
 
   useEffect(() => {}, [totalDuration, mode]);
 
-  // an updater function
+  // Updates the mode to either total duration or number of songs
   function updateMode(str: string) {
     setMode(str);
   }
 
   /**
-   * The function responsible for assembling the query to be passed to get_recommendations
+   * The function responsible for assembling the query to be passed to
+   * get_recommendations
    */
   async function submitQuery() {
     const baseurl = "http://localhost:3000/get_recommendations?";
@@ -82,6 +83,10 @@ export function DurationPage(props: sharedProps) {
     console.log(baseurl + url + duration);
   }
 
+  /**
+   * Toggles the continue button as long as the total duration is longer than
+   * 0 minutes/the number of songs is more than 0.
+   */
   useEffect(() => {
     const continueButton = document.getElementById("continue-button");
     if (totalDuration > 0) {
@@ -95,6 +100,9 @@ export function DurationPage(props: sharedProps) {
     }
   }, [totalDuration]);
 
+  /**
+   * Changes the background color upon load.
+   */
   useEffect(() => {
     document.body.style.backgroundColor = "#162764";
   }, []);
@@ -102,13 +110,14 @@ export function DurationPage(props: sharedProps) {
   return (
     <>
       <body>
-        <main className="container-fluid">
+        <main aria-label="Playlist duration page" className="container-fluid">
           <nav className="row flex-nowrap">
-            <a id="logo" href="/">
+            <a aria-label="Amplify Logo" id="logo" href="/">
               {/* <h2>Amplify</h2> */}
               <img src={logo} alt="Amplify Logo"></img>
             </a>
             <button
+              aria-label="Generate playlist"
               className="continue-button"
               id="continue-button"
               onClick={submitQuery}
@@ -119,8 +128,14 @@ export function DurationPage(props: sharedProps) {
           <div className="duration-content">
             <div className="duration-title">
               <h3>Playlist Duration</h3>
-              <div className="duration-options">
-                <div className="total-duration duration-option">
+              <div
+                className="duration-options"
+                aria-label="Toggle between playlist duration and number of songs"
+              >
+                <div
+                  className="total-duration duration-option"
+                  aria-label="Setting playlist duration mode"
+                >
                   <input
                     type="radio"
                     id="duration"
@@ -133,7 +148,10 @@ export function DurationPage(props: sharedProps) {
                   />
                   <label htmlFor="duration">Total Duration</label>
                 </div>
-                <div className="number-of-songs duration-option">
+                <div
+                  className="number-of-songs duration-option"
+                  aria-label="Setting number of songs in playlist mode"
+                >
                   <input
                     type="radio"
                     id="number"
@@ -207,6 +225,12 @@ function NumberSelector(props: prop) {
     }
   }, [props.mode]);
 
+  /**
+   * Stylizes and formats numbers for display depending on the mode.
+   * @param type
+   * @param event
+   * @param setter
+   */
   function changeVal(
     type: string,
     event: React.ChangeEvent<HTMLInputElement>,
@@ -243,6 +267,11 @@ function NumberSelector(props: prop) {
     }
   }
 
+  /**
+   * Depending on the mode, renders the respective component for either duration
+   * or number of songs.
+   * @returns the rendered component
+   */
   function renderComp() {
     if (props.mode == "duration") {
       return (

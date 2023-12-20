@@ -20,6 +20,11 @@ interface sharedProps {
   authToken: string;
 }
 
+/**
+ * Component for the playlist generation loading screen and the Results page
+ * @param props shared props for auth and generated tracks
+ * @returns results page graphics
+ */
 export function ResultsPage(props: sharedProps) {
   const [idFeatureMap] = useState<Map<string, featuresResponse>>(
     new Map<string, featuresResponse>()
@@ -33,22 +38,27 @@ export function ResultsPage(props: sharedProps) {
   const [albumArt, setAlbumArt] = useState<ReactElement[]>([]);
   const [imgUrl, setImgUrl] = useState("");
 
+  /**
+   * Makes the fetch calls to generate the playlist
+   * @param authToken authorization token needed to make the call
+   */
   async function createPlaylist(authToken: string) {
     let url = "http://localhost:3000/generate_playlist?";
     url += `${"userToken"}=${authToken}&`;
     url += `songs=${props.returnedTracks.map((track) => track.uri).join(",")}&`;
     url += `title=${playlistTitle}&`;
 
-    await generateAlbumImg()
+    await generateAlbumImg();
 
+    // sets the cover image using the one generated below
     const genPlaylist = await fetch(url, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        imgData: imgUrl.replace("data:image/jpeg;base64,", "")
-      })
+        imgData: imgUrl.replace("data:image/jpeg;base64,", ""),
+      }),
     }).then((res) => res.json());
 
     if (genPlaylist.status === "success") {
@@ -93,6 +103,11 @@ export function ResultsPage(props: sharedProps) {
   //   // console.log(idFeatureMap);
   // }
 
+  /**
+   * Formats time for displaying in the playlist header
+   * @param durationMs raw time passed in
+   * @returns formatted time
+   */
   function convertToTime(durationMs: number) {
     let seconds = durationMs / 1000;
 
@@ -110,25 +125,12 @@ export function ResultsPage(props: sharedProps) {
     return returnTime;
   }
 
-  useEffect(() => {
-    const continueButton = document.getElementById("continue-button");
-    if (props.authToken === "") {
-      if (continueButton) {
-        continueButton.classList.add("toggle");
-      }
-    } else {
-      if (continueButton) {
-        continueButton.classList.remove("toggle");
-      }
-    }
-    // analyzeTracks();
+  useEffect(() => {}, [currFeatures]);
 
-    // fetch all of the audio features from the tracks
-  }, []);
-
-  useEffect(() => {
-  }, [currFeatures]);
-
+  /**
+   * Timeouts for loading state. Changes the transition timing and background
+   * color for each frame, and animates the three dots for each loading phrase.
+   */
   useEffect(() => {
     document.body.style.backgroundColor = "#162764";
     document.body.style.transition = "1.6s cubic-bezier(0.68, 0.69, 0.03, 1)";
@@ -139,9 +141,15 @@ export function ResultsPage(props: sharedProps) {
     if (resultsContent) {
       resultsContent.style.opacity = "0";
     }
-    const loadingTitles: HTMLElement[] = Array.from(document.getElementsByClassName("loading-title") as HTMLCollectionOf<HTMLElement>);
-      
-    const loadingTitleDivs: HTMLElement[] = Array.from(document.querySelectorAll(".loading-title div"));
+    const loadingTitles: HTMLElement[] = Array.from(
+      document.getElementsByClassName(
+        "loading-title"
+      ) as HTMLCollectionOf<HTMLElement>
+    );
+
+    const loadingTitleDivs: HTMLElement[] = Array.from(
+      document.querySelectorAll(".loading-title div")
+    );
     setTimeout(() => {
       document.body.style.backgroundColor = "#BF357F";
       loadingTitles[0].style.top = "0";
@@ -220,6 +228,10 @@ export function ResultsPage(props: sharedProps) {
     }, 5300); // 0ms + 1250ms + 250ms + 1250ms + 300ms + 1250ms + 1000ms delay
   }, []);
 
+  /**
+   * Creates the playlist cover image by using dom-to-image to generate a JPEG,
+   * then sets up the JPEG URL to be used by the createPlaylist method.
+   */
   async function generateAlbumImg() {
     const node = document.getElementById("album-image");
 
@@ -245,14 +257,20 @@ export function ResultsPage(props: sharedProps) {
           console.error("oops, something went wrong!", error);
         });
     }
-  };
-  function generateAlbumArt()  {
+  }
+
+  /**
+   * Creates the actual playlist cover image by randomly generating circles to
+   * be placed on the div canvas.
+   */
+  function generateAlbumArt() {
+    // range from 5-25 circles in a 5x5 grid.
     let circleCount = parseInt("" + Math.random() * 21);
     circleCount += 5;
     const circleArr = [];
 
+    // divide by four to get a random color combination from a list.
     const div = circleCount / 4;
-    console.log(parseInt("" + div));
     let bgColor = "";
     let circleColor = "";
     switch (parseInt("" + div)) {
@@ -278,7 +296,7 @@ export function ResultsPage(props: sharedProps) {
         break;
     }
 
-    console.log(bgColor);
+    // appends the circles to the document
     for (let i = 0; i < circleCount; i++) {
       const left = parseInt("" + Math.random() * 5) * 4 + "vw";
       const top = parseInt("" + Math.random() * 5) * 4 + "vw";
@@ -290,22 +308,31 @@ export function ResultsPage(props: sharedProps) {
       );
     }
 
+    // sets up the background color of the image
     const albumImg = document.getElementById("album-image");
     if (albumImg) {
       albumImg.style.backgroundColor = bgColor;
     }
 
+    // sets the color of the circles
     const addToLibButton = document.getElementById("add-to-library-button");
     if (addToLibButton) {
       addToLibButton.style.backgroundColor = bgColor;
     }
     setAlbumArt(circleArr);
-  };
+  }
 
-  useEffect (() => {
+  /**
+   * Generates the album image every time the album art is updated.
+   */
+  useEffect(() => {
     generateAlbumImg();
-  }, [albumArt]) ;
+  }, [albumArt]);
 
+  /**
+   * Updates the playlist image to match what a user types into the playlist
+   * header, and re-generates the JPEG after they click away.
+   */
   useEffect(() => {
     const title: HTMLElement | null = document.querySelector(
       ".playlist-header-wrapper span"
@@ -313,6 +340,7 @@ export function ResultsPage(props: sharedProps) {
     if (title) {
       title.addEventListener("input", function () {
         setPlaylistTitle(title.innerText);
+        generateAlbumImg();
       });
       title.addEventListener("blur", () => {
         generateAlbumImg();
@@ -323,22 +351,23 @@ export function ResultsPage(props: sharedProps) {
   return (
     <>
       <body>
-        <main className="container-fluid">
+        <main aria-label="Results page" className="container-fluid">
           <nav className="row flex-nowrap">
-            <a id="logo" href="/">
+            <a aria-label="Amplify Logo" id="logo" href="/">
               {/* <h2>Amplify</h2> */}
               <img src={logo} alt="Amplify Logo"></img>
               <img id="logoAlt" src={logoBlack} alt="Amplify Logo"></img>
             </a>
             <button
+              aria-label="Add playlist to library"
               className="add-to-library-button"
               id="add-to-library-button"
               onClick={() => createPlaylist(props.authToken)}
             >
-              Add to Library
+              Add to library
             </button>
           </nav>
-          <div className="loading-content">
+          <div aria-label="Loading screen" className="loading-content">
             <h1 className="loading-title">
               Gathering beats
               <div>.</div>
@@ -359,20 +388,29 @@ export function ResultsPage(props: sharedProps) {
             </h1>
           </div>
 
-          <div className="results-content">
+          <div
+            aria-label="Generated playlist result page"
+            className="results-content"
+          >
             <div className="playlist-data">
-              <div id="album-image">
+              <div aria-label="Playlist cover image" id="album-image">
                 {albumArt}
                 <div>{playlistTitle},</div>
                 <div>Amplified</div>
               </div>
               <div className="playlist-header-wrapper">
-                <div className="playlist-header">
+                <div
+                  aria-label="Playlist title. Click to edit; also changes playlist cover image upon clicking away from the textbox."
+                  className="playlist-header"
+                >
                   <span className="input" role="textbox" contentEditable>
                     Playlists
                   </span>
                 </div>
-                <div className="playlist-header-data">
+                <div
+                  aria-label="Data about the generated playlist"
+                  className="playlist-header-data"
+                >
                   {props.noSongs + (props.noSongs === 1 ? " song" : " songs")}
                   ,&nbsp;
                   {convertToTime(props.totalTime)}
@@ -385,7 +423,10 @@ export function ResultsPage(props: sharedProps) {
               {/* <div className="track-analysis"></div> */}
             </div>
 
-            <div className="recommended-track-container">
+            <div
+              aria-label="Preview of tracks in the generated playlist"
+              className="recommended-track-container"
+            >
               {props.returnedTracks.map((track: trackResponse) => (
                 <RecommendedTrackCard
                   currFeature={currFeatures}

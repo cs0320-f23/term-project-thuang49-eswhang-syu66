@@ -14,11 +14,11 @@ export async function generatePlaylistHandle(
       status: "error",
       error_type: "authentication_failure",
       error_message:
-        "Improper authentication was provided to the generatePlyalistHandler",
+        "Improper authentication was provided to the generatePlaylistHandler",
     };
     res.status(401);
     res.send(clientResponse);
-    return 
+    return;
   }
 
   //TODO: parse the query params from the req made by the frontend and create a fetch call with that
@@ -40,22 +40,22 @@ export async function generatePlaylistHandle(
     };
     res.status(404);
     res.send(clientResponse);
-    return
+    return;
   }
 
   const userid: string = profileFetch.id;
 
   const title = req.query.title;
-    if (title == undefined) {
-      let clientResponse: errorMap = {
-        status: "error",
-        error_type: "title_failure",
-        error_message: "Unable to parse playlist title",
-      };
-      res.status(401);
-      res.send(clientResponse);
-      return 
-    }
+  if (title == undefined) {
+    let clientResponse: errorMap = {
+      status: "error",
+      error_type: "title_failure",
+      error_message: "Unable to parse playlist title",
+    };
+    res.status(401);
+    res.send(clientResponse);
+    return;
+  }
   const data = {
     name: title + ", Amplified",
     public: false,
@@ -73,7 +73,6 @@ export async function generatePlaylistHandle(
     }
   ).then((res) => res.json());
 
-
   // not really sure what this is? checking playlist.status for !201 is sufficient.
   // i check it this way because the success response does not have a status for some reason
   if ("status" in playlist) {
@@ -89,29 +88,26 @@ export async function generatePlaylistHandle(
 
   const playlist_id = playlist.id;
 
-    // uploading image to the playlist 
-  if (req.body != undefined && 'imgData' in req.body) {
-    const imgData = req.body.imgData
+  // uploading image to the playlist
+  if (req.body != undefined && "imgData" in req.body) {
+    const imgData = req.body.imgData;
 
-    const url =    `https://api.spotify.com/v1/playlists/${playlist_id}/images`
+    const url = `https://api.spotify.com/v1/playlists/${playlist_id}/images`;
 
-    const img = await fetch(
-        url,
-        {
-          method: "PUT",
-          headers: {
-            'Authorization': "Bearer " + userToken,
-            "Content-Type": "image/jpeg",
-          },
-          body: imgData,
-        }
-      )
+    const img = await fetch(url, {
+      method: "PUT",
+      headers: {
+        Authorization: "Bearer " + userToken,
+        "Content-Type": "image/jpeg",
+      },
+      body: imgData,
+    });
 
-      if (img.status === 202) {
-        console.log('Image successfully uploaded to playlist')
-      } else {
-        console.error("Image was not able to be uploaded to playlist.")
-      }
+    if (img.status === 202) {
+      console.log("Image successfully uploaded to playlist");
+    } else {
+      console.error("Image was not able to be uploaded to playlist.");
+    }
   }
 
   // format for query param should be comma separated, example: url?songs=spotify%3Atrack%3A4iV5W9uYEdYUVa79Axb7Rh,spotify%3Atrack%3A1301WleyT98MSxVHPZCA6M

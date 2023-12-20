@@ -8,12 +8,21 @@ interface sharedProps {
   seedNames: string[];
   setSeedNames: React.Dispatch<React.SetStateAction<string[]>>;
 }
+
+/**
+ * Component in charge of the Seeds page.
+ * @param props shared props for seeds
+ * @returns graphics for seeds page
+ */
 export function SeedsPage(props: sharedProps) {
   const { seedNames } = props;
   const seedNameList: string[] = ["Artists", "Genres", "Tracks"];
 
   const nav = useNavigate();
 
+  /**
+   * Changes the background color upon load.
+   */
   useEffect(() => {
     document.body.style.backgroundColor = "#B8DDF9";
     // const logo: HTMLElement | null = document.querySelector("a#logo h2");
@@ -23,7 +32,7 @@ export function SeedsPage(props: sharedProps) {
   }, []);
 
   /**
-   * disables users from continuing without selecting any seeds
+   * Disables users from continuing without selecting any seeds.
    */
   useEffect(() => {
     const continueButton = document.getElementById("continue-button");
@@ -41,13 +50,17 @@ export function SeedsPage(props: sharedProps) {
   return (
     <>
       <body>
-        <main className="container-fluid">
+        <main
+          aria-label="Feature parameter selection page"
+          className="container-fluid"
+        >
           <nav className="row flex-nowrap">
-            <a id="logo" href="/">
+            <a aria-label="Amplify Logo" id="logo" href="/">
               {/* <h2>Amplify</h2> */}
               <img src={logo} alt="Amplify Logo"></img>
             </a>
             <button
+              aria-label="Continue"
               className="continue-button"
               id="continue-button"
               onClick={() => nav("/select-feats")}
@@ -59,7 +72,10 @@ export function SeedsPage(props: sharedProps) {
             <div className="title">
               <h3>Select seeds</h3>
             </div>
-            <div className="params">
+            <div
+              aria-label="Seeds to use as parameters in playlist generation"
+              className="params"
+            >
               {seedNameList.map((seed) => (
                 <SelectButton
                   list={props.seedNames}
