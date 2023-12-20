@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 
+// this tests that a playlist can be successfully generated with given songs
 test("successfully generating a playlist", async ({
     page,
     }) => {
