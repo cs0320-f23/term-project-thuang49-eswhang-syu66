@@ -60,13 +60,17 @@ export function FeatsPage(props: sharedProps) {
   return (
     <>
       <body>
-        <main className="container-fluid">
+        <main
+          aria-label="Feature parameter selection page"
+          className="container-fluid"
+        >
           <nav className="row flex-nowrap">
-            <a id="logo" href="/">
+            <a aria-label="Amplify Logo" id="logo" href="/">
               {/* <h2>Amplify</h2> */}
               <img src={logo} alt="Amplify Logo"></img>
             </a>
             <button
+              aria-label="Continue"
               className="continue-button"
               id="continue-button"
               onClick={() => nav("/seeds")}
@@ -78,7 +82,10 @@ export function FeatsPage(props: sharedProps) {
             <div className="title">
               <h3>Select parameters</h3>
             </div>
-            <div className="params">
+            <div
+              aria-label="Features to use as parameters in playlist generation"
+              className="params"
+            >
               {paramNames.map((p) => (
                 <SelectButton
                   toAdd={p}

@@ -41,13 +41,17 @@ export function SeedsPage(props: sharedProps) {
   return (
     <>
       <body>
-        <main className="container-fluid">
+        <main
+          aria-label="Feature parameter selection page"
+          className="container-fluid"
+        >
           <nav className="row flex-nowrap">
-            <a id="logo" href="/">
+            <a aria-label="Amplify Logo" id="logo" href="/">
               {/* <h2>Amplify</h2> */}
               <img src={logo} alt="Amplify Logo"></img>
             </a>
             <button
+              aria-label="Continue"
               className="continue-button"
               id="continue-button"
               onClick={() => nav("/select-feats")}
@@ -59,7 +63,10 @@ export function SeedsPage(props: sharedProps) {
             <div className="title">
               <h3>Select seeds</h3>
             </div>
-            <div className="params">
+            <div
+              aria-label="Seeds to use as parameters in playlist generation"
+              className="params"
+            >
               {seedNameList.map((seed) => (
                 <SelectButton
                   list={props.seedNames}

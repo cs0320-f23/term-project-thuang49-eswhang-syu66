@@ -102,13 +102,14 @@ export function DurationPage(props: sharedProps) {
   return (
     <>
       <body>
-        <main className="container-fluid">
+        <main aria-label="Playlist duration page" className="container-fluid">
           <nav className="row flex-nowrap">
-            <a id="logo" href="/">
+            <a aria-label="Amplify Logo" id="logo" href="/">
               {/* <h2>Amplify</h2> */}
               <img src={logo} alt="Amplify Logo"></img>
             </a>
             <button
+              aria-label="Generate playlist"
               className="continue-button"
               id="continue-button"
               onClick={submitQuery}
@@ -119,8 +120,14 @@ export function DurationPage(props: sharedProps) {
           <div className="duration-content">
             <div className="duration-title">
               <h3>Playlist Duration</h3>
-              <div className="duration-options">
-                <div className="total-duration duration-option">
+              <div
+                className="duration-options"
+                aria-label="Toggle between playlist duration and number of songs"
+              >
+                <div
+                  className="total-duration duration-option"
+                  aria-label="Setting playlist duration mode"
+                >
                   <input
                     type="radio"
                     id="duration"
@@ -133,7 +140,10 @@ export function DurationPage(props: sharedProps) {
                   />
                   <label htmlFor="duration">Total Duration</label>
                 </div>
-                <div className="number-of-songs duration-option">
+                <div
+                  className="number-of-songs duration-option"
+                  aria-label="Setting number of songs in playlist mode"
+                >
                   <input
                     type="radio"
                     id="number"

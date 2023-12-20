@@ -158,17 +158,17 @@ export function HomePage() {
   return (
     <>
       <body>
-        <main className="container-fluid">
+        <main aria-label="Home page" className="container-fluid">
           <nav className="row flex-nowrap">
-            <a id="logo" href="/">
+            <a aria-label="Amplify Logo" id="logo" href="/">
               {/* <h2>Amplify</h2> */}
               <img src={logo} alt="Amplify Logo"></img>
             </a>
-            <div>
+            <div aria-label="Get started">
               <InitialAuth />
             </div>
           </nav>
-          <div className="content">
+          <div aria-label="Hero graphic" className="content">
             <MusicGraph barData={barData} />
             <div className="title">
               <h1>A playlist for</h1>
@@ -180,7 +180,10 @@ export function HomePage() {
               all parts of life.
             </h3>
           </div>
-          <div className="steps container-fluid">
+          <div
+            aria-label="Steps for using Amplify"
+            className="steps container-fluid"
+          >
             {steps.map((step: string) => {
               return (
                 <div className="step">

@@ -25,8 +25,13 @@ export function SelectButton(props: prop) {
     }
   }
 
+  // TODO for future: can add the tooltip/feature description here
   return (
-    <button className={"select-button" + clicked} onClick={onButtonClick}>
+    <button
+      className={"select-button" + clicked}
+      onClick={onButtonClick}
+      aria-label={"Feature: " + props.toAdd}
+    >
       {props.toAdd}
     </button>
   );

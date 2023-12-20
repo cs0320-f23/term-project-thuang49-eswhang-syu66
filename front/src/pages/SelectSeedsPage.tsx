@@ -62,13 +62,17 @@ export function SelectSeedsPage(props: sharedProps) {
   return (
     <>
       <body>
-        <main className="container-fluid">
+        <main
+          aria-label="Adjusting seed parameters page"
+          className="container-fluid"
+        >
           <nav className="row flex-nowrap">
-            <a id="logo" href="/">
+            <a aria-label="Amplify Logo" id="logo" href="/">
               {/* <h2>Amplify</h2> */}
               <img src={logo} alt="Amplify Logo"></img>
             </a>
             <button
+              aria-label="Continue"
               className="continue-button"
               id="continue-button"
               onClick={() => nav("/duration")}
@@ -76,7 +80,10 @@ export function SelectSeedsPage(props: sharedProps) {
               Continue
             </button>
           </nav>
-          <div className="select-content">
+          <div
+            className="select-content"
+            aria-label="Use the sliders to customize the range of each parameter"
+          >
             <div className="search-container">
               {props.seedNames.map((seed) => (
                 <div className="select-seed">

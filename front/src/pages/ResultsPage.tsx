@@ -330,22 +330,23 @@ export function ResultsPage(props: sharedProps) {
   return (
     <>
       <body>
-        <main className="container-fluid">
+        <main aria-label="Results page" className="container-fluid">
           <nav className="row flex-nowrap">
-            <a id="logo" href="/">
+            <a aria-label="Amplify Logo" id="logo" href="/">
               {/* <h2>Amplify</h2> */}
               <img src={logo} alt="Amplify Logo"></img>
               <img id="logoAlt" src={logoBlack} alt="Amplify Logo"></img>
             </a>
             <button
+              aria-label="Add playlist to library"
               className="add-to-library-button"
               id="add-to-library-button"
               onClick={() => createPlaylist(props.authToken)}
             >
-              Add to Library
+              Add to library
             </button>
           </nav>
-          <div className="loading-content">
+          <div aria-label="Loading screen" className="loading-content">
             <h1 className="loading-title">
               Gathering beats
               <div>.</div>
@@ -366,20 +367,29 @@ export function ResultsPage(props: sharedProps) {
             </h1>
           </div>
 
-          <div className="results-content">
+          <div
+            aria-label="Generated playlist result page"
+            className="results-content"
+          >
             <div className="playlist-data">
-              <div id="album-image">
+              <div aria-label="Playlist cover image" id="album-image">
                 {albumArt}
                 <div>{playlistTitle},</div>
                 <div>Amplified</div>
               </div>
               <div className="playlist-header-wrapper">
-                <div className="playlist-header">
+                <div
+                  aria-label="Playlist title. Click to edit; also changes playlist cover image upon clicking away from the textbox."
+                  className="playlist-header"
+                >
                   <span className="input" role="textbox" contentEditable>
                     Playlists
                   </span>
                 </div>
-                <div className="playlist-header-data">
+                <div
+                  aria-label="Data about the generated playlist"
+                  className="playlist-header-data"
+                >
                   {props.noSongs + (props.noSongs === 1 ? " song" : " songs")}
                   ,&nbsp;
                   {convertToTime(props.totalTime)}
@@ -392,7 +402,10 @@ export function ResultsPage(props: sharedProps) {
               {/* <div className="track-analysis"></div> */}
             </div>
 
-            <div className="recommended-track-container">
+            <div
+              aria-label="Preview of tracks in the generated playlist"
+              className="recommended-track-container"
+            >
               {props.returnedTracks.map((track: trackResponse) => (
                 <RecommendedTrackCard
                   currFeature={currFeatures}
