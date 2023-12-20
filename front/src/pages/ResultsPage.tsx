@@ -33,6 +33,10 @@ export function ResultsPage(props: sharedProps) {
   const [albumArt, setAlbumArt] = useState<ReactElement[]>([]);
   const [imgUrl, setImgUrl] = useState("");
 
+  /**
+   * Makes the fetch calls to generate the playlist
+   * @param authToken authorization token needed to make the call
+   */
   async function createPlaylist(authToken: string) {
     let url = "http://localhost:3000/generate_playlist?";
     url += `${"userToken"}=${authToken}&`;
@@ -41,6 +45,7 @@ export function ResultsPage(props: sharedProps) {
 
     await generateAlbumImg();
 
+    // sets the cover image using the one generated below
     const genPlaylist = await fetch(url, {
       method: "POST",
       headers: {
@@ -93,6 +98,11 @@ export function ResultsPage(props: sharedProps) {
   //   // console.log(idFeatureMap);
   // }
 
+  /**
+   * Formats time for displaying in the playlist header
+   * @param durationMs raw time passed in
+   * @returns formatted time
+   */
   function convertToTime(durationMs: number) {
     let seconds = durationMs / 1000;
 
@@ -110,24 +120,12 @@ export function ResultsPage(props: sharedProps) {
     return returnTime;
   }
 
-  useEffect(() => {
-    const continueButton = document.getElementById("continue-button");
-    if (props.authToken === "") {
-      if (continueButton) {
-        continueButton.classList.add("toggle");
-      }
-    } else {
-      if (continueButton) {
-        continueButton.classList.remove("toggle");
-      }
-    }
-    // analyzeTracks();
-
-    // fetch all of the audio features from the tracks
-  }, []);
-
   useEffect(() => {}, [currFeatures]);
 
+  /**
+   * Timeouts for loading state. Changes the transition timing and background
+   * color for each frame, and animates the three dots for each loading phrase.
+   */
   useEffect(() => {
     document.body.style.backgroundColor = "#162764";
     document.body.style.transition = "1.6s cubic-bezier(0.68, 0.69, 0.03, 1)";
@@ -225,6 +223,10 @@ export function ResultsPage(props: sharedProps) {
     }, 5300); // 0ms + 1250ms + 250ms + 1250ms + 300ms + 1250ms + 1000ms delay
   }, []);
 
+  /**
+   * Creates the playlist cover image by using dom-to-image to generate a JPEG,
+   * then sets up the JPEG URL to be used by the createPlaylist method.
+   */
   async function generateAlbumImg() {
     const node = document.getElementById("album-image");
 
@@ -252,13 +254,18 @@ export function ResultsPage(props: sharedProps) {
     }
   }
 
+  /**
+   * Creates the actual playlist cover image by randomly generating circles to
+   * be placed on the div canvas.
+   */
   function generateAlbumArt() {
+    // range from 5-25 circles in a 5x5 grid.
     let circleCount = parseInt("" + Math.random() * 21);
     circleCount += 5;
     const circleArr = [];
 
+    // divide by four to get a random color combination from a list.
     const div = circleCount / 4;
-    console.log(parseInt("" + div));
     let bgColor = "";
     let circleColor = "";
     switch (parseInt("" + div)) {
@@ -284,7 +291,7 @@ export function ResultsPage(props: sharedProps) {
         break;
     }
 
-    console.log(bgColor);
+    // appends the circles to the document
     for (let i = 0; i < circleCount; i++) {
       const left = parseInt("" + Math.random() * 5) * 4 + "vw";
       const top = parseInt("" + Math.random() * 5) * 4 + "vw";
@@ -296,11 +303,13 @@ export function ResultsPage(props: sharedProps) {
       );
     }
 
+    // sets up the background color of the image
     const albumImg = document.getElementById("album-image");
     if (albumImg) {
       albumImg.style.backgroundColor = bgColor;
     }
 
+    // sets the color of the circles
     const addToLibButton = document.getElementById("add-to-library-button");
     if (addToLibButton) {
       addToLibButton.style.backgroundColor = bgColor;
@@ -308,10 +317,17 @@ export function ResultsPage(props: sharedProps) {
     setAlbumArt(circleArr);
   }
 
+  /**
+   * Generates the album image every time the album art is updated.
+   */
   useEffect(() => {
     generateAlbumImg();
   }, [albumArt]);
 
+  /**
+   * Updates the playlist image to match what a user types into the playlist
+   * header, and re-generates the JPEG after they click away.
+   */
   useEffect(() => {
     const title: HTMLElement | null = document.querySelector(
       ".playlist-header-wrapper span"
