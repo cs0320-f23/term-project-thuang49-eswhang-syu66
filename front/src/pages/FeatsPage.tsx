@@ -31,6 +31,9 @@ export function FeatsPage(props: sharedProps) {
   ];
   const nav = useNavigate();
 
+  /**
+   * Changes the background color upon load.
+   */
   useEffect(() => {
     document.body.style.backgroundColor = "#C2C4F7";
     // const logo: HTMLElement | null = document.querySelector("a#logo img");
@@ -43,7 +46,9 @@ export function FeatsPage(props: sharedProps) {
     }
   }, []);
 
-  // disables the user from continuing without selecting any feature categories
+  /**
+   * Disables the user from continuing without selecting any feature categories.
+   */
   useEffect(() => {
     const continueButton = document.getElementById("continue-button");
     if (featNames.length > 0) {

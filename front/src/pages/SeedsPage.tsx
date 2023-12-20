@@ -14,6 +14,9 @@ export function SeedsPage(props: sharedProps) {
 
   const nav = useNavigate();
 
+  /**
+   * Changes the background color upon load.
+   */
   useEffect(() => {
     document.body.style.backgroundColor = "#B8DDF9";
     // const logo: HTMLElement | null = document.querySelector("a#logo h2");
@@ -23,7 +26,7 @@ export function SeedsPage(props: sharedProps) {
   }, []);
 
   /**
-   * disables users from continuing without selecting any seeds
+   * Disables users from continuing without selecting any seeds.
    */
   useEffect(() => {
     const continueButton = document.getElementById("continue-button");
