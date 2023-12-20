@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 
-test("auth successfully redirects", async ({
+// this tests that the analyze_tracks endpoint to make sure it works for given songs
+test("analyzing tracks successfully works", async ({
     page,
   }) => {
     await page.goto('http://localhost:3000/client_auth');

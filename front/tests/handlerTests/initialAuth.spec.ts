@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 
+// this tests that the client_auth endpoint successfully redirects
 test("initial auth successfully redirects", async ({
     page,
   }) => {

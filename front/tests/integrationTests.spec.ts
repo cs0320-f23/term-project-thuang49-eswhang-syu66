@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
-test('test', async ({ page }) => {
+// this tests the full integration between logging in and creating a playlist using Amplify
+test('full login and playlist creation integration test', async ({ page }) => {
   await page.goto('http://localhost:8000/');
   await page.getByRole('button', { name: 'Get started' }).click();
   await page.getByTestId('login-username').click();
