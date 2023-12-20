@@ -7,7 +7,10 @@ import logo from "../assets/Logo White.svg";
 export function HomePage() {
   // checking for the presence of an authentication token
 
+  // word in "a playlist for [word]."
   const [word, setWord] = useState<string>("dancing");
+
+  // data to set the heights for the different bars in the music graph
   const [barData, setBarData] = useState<string[][]>([
     ["2em", "", ""],
     ["5em", "", ""],
@@ -20,7 +23,11 @@ export function HomePage() {
     ["3em", "", ""],
     ["8em", "", ""],
   ]);
+
+  // sets the active/highlighted step
   const [step, setStep] = useState<number>(0);
+
+  // steps for using Amplify
   const steps = [
     "Select your parameters",
     "Specify music features",
@@ -29,6 +36,10 @@ export function HomePage() {
     "Listen and enjoy",
   ];
 
+  /**
+   * Timeouts that set up the loading states for opening screens. Each timeout
+   * changes the background color, the title, and the bar heights in the graphic.
+   */
   useEffect(() => {
     const title = document.getElementsByClassName("title");
     document.body.style.backgroundColor = "#b32cd5";
@@ -111,6 +122,11 @@ export function HomePage() {
     }, 3000);
   }, []);
 
+  /**
+   * Sets up the timing for how each step at the bottom of the page is
+   * highlighted, via toggling classNames that dictate whether a step is
+   * highlighted. Each step is highlighte for three seconds.
+   */
   useEffect(() => {
     setTimeout(() => {
       const steps = document.getElementsByClassName("step");
