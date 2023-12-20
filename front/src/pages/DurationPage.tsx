@@ -19,7 +19,7 @@ interface sharedProps {
 }
 
 /**
- * the component in charge of the duration page.
+ * The component in charge of the duration page.
  * @param props shared props as defined above.
  * @returns the html/jselements required for rendering the page.
  */
@@ -30,13 +30,14 @@ export function DurationPage(props: sharedProps) {
 
   useEffect(() => {}, [totalDuration, mode]);
 
-  // an updater function
+  // Updates the mode to either total duration or number of songs
   function updateMode(str: string) {
     setMode(str);
   }
 
   /**
-   * The function responsible for assembling the query to be passed to get_recommendations
+   * The function responsible for assembling the query to be passed to
+   * get_recommendations
    */
   async function submitQuery() {
     const baseurl = "http://localhost:3000/get_recommendations?";
@@ -82,6 +83,10 @@ export function DurationPage(props: sharedProps) {
     console.log(baseurl + url + duration);
   }
 
+  /**
+   * Toggles the continue button as long as the total duration is longer than
+   * 0 minutes/the number of songs is more than 0.
+   */
   useEffect(() => {
     const continueButton = document.getElementById("continue-button");
     if (totalDuration > 0) {
@@ -95,6 +100,9 @@ export function DurationPage(props: sharedProps) {
     }
   }, [totalDuration]);
 
+  /**
+   * Changes the background color upon load.
+   */
   useEffect(() => {
     document.body.style.backgroundColor = "#162764";
   }, []);
@@ -217,6 +225,12 @@ function NumberSelector(props: prop) {
     }
   }, [props.mode]);
 
+  /**
+   * Stylizes and formats numbers for display depending on the mode.
+   * @param type
+   * @param event
+   * @param setter
+   */
   function changeVal(
     type: string,
     event: React.ChangeEvent<HTMLInputElement>,
@@ -253,6 +267,11 @@ function NumberSelector(props: prop) {
     }
   }
 
+  /**
+   * Depending on the mode, renders the respective component for either duration
+   * or number of songs.
+   * @returns the rendered component
+   */
   function renderComp() {
     if (props.mode == "duration") {
       return (
