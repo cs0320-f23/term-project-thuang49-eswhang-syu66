@@ -13,9 +13,13 @@ interface sharedProps {
 export function SelectFeatsPage(props: sharedProps) {
   const nav = useNavigate();
 
+  /**
+   * Changes the background color upon load.
+   */
   useEffect(() => {
     document.body.style.backgroundColor = "#6367BC";
   }, []);
+
   return (
     <>
       <body>

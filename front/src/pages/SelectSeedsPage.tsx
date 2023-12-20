@@ -18,10 +18,15 @@ export function SelectSeedsPage(props: sharedProps) {
   // [2] = name
   // [3] = image path
 
+  // list of selected seeds
   const [selectedSeeds, setSelectedSeeds] = useState<string[][]>([]);
 
+  // the selected seeds, displayed as JSX elements
   const [selectedList, setSelectedList] = useState<JSX.Element[]>([]);
 
+  /**
+   * Maps each selectedSeed entry to a SelectedItems card
+   */
   function makeSelectedCards() {
     setSelectedList(
       selectedSeeds.map((obj) => (
@@ -34,6 +39,10 @@ export function SelectSeedsPage(props: sharedProps) {
       ))
     );
   }
+
+  /**
+   * Creates the selected cards whenever the list of selected seeds is updated.
+   */
   useEffect(() => {
     // console.log(props.)
     makeSelectedCards();
@@ -41,6 +50,9 @@ export function SelectSeedsPage(props: sharedProps) {
     //console.log(selectedSeeds);
   }, [selectedSeeds]);
 
+  /**
+   * Allows users to continue if they have selected at least one seed.
+   */
   useEffect(() => {
     const continueButton = document.getElementById("continue-button");
     if (selectedSeeds.length > 0) {
@@ -54,6 +66,9 @@ export function SelectSeedsPage(props: sharedProps) {
     }
   }, [selectedSeeds]);
 
+  /**
+   * Changes the background color upon load.
+   */
   useEffect(() => {
     document.body.style.backgroundColor = "#335B79";
   }, []);
