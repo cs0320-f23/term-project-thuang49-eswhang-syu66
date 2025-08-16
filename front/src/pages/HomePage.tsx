@@ -29,7 +29,7 @@ export function HomePage() {
   ]);
 
   // sets the active/highlighted step
-  const [step, setStep] = useState<number>(0);
+  const [step, setStep] = useState<number>(-1);
 
   // steps for using Amplify
   const steps = [
@@ -63,7 +63,7 @@ export function HomePage() {
       setWord("studying");
       document.body.style.backgroundColor = "#FF8F9C";
       title[0].classList.add("studying");
-    }, 450); // 450ms delay
+    }, 1450); // 450ms delay
     setTimeout(() => {
       setBarData([
         ["8em", "", ""],
@@ -81,7 +81,7 @@ export function HomePage() {
       document.body.style.backgroundColor = "#6C1E13";
       title[0].classList.remove("studying");
       title[0].classList.add("running");
-    }, 1100); // 450ms + 500ms + 150ms delay
+    }, 2100); // 450ms + 500ms + 150ms delay
     setTimeout(() => {
       setBarData([
         ["6.5em", "", ""],
@@ -104,7 +104,7 @@ export function HomePage() {
       for (let i = 0; i < bars.length; i++) {
         bars[i].classList.add("final");
       }
-    }, 1900); // 450ms + 500ms + 150ms + 500ms + 300ms delay
+    }, 2900); // 450ms + 500ms + 150ms + 500ms + 300ms delay
     setTimeout(() => {
       const bars = document.getElementsByClassName("bar");
       for (let i = 0; i < bars.length; i++) {
@@ -123,30 +123,34 @@ export function HomePage() {
         ["3em", "Jazz", "Genre"],
         ["5.5em", "Clair de Lune", "Track"],
       ]);
-    }, 3000);
+    }, 4000);
   }, []);
 
   /**
    * Sets up the timing for how each step at the bottom of the page is
    * highlighted, via toggling classNames that dictate whether a step is
-   * highlighted. Each step is highlighte for three seconds.
+   * highlighted. Each step is highlighted for three seconds.
    */
   useEffect(() => {
-    setTimeout(() => {
-      const steps = document.getElementsByClassName("step");
-      steps[step].classList.add("highlight");
-      if (step > 0) {
-        steps[step - 1].classList.remove("highlight");
-      } else {
-        steps[steps.length - 1].classList.remove("highlight");
-      }
+      setTimeout(() => {
+        if (step > -1) {
+        const steps = document.getElementsByClassName("step");
+        steps[step].classList.add("highlight");
+        if (step > 0) {
+          steps[step - 1].classList.remove("highlight");
+        } else {
+          steps[steps.length - 1].classList.remove("highlight");
+        }
 
-      if (step === steps.length - 1) {
-        setStep(0);
-      } else {
-        setStep(step + 1);
-      }
-    }, 3000);
+        if (step === steps.length - 1) {
+          setStep(0);
+        } else {
+          setStep(step + 1);
+        }
+        }else {
+          setStep(step + 1);
+        }
+      }, step === -1 ? 2000 : 3000);
   }, [step]);
 
   // useEffect(() => {

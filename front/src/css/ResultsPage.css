@@ -145,7 +145,7 @@
   width: 20vw;
   height: 20vw;
   /* background-color: #3a5353; */
-  z-index: -5;
+  /* z-index: -5; */
   border-radius: 1vw;
   overflow: hidden;
   color: white;

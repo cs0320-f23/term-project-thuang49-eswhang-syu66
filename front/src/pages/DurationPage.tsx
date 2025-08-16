@@ -40,7 +40,7 @@ export function DurationPage(props: sharedProps) {
    * get_recommendations
    */
   async function submitQuery() {
-    const baseurl = "http://localhost:3000/get_recommendations?";
+    const baseurl = "http://localhost:3000/get_playlist";
     let url = "";
 
     // this loops through the seedMap and adds all of the seeds to the query
@@ -66,9 +66,10 @@ export function DurationPage(props: sharedProps) {
 
     // performing query.
     const duration = `${mode}=${totalDuration}`;
-    const finalQuery = await fetch(baseurl + url + duration).then((res) =>
-      res.json()
-    );
+    // const finalQuery = await fetch(baseurl + url + duration).then((res) =>
+    //   res.json()
+    // );
+    const finalQuery = await fetch(baseurl).then((res) => res.json());
 
     console.log(finalQuery);
     if (finalQuery.status == "success") {

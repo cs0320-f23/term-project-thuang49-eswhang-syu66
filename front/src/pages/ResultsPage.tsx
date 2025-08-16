@@ -238,12 +238,12 @@ export function ResultsPage(props: sharedProps) {
     if (node) {
       await domtoimage
         .toJpeg(node, {
-          quality: 0.99,
-          width: 600,
-          height: 600,
+          quality: 1,
+          width: 1000,
+          height: 1000,
           style: {
             borderRadius: 0,
-            transform: `scale(calc(600 / ${node.clientWidth}))`,
+            transform: `scale(calc(1000 / ${node.clientWidth}))`,
             transformOrigin: "top left",
           },
         })
@@ -427,7 +427,7 @@ export function ResultsPage(props: sharedProps) {
               aria-label="Preview of tracks in the generated playlist"
               className="recommended-track-container"
             >
-              {props.returnedTracks.map((track: trackResponse) => (
+              {props.returnedTracks.map((track: any) => (
                 <RecommendedTrackCard
                   currFeature={currFeatures}
                   setCurrFeatures={setCurrFeatures}
@@ -436,8 +436,8 @@ export function ResultsPage(props: sharedProps) {
                   currSong={currSong}
                   setCurrSong={setCurrSong}
                   idFeatureMap={idFeatureMap}
-                  resultInfo={track}
-                  key={track.id}
+                  resultInfo={track.track}
+                  key={track.track.id}
                   number={props.returnedTracks.indexOf(track) + 1}
                 />
               ))}

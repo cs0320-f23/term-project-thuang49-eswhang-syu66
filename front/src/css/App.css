@@ -17,9 +17,10 @@ body {
   max-height: -webkit-fill-available;
   height: 100vh;
   width: 100vw;
-  transform: translateX(0);
+  /* transform: translateX(0); */
   color: white;
   transition-duration: 0.5s;
+  transition-property: background-color;
   transition-timing-function: ease;
 }
 
@@ -173,7 +174,7 @@ nav button {
   animation-name: navButton;
   animation-duration: 2s;
   animation-timing-function: ease;
-  animation-delay: 2s;
+  animation-delay: 3s;
   animation-fill-mode: backwards;
   color: black;
 }
@@ -197,7 +198,7 @@ nav button {
   opacity: 1;
   animation-name: steps;
   animation-timing-function: ease;
-  animation-delay: 2s;
+  animation-delay: 3s;
   animation-duration: 2s;
   animation-fill-mode: backwards;
 }
@@ -217,6 +218,7 @@ nav button {
   display: flex;
   justify-content: center;
   opacity: 0.5;
+  transition: all ease 200ms;
 }
 
 .step-number {
